@@ -1,2 +1,2 @@
-JKU Master Seminar Quantitative Research Methods
-================================================
+Master Seminar Quantitative Research Methods
+============================================
