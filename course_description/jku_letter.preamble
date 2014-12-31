@@ -1,0 +1,23 @@
+\usepackage[a4paper, margin=3cm]{geometry}
+
+\usepackage{tikz}
+%\usepackage{tikzpagenodes}
+\usetikzlibrary{positioning,calc}
+
+\usepackage[naustrian,german,american]{babel}	% the last language is the default
+\usepackage{csquotes}
+
+% Chicago style
+%\usepackage[authordate,backend=biber,babel=other]{biblatex-chicago}
+
+%stadard biblatex styles
+\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber,babel=other]{biblatex}
+
+% apa style
+%\usepackage[style=apa,backend=biber,babel=other]{biblatex}
+%\DeclareLanguageMapping{naustrian}{naustrian-apa}
+%\DeclareLanguageMapping{american}{american-apa}
+
+
+\addbibresource{/Users/pp/Dropbox/Literature/academicDB.bib}
+%\addbibresource{biblatex-examples.bib}
