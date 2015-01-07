@@ -24,15 +24,14 @@ peter.putz@gmail.com
 
 
 
+## Seminar Description
+
+This seminar will follow a modern data science approach. You will learn how to apply statistical methods to practical research questions in management. You will understand the importance of reproducible research, use the programming language R hands-on, and create reproducible reports and presentations.
+
 ## Entry Requirements
 
 - 18 ECTS credits in Strategic Management, Marketing, Organization, Human Resources & Change Management, Financial and Managerial Accounting.
 - Basic understanding of quantitative research methods is highly recommended but not required.
-
-
-## Seminar Description
-
-This seminar will follow a modern data science approach. You will learn how to apply statistical methods to practical research questions in management. You will understand the importance of reproducible research, use the programming language R hands-on, and create reproducible reports and presentations.
 
 
 ## Contents
@@ -77,21 +76,21 @@ Being a Master Seminar the course is on an advanced level. However, students who
 
 (see KUSSS for possible changes)
 
-------------------------------------------------------------------------------------
-Date      Time          Room        Topic
---------  ------------  ----------  -----------------------------------------------
-20.4.     08:30--11:45  TBD         Seminar overview, introduction to programming 
-                                    language R
+---------------------------------------------------------------------------------
+  Date  Time          Room        Topic
+------  ------------  ----------  -----------------------------------------------
+ 20.4.  08:30--11:45  TBD         Seminar overview, introduction to programming 
+                                  language R
                                      
-27.4.     08:30--11:45  TBD         Reproducible research, knitr
+ 27.4.  08:30--11:45  TBD         Reproducible research, knitr
 
-4.5.      08:30--11:45  TBD         Questionnaires, data collection
+  4.5.  08:30--11:45  TBD         Questionnaires, data collection
 
-11.5.     08:30--11:45  TBD         Descriptive data analysis, ggplot
+ 11.5.  08:30--11:45  TBD         Descriptive data analysis, ggplot
 
-18.5.     08:30--11:45  TBD         Statistical inference
+ 18.5.  08:30--11:45  TBD         Statistical inference
 
-25.5.     08:30--11:45  TBD         Regression models
+ 25.5.  08:30--11:45  TBD         Regression models
 
-15.6.     08:30--11:45  TBD         Team Presentations
-------------------------------------------------------------------------------------	
+ 15.6.  08:30--11:45  TBD         Team Presentations
+----------------------------------------------------------------------------------	

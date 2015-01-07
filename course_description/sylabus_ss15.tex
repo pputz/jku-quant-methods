@@ -1,10 +1,12 @@
 \documentclass[]{article}
+\usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
 \else % if luatex or xelatex
   \ifxetex
@@ -16,13 +18,8 @@
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 \usepackage{longtable,booktabs}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
@@ -46,6 +43,7 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \setcounter{secnumdepth}{0}
 
+\author{}
 \date{}
 \usepackage[a4paper, margin=3cm]{geometry}
 
@@ -88,6 +86,14 @@ Globale Managementstudien\\peter.putz@gmail.com
 
 \raggedright
 
+\subsection{Seminar Description}\label{seminar-description}
+
+This seminar will follow a modern data science approach. You will learn
+how to apply statistical methods to practical research questions in
+management. You will understand the importance of reproducible research,
+use the programming language R hands-on, and create reproducible reports
+and presentations.
+
 \subsection{Entry Requirements}\label{entry-requirements}
 
 \begin{itemize}
@@ -100,14 +106,6 @@ Globale Managementstudien\\peter.putz@gmail.com
   Basic understanding of quantitative research methods is highly
   recommended but not required.
 \end{itemize}
-
-\subsection{Seminar Description}\label{seminar-description}
-
-This seminar will follow a modern data science approach. You will learn
-how to apply statistical methods to practical research questions in
-management. You will understand the importance of reproducible research,
-use the programming language R hands-on, and create reproducible reports
-and presentations.
 
 \subsection{Contents}\label{contents}
 
@@ -175,106 +173,89 @@ second half of the seminar will be on an advanced level.
 
 (see KUSSS for possible changes)
 
-\begin{longtable}[c]{@{}llll@{}}
-\toprule
-\begin{minipage}[b]{0.11\columnwidth}\raggedright\strut
+\begin{longtable}[c]{@{}rlll@{}}
+\toprule\addlinespace
+\begin{minipage}[b]{0.09\columnwidth}\raggedleft
 Date
-\strut\end{minipage} &
-\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
 Time
-\strut\end{minipage} &
-\begin{minipage}[b]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[b]{0.13\columnwidth}\raggedright
 Room
-\strut\end{minipage} &
-\begin{minipage}[b]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[b]{0.51\columnwidth}\raggedright
 Topic
-\strut\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\end{minipage}
+\\\addlinespace
+\midrule\endhead
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft
 20.4.
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
 08:30--11:45
-\strut\end{minipage} &
-\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
 TBD
-\strut\end{minipage} &
-\begin{minipage}[t]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
 Seminar overview, introduction to programming language R
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft
 27.4.
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
 08:30--11:45
-\strut\end{minipage} &
-\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
 TBD
-\strut\end{minipage} &
-\begin{minipage}[t]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
 Reproducible research, knitr
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft
 4.5.
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
 08:30--11:45
-\strut\end{minipage} &
-\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
 TBD
-\strut\end{minipage} &
-\begin{minipage}[t]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
 Questionnaires, data collection
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft
 11.5.
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
 08:30--11:45
-\strut\end{minipage} &
-\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
 TBD
-\strut\end{minipage} &
-\begin{minipage}[t]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
 Descriptive data analysis, ggplot
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft
 18.5.
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
 08:30--11:45
-\strut\end{minipage} &
-\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
 TBD
-\strut\end{minipage} &
-\begin{minipage}[t]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
 Statistical inference
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft
 25.5.
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
 08:30--11:45
-\strut\end{minipage} &
-\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
 TBD
-\strut\end{minipage} &
-\begin{minipage}[t]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
 Regression models
-\strut\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.11\columnwidth}\raggedright\strut
+\end{minipage}
+\\\addlinespace
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft
 15.6.
-\strut\end{minipage} &
-\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
 08:30--11:45
-\strut\end{minipage} &
-\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
 TBD
-\strut\end{minipage} &
-\begin{minipage}[t]{0.50\columnwidth}\raggedright\strut
+\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
 Team Presentations
-\strut\end{minipage}\tabularnewline
+\end{minipage}
+\\\addlinespace
 \bottomrule
 \end{longtable}
 
