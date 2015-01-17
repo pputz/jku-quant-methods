@@ -17,7 +17,8 @@ o: sylabus_ss15.tex
 266.018, SS 2015    
 **Dr. Peter PUTZ**  
 Institut für Organisation und Globale Managementstudien   
-peter.putz@gmail.com
+peter.putz@gmail.com  
+Last changes: \today
 
 \raggedright
 
@@ -26,12 +27,13 @@ peter.putz@gmail.com
 
 ## Seminar Description
 
-This seminar will follow a modern data science approach. You will learn how to apply statistical methods to practical research questions in management. You will understand the importance of reproducible research, use the programming language R hands-on, and create reproducible reports and presentations.
+This seminar will follow a modern data science approach. We will use R -- one of the most popular statistical programming languages -- hands-on throughout the course. You will learn how to apply statistical methods to practical research questions in management. You will understand the importance of reproducible research and create reproducible reports and presentations.
 
 ## Entry Requirements
 
 - 18 ECTS credits in Strategic Management, Marketing, Organization, Human Resources & Change Management, Financial and Managerial Accounting.
 - Basic understanding of quantitative research methods is highly recommended but not required.
+- Programming skills are not required. However, you need to be prepared to write short computer scripts in R.
 
 
 ## Contents
@@ -45,14 +47,14 @@ This seminar will follow a modern data science approach. You will learn how to a
 
 ## Classes, Additional Work
 
-Being a Master Seminar the course is on an advanced level. However, students who do not have much previous knowledge in quantitative methods have the opportunity to acquire the basics in the first month of the course through self-study. For this, the first two lectures of the seminar gives an overview as a guidance for self study (see the suggestions of text books).  The block and the research project in the second half of the seminar will be on an advanced level. 
+Being a Master Seminar the course is on an advanced level. Students who do not have much prior knowledge in quantitative methods or in statistical programming will be able to catch up by investing more time in (guided) self-study.  
 
 
 ## Grading
 
 - Class Assignments: 60%
 - Team research project: 40%
-- Class participation 20%  (in total a minimum of 70% of attendance is required, but 100% attendance on 14. and 15.11, exam (16.12.), and presentation (20.1.) is mandatory)
+- A minimum of 80% attendance is required.
 
 
 ## Resources
@@ -77,20 +79,20 @@ Being a Master Seminar the course is on an advanced level. However, students who
 (see KUSSS for possible changes)
 
 ---------------------------------------------------------------------------------
-  Date  Time          Room        Topic
+  Week  Time          Room        Topic
 ------  ------------  ----------  -----------------------------------------------
- 20.4.  08:30--11:45  TBD         Seminar overview, introduction to programming 
+    17  TBD           TBD         Seminar overview, introduction to programming 
                                   language R
                                      
- 27.4.  08:30--11:45  TBD         Reproducible research, knitr
+    18  TBD           TBD         Reproducible research, knitr
 
-  4.5.  08:30--11:45  TBD         Questionnaires, data collection
+    19  TBD           TBD         Questionnaires, data collection
 
- 11.5.  08:30--11:45  TBD         Descriptive data analysis, ggplot
+    20  TBD           TBD         Descriptive data analysis, ggplot
 
- 18.5.  08:30--11:45  TBD         Statistical inference
+    21  TBD           TBD         Statistical inference
 
- 25.5.  08:30--11:45  TBD         Regression models
+    22  TBD           TBD         Regression models
 
- 15.6.  08:30--11:45  TBD         Team Presentations
+    25  TBD           TBD         Team Presentations
 ----------------------------------------------------------------------------------	
