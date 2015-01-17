@@ -1,12 +1,10 @@
 \documentclass[]{article}
-\usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
 \else % if luatex or xelatex
   \ifxetex
@@ -18,8 +16,13 @@
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 \fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
-\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
 \usepackage{longtable,booktabs}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
@@ -43,7 +46,6 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \setcounter{secnumdepth}{0}
 
-\author{}
 \date{}
 \usepackage[a4paper, margin=3cm]{geometry}
 
@@ -60,7 +62,7 @@
 %\usepackage[authordate,backend=biber,babel=other]{biblatex-chicago}
 
 %stadard biblatex styles
-\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber,babel=other]{biblatex}
+\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber]{biblatex}
 %\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber,autolang=hyphen]{biblatex}
 
 % apa style
@@ -176,88 +178,105 @@ in (guided) self-study.
 (see KUSSS for possible changes)
 
 \begin{longtable}[c]{@{}rlll@{}}
-\toprule\addlinespace
-\begin{minipage}[b]{0.09\columnwidth}\raggedleft
+\toprule
+\begin{minipage}[b]{0.09\columnwidth}\raggedleft\strut
 Week
-\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
 Time
-\end{minipage} & \begin{minipage}[b]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[b]{0.13\columnwidth}\raggedright\strut
 Room
-\end{minipage} & \begin{minipage}[b]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[b]{0.51\columnwidth}\raggedright\strut
 Topic
-\end{minipage}
-\\\addlinespace
-\midrule\endhead
-\begin{minipage}[t]{0.09\columnwidth}\raggedleft
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
 17
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
 Seminar overview, introduction to programming language R
-\end{minipage}
-\\\addlinespace
-\begin{minipage}[t]{0.09\columnwidth}\raggedleft
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
 18
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
 Reproducible research, knitr
-\end{minipage}
-\\\addlinespace
-\begin{minipage}[t]{0.09\columnwidth}\raggedleft
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
 19
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
 Questionnaires, data collection
-\end{minipage}
-\\\addlinespace
-\begin{minipage}[t]{0.09\columnwidth}\raggedleft
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
 20
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
 Descriptive data analysis, ggplot
-\end{minipage}
-\\\addlinespace
-\begin{minipage}[t]{0.09\columnwidth}\raggedleft
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
 21
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
 Statistical inference
-\end{minipage}
-\\\addlinespace
-\begin{minipage}[t]{0.09\columnwidth}\raggedleft
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
 22
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
 Regression models
-\end{minipage}
-\\\addlinespace
-\begin{minipage}[t]{0.09\columnwidth}\raggedleft
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
 25
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.13\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
 TBD
-\end{minipage} & \begin{minipage}[t]{0.51\columnwidth}\raggedright
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
 Team Presentations
-\end{minipage}
-\\\addlinespace
+\strut\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 

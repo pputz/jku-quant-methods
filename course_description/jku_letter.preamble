@@ -13,7 +13,7 @@
 %\usepackage[authordate,backend=biber,babel=other]{biblatex-chicago}
 
 %stadard biblatex styles
-\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber,babel=other]{biblatex}
+\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber]{biblatex}
 %\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber,autolang=hyphen]{biblatex}
 
 % apa style
