@@ -26,5 +26,7 @@ mode        : selfcontained # {standalone, draft}
 
 $$\frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}$$
 
+## Why R?
+
 
 
