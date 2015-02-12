@@ -5,6 +5,15 @@ t: latex
 latex-engine: pdflatex
 o: sylabus_ss15.tex
 -->
+
+<!---
+compile with
+pan sylabus_ss15.txt latex
+latexmk -pdf
+letexmk -c
+-->
+
+
 \begin{tikzpicture}[remember picture,overlay]
 \node [anchor=north west, outer sep=0]  at ($(current page.north)-(0.8cm, 0.6cm)$)
  {\includegraphics[width=8.3cm]{JKULogolangengl.eps}};
@@ -81,18 +90,16 @@ Being a Master Seminar the course is on an advanced level. Students who do not h
 ---------------------------------------------------------------------------------
   Week  Time          Room        Topic
 ------  ------------  ----------  -----------------------------------------------
-    17  TBD           TBD         Seminar overview, introduction to programming 
+ 20.4.  13:45--17:00  MT 127      Seminar overview, introduction to programming 
                                   language R
                                      
-    18  TBD           TBD         Reproducible research, knitr
+ 27.4.  13:45--17:00  MT 127      Reproducible research, knitr
 
-    19  TBD           TBD         Questionnaires, data collection
+ 11.5.  13:45--17:00  MT 127      Descriptive data analysis, ggplot
 
-    20  TBD           TBD         Descriptive data analysis, ggplot
+ 18.5.  13:45--17:00  MT 127      Statistical inference
 
-    21  TBD           TBD         Statistical inference
+  1.6.  13:45--17:00  MT 127      Regression models
 
-    22  TBD           TBD         Regression models
-
-    25  TBD           TBD         Team Presentations
+  8.6.  13:45--17:00  MT 127      Team Presentations
 ----------------------------------------------------------------------------------	
