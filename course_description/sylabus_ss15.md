@@ -88,7 +88,7 @@ Being a Master Seminar the course is on an advanced level. Students who do not h
 (see KUSSS for possible changes)
 
 ---------------------------------------------------------------------------------
-  Week  Time          Room        Topic
+ Date   Time          Room        Topic
 ------  ------------  ----------  -----------------------------------------------
  20.4.  13:45--17:00  MT 127      Seminar overview, introduction to programming 
                                   language R
