@@ -1,0 +1,39 @@
+
+slides > slide {
+  color: #212121;
+}
+
+h1, h2, h3 {
+    color: rgb(20,79,72);
+}
+
+slides > slide.title-slide hgroup h2, slides > slide.title-slide hgroup p {
+  color: #212121;
+}
+
+slides > slide.title-slide hgroup h2, slides > slide.title-slide hgroup h1 {
+  color: rgb(20,79,72);
+}
+
+p {
+    margin-right: 8em;
+}
+
+
+table td, table th {
+  font-size: 18px;
+  padding: 1em 0.5em;
+
+table.rmdtable th {
+  background: clear
+}
+
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #4387fd), color-stop(80%, #2a7cdf)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #4387fd 40%, #2a7cdf 80%) no-repeat;
+  background: -o-linear-gradient(top, #4387fd 40%, #2a7cdf 80%) no-repeat;
+  background: linear-gradient(top, #4387fd 40%, #2a7cdf 80%) no-repeat;
+}
