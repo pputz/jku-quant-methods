@@ -1,0 +1,114 @@
+---
+title: "Installing R and RStudio"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+---
+
+## Installing R for Windows
+
+1. Navigate to the (Austrian) [R Project Site](http://cran.at.r-project.org)
+2. Click on [Download R for Windows](http://cran.at.r-project.org/bin/windows/) and select "install R for the first time"
+3. Download the R for Windows
+4. Follow instruction
+
+
+[Instructions on YouTube](https://youtu.be/hxj0UG4boGU)
+
+
+## Installing R for Mac
+
+1. Navigate to the (Austrian) [R Project Site](http://cran.at.r-project.org)
+2. Click on [Download R for (Mac) OS X](http://cran.at.r-project.org/bin/macosx/) and select "install R for the first time"
+3. Download e.g. R-3.2.0.pkg
+4. Follow instruction
+
+[Instructions on YouTube](https://youtu.be/_oRuJKIkPEM)
+
+
+
+## Installing RStudio
+
+1. Navigate to [RStudio Download Page](http://www.rstudio.com/products/rstudio/download/)
+2. Select installer package for your OS. For example:
+    - RStudio 0.98.1103 - Windows XP/Vista/7/8
+    - RStudio 0.98.1103 - Mac OS X 10.6+ (64-bit)
+
+[Instructions on YouTube](https://youtu.be/bM7Sfz-LADM)
+
+
+
+## swirl
+
+`swirl` is an R package that helps you learn "R programming and data science interactively, at your own pace, and right in the R console!"
+
+[http://swirlstats.com](http://swirlstats.com)
+
+
+## Installing swirl
+
+1) Install the most recent version version of swirl.   
+    In R or RStudion enter the following commands:
+
+    ```{r, eval=FALSE}
+    install.packages("swirl")
+    ```
+    
+2) Start `swirl`and load a course.  
+    Substitute the name of the course that you wish to install:
+
+    ```{r, eval=FALSE}
+    library(swirl)
+    install_from_swirl("Course Name Here")
+    swirl()
+    ```
+
+For example, install_from_swirl("R Programming Alt") will install the R Programming course.  
+**Please note that course names are case sensitive!**
+
+
+# swirl Demo
+
+
+## swirl Confrimation
+
+At the end of each lession you have the option notify someone.  
+Please send me your confirmation to `peter.putz@jku.at`.
+
+```{r, eval=FALSE}
+|============================================================================| 100%
+
+| Would you like to inform someone about your successful completion of this lesson?
+
+1: No
+2: Yes
+
+Auswahl: 2
+| What is your full name?
+Peter Putz
+| What is the email address of the person you'd like to notify?'
+peter.putz@jku.at
+```
+
+    
+# R Support
+
+## Built-in Help Functions
+
+>- Use `?`, `??`, or `help()` in the R console
+>- Click a package name in RStudio.  
+    Some packages have nice vignettes and user guides.
+
+
+## R Support on the Web
+
+>- [stackoverflow](http://stackoverflow.com/tags/r/info)
+>- [R Bloggers](http://www.r-bloggers.com)
+>- Google is your friend!
+
+
