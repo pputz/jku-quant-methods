@@ -1,0 +1,16 @@
+---
+title: "Outline: Introduction to Seminar and to R Programming Language"
+author: "Peter Putz"
+date: "April 6, 02015"
+output: html_document
+---
+
+
+
+Duration | Content
+-------- | -----------------------------
+30 min   | Introduction to Seminar: <br> Schedule, Literature, Motivation, Concept of Data Science, Content of Following Sessions
+30 min   | Installing R and RStudio
+30 min   | Introduction to R: <br> Simple example of exploratory study, <br> How to install swirl
+30 min   | Building study teams
+
