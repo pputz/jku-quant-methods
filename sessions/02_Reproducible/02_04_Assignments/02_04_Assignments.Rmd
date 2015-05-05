@@ -1,0 +1,68 @@
+---
+title: "Assignments Reproducible Research"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+---
+
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+## 1. `swirl` Excerises
+
+Complete all lessions in "R Programming Alt"
+
+No email notifications needed.
+
+
+
+## 2. Create R Markdown File {.smaller}
+
+**Short exploratory paper (1 page)**
+
+- Abstract incl. research questions
+- Data
+- Simple descriptive data analysis (e.g. comparison of averages)
+- Chart
+- Summary
+
+**Use dataset `iris`**
+
+```{r iris, eval=FALSE}
+library("datasets")
+data(iris)
+?iris
+str(iris)
+```
+
+**Send me the .Rmd file. It can be html, doc or presentation. I need to be able to compile it.**
+
+
+## 3. Team Project
+
+Send me (peter.putz@jku.at) 1 email per team:
+
+1. Research questions you'd like to pursue
+2. Possible data source(s)
+
+
+
+## Due Date
+
+Tuesday May 12, 2015
