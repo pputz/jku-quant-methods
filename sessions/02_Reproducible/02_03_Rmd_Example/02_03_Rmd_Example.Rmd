@@ -1,0 +1,58 @@
+---
+title: "Exploration of iris Dataset"
+author: "Peter Putz"
+date: "April 27, 2015"
+output:
+  word_document:
+    highlight: pygments
+  html_document:
+    highlight: pygments
+---
+
+## Abstract
+
+In this paper we explore the dataset "cars". The data give the speed of cars and the distances taken to stop. Note that the data were recorded in the 1920s.
+
+## Data Set
+
+```{r dim}
+dim(cars)
+```
+
+The dataset consists of `r dim(cars)[1]` observations and `r dim(cars[2])` variables. The variable names are: `r names(cars)`
+
+```{r head}
+head(cars, 5)
+```
+
+## Theoretical Breaking Distance
+
+The theoretical breaking distance is determined by the intial speed and the friction coefficient:
+
+$d = \frac{v^2}{2 \mu g}$
+
+d … breaking distance
+
+$\mu$ … friction coeficient
+
+g … gravity of the Earth
+
+
+Friction Coeficient: $\mu = \frac{v^2}{2dg}$
+
+
+## Measured Data
+
+```{r distance_plot}
+plot(dist ~ speed, data=cars,
+     main = "Breaking Distance over Speed")
+```
+
+```{r friction}
+g  <- 9.81
+cars$friction  <- cars$speed^2/(2 * g * cars$dist)
+summary(cars$friction)
+hist(cars$friction)
+plot(friction ~ speed, data=cars)
+```
+
