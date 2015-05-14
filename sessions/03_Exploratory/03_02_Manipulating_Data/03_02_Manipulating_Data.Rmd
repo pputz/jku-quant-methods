@@ -1,0 +1,207 @@
+---
+title: "Manipulating Data"
+subtitle: Master Seminar Quantitative Research Methods
+author: "Peter Putz"
+date: "Institut für Organisation und Globale Managementstudien, JKU Linz"
+output:
+  ioslides_presentation:
+    css: ../../assets/css/jku.css
+    highlight: pygments
+    logo: ../../assets/img/JKUWappen.png
+    widescreen: yes
+---
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+## Manipulating Data 
+
+
+How much time is typically spent in wrestling with the data and "beating it into shape" so that the actual analytics can begin?
+
+**The most common response is 80%.**
+
+
+[Dan Steinberg](http://info.salford-systems.com/blog/bid/299181/How-Much-Time-Needs-to-be-Spent-Preparing-Data-for-Analysis)
+
+
+# tidyr
+
+## Tidy Data
+
+The two most important properties of tidy data are:
+
+- Each column is a variable.
+- Each row is an observation.
+
+## tidyr
+
+tidyr provides three main functions for tidying your messy data: 
+
+- `gather()` 
+- `spread()`
+- `separate()`
+
+
+## gather() {.smaller}
+
+Takes multiple columns, and gathers them into key-value pairs: it makes "wide"" data longer.
+
+The following data set represents four insurance sales reps and the number of car and home policies they sold in different regions.
+
+```{r, message=FALSE}
+library(tidyr); library(dplyr)
+set.seed(10)
+messy <- data.frame(
+  id = c("Simon", "Rojeen", "Alia", "Sunny"),
+  car.RO = sample(20:120, 4, replace=T),
+  home.RO = sample(20:120, 4, replace=T),
+  car.UU = sample(20:120, 4, replace=T),
+  home.UU = sample(20:120, 4, replace=T),
+  car.FR = sample(20:120, 4, replace=T),
+  home.FR = sample(20:120, 4, replace=T)
+)
+messy
+
+print(messy)
+```
+
+## gather()
+
+We have three variables (region, policy and sales), but only region is currently in a column. 
+
+We use gather() to gather the car and rental columns into key-value pairs of policy and sales:
+
+```{r}
+tidier <- gather(data = messy, key = key, value = sales, 
+         car.RO:home.FR)
+print(tidier)
+```
+
+## spread()
+
+`spread()` is the reserve of `gather()`. It takes two columns (a key-value pair) and spreads them in to multiple columns, making “long” data wider.
+
+```{r}
+spread(data = tidier, key = key, value = sales)
+```
+
+## separate()
+
+Next we use separate() to split the key into location and time
+
+```{r}
+tidy  <- separate(data = tidier, col = key, into = c("policy", "region"))
+head(tidy, 10)
+```
+
+
+# dplyr
+
+## dplyr Verbs
+
+------------- | -----------------------------
+`filter()`    | subset rows
+`arrange()`   | sort rows
+`select()`    | subset colums
+`distinct()`  | get unique rows
+`mutate()`    | calculate new column
+`summarise()` | calclute summary stats (mean, max, ...)
+`sample_n()`  | subset random sample
+
+
+
+## filter()
+
+Subset data for regions RO and UU
+
+```{r}
+filter(tidy, region == "RO" | region == "UU")
+```
+
+## Relational and Logical Opertors {.smaller}
+
+Operator | Use                     | Operator    | Use 
+------- | ------------------------ | ----------- | ------------------
+x < y   | less than                | &           | AND
+x > y   | greater than             | \|          | OR
+x <= y  | less or equal than       | %in%        | match
+x >= y  | greater of equal than    | grepl       | pattern matching
+x == y  | equal                    | \           | \   
+x != y  | not equal                | \           | \   
+
+\
+
+**The output is always a logical vector (TRUE, FALSE, NA)**
+
+## filter()
+
+```r
+filter(tidy, region == "RO" | region == "UU")
+filter(tidy, region %in% c("UU", "RO"))
+filter(tidy, region != "FR")
+```
+The above statements yield the same results.
+
+## arrange()
+
+Sort by id and policy.
+
+```{r}
+arrange(tidy, id, policy)
+```
+
+## select(), distinct()
+
+Get a list of staff and the kind of policies sold.
+
+```{r}
+distinct(select(tidy, id, policy))
+```
+
+## summarize()
+
+Calculate sums over all regions.
+
+```{r}
+res  <-  summarize(group_by(tidy, id, policy), subtotal = sum(sales))
+res
+```
+
+## Piping with %>%
+
+```r
+summarize(group_by(tidy, id, policy), subtotal = sum(sales))
+```
+equals 
+
+```r
+tidy %>%
+  group_by(id, policy) %>%
+  summarize(subtotal = sum(sales))
+```
+
+## Calculating Margin Percentages 
+
+```{r}
+res %>%
+  group_by(policy) %>%
+  arrange(policy) %>%
+  mutate(total = sum(subtotal), 
+         percent = subtotal / sum(subtotal) * 100)
+```
+
+
+## Resources
+
+- [Data Wrangling Cheat Sheet](http://www.rstudio.com/resources/cheatsheets/)

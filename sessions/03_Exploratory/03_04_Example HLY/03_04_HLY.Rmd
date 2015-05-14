@@ -1,0 +1,79 @@
+---
+title: "Life Expectancy and Life Quality in the EU"
+author: "Peter Putz"
+date: "May 7, 2015"
+output: html_document
+---
+
+## Abstract
+In this paper we investigate whether a high life expectancy is related to a longer healthy life. For this purpose we compare the data of 31 countries in the European Union. Preliminary finding indicate that populations with high life expactancy do not always live a long healthy life.
+
+
+## Data and Definitions
+
+The analysis is based on the data set "Healthy life years and life expectancy at birth, by sex" which is published by Eurostat^[http://ec.europa.eu/eurostat/cache/metadata/EN/tsdph100_esmsip.htm]. The Eurostat data set provides measurements on two indicators: life expectancy at birth and healthy life years (HLY).
+
+"Life expectancy at birth is defined as the mean number of years still to be lived by a person at birth -, if subjected throughout the rest of his or her life to the current mortality conditions."^[Ibid.]
+
+"The indicator Healthy Life Years (HLY) at birth measures the number of years that a person at birth is still expected to live in a healthy condition. HLY is a health expectancy indicator which combines information on mortality and morbidity. The data required are the age-specific prevalence (proportions) of the population in healthy and unhealthy conditions and age-specific mortality information. A healthy condition is defined by the absence of limitations in functioning/disability. The indicator is calculated separately for males and females. The indicator is also called disability-free life expectancy (DFLE)."^[Ibid.]
+
+"The indicator Healthy Life Years (HLY) is a solid indicator to monitor health as a productivity/economic factor. … Healthy life years introduce the concept of quality of life. One of the objective of the EU sustainable development strategy, launched by the European Council in Gothenburg in 2001 and renewed in June 2006, is the continuous improvement of quality of life for current and future generations."^[Ibid.]
+
+
+## Data Set
+
+### Step 1: Read Data
+
+1. Retrieve the dataset with the Eurostat identifier "tskph100".
+2. Replace the data codes with more explicit "labels."
+
+```{r}
+library(eurostat)
+
+id  <- "tsdph100"   #Healthy life years and life expectancy at birth, by sex
+hly_raw  <- get_eurostat(id, time_format = "num")
+hly  <- label_eurostat(hly_raw)
+str(hly)
+```
+
+### Step 2: Clean Data
+
+1. Add column with country code for easier fitering of EU, EA region data.
+2. Separete "break_sd" into two variables "Indicator" and "Gender"
+3. Rearrange and rename columns
+4. Eliminate EU, EA regions and missing data
+
+
+```{r, message=FALSE}
+library(tidyr)
+library(dplyr)
+
+hly$country_code  <- hly_raw$geo     #get country code from hly_raw
+
+hly1 <- tbl_df(hly) %>% 
+  separate(break_sd, into = c("Indicator", "Gender"), sep = " - ") %>%
+  select(Country = geo,
+         Country.Code = country_code,
+         Indicator,
+         Gender,
+         Time = time,
+         Age = values) %>%
+  filter(!grepl('EU|EA', Country.Code) & !is.na(Age))
+
+hly1
+```
+
+## Step 3: Summary of Available Data Points
+
+1. Create "wide" table with counts of the number of available data points per year.
+
+
+```{r, results='asis'}
+Data_Points  <- hly1 %>%
+  group_by(Time, Indicator, Gender) %>%
+  summarize(Data.Counts = length(Age)) %>%
+  spread(Time, Data.Counts)
+
+kable(Data_Points)
+```
+
