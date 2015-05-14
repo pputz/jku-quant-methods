@@ -1,0 +1,197 @@
+---
+title: "Plotting with ggplot2"
+subtitle: Master Seminar Quantitative Research Methods
+author: "Peter Putz"
+date: "Institut für Organisation und Globale Managementstudien, JKU Linz"
+output:
+  ioslides_presentation:
+    css: ../../assets/css/jku.css
+    highlight: pygments
+    logo: ../../assets/img/JKUWappen.png
+    widescreen: yes
+
+---
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+
+## What is ggplot2?
+
+- An implementation of _The Grammar of Graphics_ by Leland Wilkinson
+- Written by Hadley Wickham (while he was a graduate student at Iowa State)
+- A “third” graphics system for R (along with __base__ and __lattice__)
+- Available from CRAN via `install.packages()`
+- Web site: http://ggplot2.org (better documentation)
+
+
+## What is ggplot2?
+
+- Grammar of graphics represents an abstraction of graphics ideas/objects
+- Think “verb”, “noun”, “adjective” for graphics
+- Allows for a “theory” of graphics on which to build new graphics and graphics objects
+- “Shorten the distance from mind to page”
+
+
+## Basic Components of a ggplot2 Plot
+- A _data frame_
+- _aesthetic mappings_: how variables are mapped to axes, color, size 
+- _geoms_: geometric objects like points, lines, shapes. 
+- _facets_: for conditional plots. 
+- _stats_: statistical transformations like binning, quantiles, smoothing. 
+- _scales_: what scale an aesthetic map uses (example: male = red, female = blue). 
+- _coordinate system_ 
+
+
+
+## Example Dataset
+
+```{r}
+library(ggplot2)
+str(mpg)
+```
+
+
+## Not Quite a Plot Yet | Mapping of data and variables to axes
+```{r}
+g  <- ggplot(data = mpg, aes(displ, hwy))
+summary(g)
+```
+
+
+## Basic Plot with Point Layer
+
+```{r, fig.width=7, fig.height=4}
+g  <- ggplot(data = mpg, aes(displ, hwy)) + 
+  geom_point()
+g
+```
+
+## Color-Code Third Variable
+
+```{r, fig.width=7, fig.height=4}
+h  <- ggplot(data = mpg, aes(displ, hwy, color = drv)) + 
+  geom_point()
+h
+```
+
+## Adding a Layer: Facets
+
+```{r, fig.width=7, fig.height=4}
+g  <- ggplot(data = mpg, aes(displ, hwy)) + 
+  geom_point()
+g  <- g + facet_grid(facets = . ~ drv)
+g
+```
+
+
+## Sidebar: Changing Facet Labels {.smaller}
+
+```{r, fig.width=7, fig.height=4}
+levels(mpg$drv) <- c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
+g  <- ggplot(data = mpg, aes(displ, hwy)) + 
+             geom_point() +
+             facet_grid(facets = . ~ drv)
+g
+```
+
+## Adding Another Layer: Regression Lines
+
+```{r, fig.width=7, fig.height=4}
+g  <- g + geom_smooth(method = "lm", se = T, color = "red")
+g
+```
+
+## Annotation
+- Labels: `xlab()`, `ylab()`, `labs()`, `ggtitle()`
+- Each of the "geom"" functions has options to modify 
+- For things that only make sense globally, use `theme()` 
+   - Example: `theme(legend.position = "none")` 
+- Two standard appearance themes are included
+   - `theme_gray()`: The default theme (gray background)
+   - `theme_bw()`: More stark/plain 
+
+
+## Another Layer: Title and Axes Lables {.smaller}
+
+```{r, fig.width=7, fig.height=4}
+g <- g + labs(y = "Miles per Gallon (Highway)",
+              x = "Displacement in Liters",
+              title = "Fuel Efficiency by Type of Drive")
+g
+```
+
+
+## Changing Fonts and Backgrounds {.smaller}
+
+```{r, warning=FALSE}
+g <- g + theme_bw() + 
+  theme(plot.title = element_text(family = "Times", 
+                                  color="#666666", 
+                                  face="bold", size=24, vjust=2))
+g
+```
+
+
+## Final Plot
+
+```{r, fig.width=9, echo=FALSE, warning=FALSE}
+levels(mpg$drv) <- c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
+ggplot(data = mpg, aes(displ, hwy)) + 
+  geom_point() +
+  facet_grid(facets = . ~ drv) +
+  geom_smooth(method = "lm", se = T, color = "red") + 
+  labs(y = "Miles per Gallon (Highway)",
+       x = "Displacement in Liters",
+       title = "Fuel Efficiency by Type of Drive") +
+  theme_bw() + 
+  theme(plot.title = element_text(family = "Times", color="#666666", 
+                                  face="bold", size=32, vjust=2)) 
+```
+
+## Code Final Plot
+
+```{r, fig.width=9, eval=FALSE, warning=FALSE}
+levels(mpg$drv) <- c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
+ggplot(data = mpg, aes(displ, hwy)) + 
+  geom_point() +
+  facet_grid(facets = . ~ drv) +
+  geom_smooth(method = "lm", se = T, color = "red") + 
+  labs(y = "Miles per Gallon (Highway)",
+       x = "Displacement in Liters",
+       title = "Fuel Efficiency by Type of Drive") +
+  theme_bw() + 
+  theme(plot.title = element_text(family = "Times", color="#666666", 
+                                  face="bold", size=32, vjust=2)) 
+```
+
+
+## Printing Plots
+
+```{r}
+ggsave("/Users/pp/Desktop/fuel.pdf", g, width=6, height=4)
+```
+Note: File extension drives file format.
+
+
+## Summary
+- ggplot2 is very powerful and flexible if you learn the “grammar” and the various elements that can be tuned/modified
+- Many more types of plots can be made; explore and play around with the package 
+
+
+## Resources
+
+- The _ggplot2_ book by Hadley Wickham
+- The _R Graphics Cookbook_ by Winston Chang (examples in base plots and in ggplot2)
+- ggplot2 web site (http://ggplot2.org)
+

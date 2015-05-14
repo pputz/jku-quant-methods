@@ -20,6 +20,13 @@ p {
 }
 
 
+code {
+  font-size: 95%;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  color: #8c0000;
+  font-weight: bold;
+}
+
 table td, table th {
   font-size: 18px;
   padding: 1em 0.5em;
