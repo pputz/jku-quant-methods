@@ -1,0 +1,51 @@
+---
+title: "Examples: Exploratory Data Analysis"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+
+## Today's Agenda
+
+
+>- Example 1: Healthy Life Years (Eurostat)
+>- Example 2: R&D Staff (Worldbank)
+>- Preparation Final Paper
+     - Questions re data analysis
+     - Could you present on Wednesday, June 10th?
+
+
+## Requirements Final Paper, Presentation {.smaller}
+
+**Paper**
+
+- 5-10 pages
+- Structure: 
+    - Abstract
+    - Description of data
+    - Exploratory/descriptive analysis including charts
+    - Hypotheses tests (if applicable)
+    - Summary
+- Submit .Rnd file
+
+\
+**Presentation**
+
+- 10 minutes
+- Submit .Rnd file
+
+
+## Assignment (Individual)
+
+- Draft/fragments of paper
+- .Rnd file
+- 70 lines minimum (35 lines unique code)
+- include "sessionInfo()"
+- Due date: Saturday, May 30th
