@@ -33,19 +33,19 @@ output:
     - Exploratory/descriptive analysis including charts
     - Hypotheses tests (if applicable)
     - Summary
-- Submit .Rnd file
+- Submit .Rmd file
 
 \
 **Presentation**
 
 - 10 minutes
-- Submit .Rnd file
+- Submit .Rmd file
 
 
 ## Assignment (Individual)
 
 - Draft/fragments of paper
-- .Rnd file
+- .Rmd file
 - 70 lines minimum (35 lines unique code)
 - include "sessionInfo()"
-- Due date: Saturday, May 30th
+- Due date: Tuesday, June 2nd
