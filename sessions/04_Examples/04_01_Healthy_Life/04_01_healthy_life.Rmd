@@ -1,0 +1,169 @@
+---
+title: "Life Expectancy and Life Quality in Europe"
+author: "Peter Putz"
+date: "May 7, 2015"
+output:
+  html_document:
+    highlight: pygments
+    theme: united
+---
+
+## Abstract
+In this paper we investigate whether a high life expectancy is related to a longer healthy life. For this purpose we compare the data of 31 countries in Europe. Preliminary finding indicate that populations with high life expactancy do not always live a long healthy life.
+
+
+## Data and Definitions
+
+The analysis is based on the data set "Healthy life years and life expectancy at birth, by sex" which is published by Eurostat^[http://ec.europa.eu/eurostat/cache/metadata/EN/tsdph100_esmsip.htm]. The Eurostat data set provides measurements on two indicators: life expectancy at birth and healthy life years (HLY).
+
+"Life expectancy at birth is defined as the mean number of years still to be lived by a person at birth -, if subjected throughout the rest of his or her life to the current mortality conditions."^[Ibid.]
+
+"The indicator Healthy Life Years (HLY) at birth measures the number of years that a person at birth is still expected to live in a healthy condition. HLY is a health expectancy indicator which combines information on mortality and morbidity. The data required are the age-specific prevalence (proportions) of the population in healthy and unhealthy conditions and age-specific mortality information. A healthy condition is defined by the absence of limitations in functioning/disability. The indicator is calculated separately for males and females. The indicator is also called disability-free life expectancy (DFLE)."^[Ibid.]
+
+"The indicator Healthy Life Years (HLY) is a solid indicator to monitor health as a productivity/economic factor. … Healthy life years introduce the concept of quality of life. One of the objective of the EU sustainable development strategy, launched by the European Council in Gothenburg in 2001 and renewed in June 2006, is the continuous improvement of quality of life for current and future generations."^[Ibid.]
+
+
+## Data Set
+
+#### Step 1: Read Data
+
+1. Retrieve the dataset with the Eurostat identifier "tskph100".
+2. Replace the data codes with more explicit "labels."
+
+```{r read}
+library(eurostat)
+
+dir.create("./data")
+id  <- "tsdph100"   #Healthy life years and life expectancy at birth, by sex
+hly_raw  <- get_eurostat(id, time_format = "num", cache_dir = "data")
+hly  <- label_eurostat(hly_raw)
+str(hly)
+```
+
+#### Step 2: Clean Data
+
+1. Add column with country code for easier fitering of EU, EA region data.
+2. Separete "break_sd" into two variables "Indicator" and "Gender"
+3. Rearrange and rename columns
+4. Eliminate EU, EA regions and missing data
+5. Change the labels for "Germany (until 1990 former territory of the FRG)" and "Former Yugoslav Republic of Macedonia, the".
+
+
+```{r tidy, message=FALSE}
+library(tidyr)
+library(dplyr)
+
+hly$country_code  <- hly_raw$geo     #get country code from hly_raw
+
+hly1 <- tbl_df(hly) %>% 
+  separate(break_sd, into = c("Indicator", "Gender"), sep = " - ") %>%
+  select(Country = geo,
+         Country.Code = country_code,
+         Indicator,
+         Gender,
+         Year = time,
+         Age = values) %>%
+  filter(!grepl('EU|EA', Country.Code) & !is.na(Age))
+
+
+levels(hly1$Country)[grepl("Germany", levels(hly1$Country))]  <- "Germany"
+levels(hly1$Country)[grepl("Macedonia", levels(hly1$Country))]  <- "Macedonia"
+```
+
+
+#### Step 3: Explore Available Data Points
+
+1. Create "wide" table with counts of the number of available data points per year.
+
+
+```{r available, results='asis'}
+library(knitr)
+
+Data_Points  <- hly1 %>%
+  group_by(Year, Indicator, Gender) %>%
+  summarize(Data.Counts = n()) %>%
+  spread(Year, Data.Counts)
+
+kable(Data_Points)
+```
+
+## Life Expectancy
+
+1. Down-select to data from years 2011 through 2013 and calculate average age values (hly2).
+2. Subset "Life expectancy" data only
+3. Create chart
+
+```{r hly2}
+hly2  <- hly1 %>%
+  filter(Year %in% 2011:2013) %>%
+  group_by(Country, Country.Code, Indicator) %>%
+  summarize(Age.Mean=mean(Age))
+```
+
+```{r hly3}
+hly3  <- hly2 %>%
+  ungroup() %>%
+  filter(Indicator == "Life expectancy")
+```
+
+```{r barchart, fig.height=8, fig.align='center'}
+library(ggplot2)
+ggplot(hly3, aes(reorder(Country, Age.Mean), Age.Mean)) +
+  geom_bar(stat = "identity") + 
+  coord_flip(ylim = c(60, 84)) +
+  scale_y_continuous(breaks = seq(60, 84, 2)) +
+  labs(y = "",
+       x = "",
+       title = "Life Expectancy in Europe")
+```
+
+
+## Life Quality
+
+1. Substract "Healthy life years" from "Life expectancy" for stacked bar chart (hly4).
+2. Create variable "order" for sorting of bar chart.
+3. Create staked bar chart with ggplot2.
+
+```{r hly4}
+hly4 <- hly2 %>%
+  ungroup() %>%
+  spread(Indicator, Age.Mean) %>%
+  filter(!is.na(`Healthy life years`)) %>%
+  mutate(`Life expectancy` = `Life expectancy` - `Healthy life years`) %>%
+  gather(Indicator, Age.Mean, `Healthy life years`:`Life expectancy`) %>%
+  group_by(Country.Code) %>%
+  mutate(order = sum(Age.Mean)) %>%
+  arrange(Country.Code)
+```
+
+```{r stackedchart, fig.width=8, fig.height=8, fig.align='center'}
+ggplot(hly4, aes(reorder(Country, order), Age.Mean, fill = Indicator)) +
+  geom_bar(stat = "identity") + 
+  coord_flip(ylim = c(50, 84)) +
+  scale_y_continuous(breaks = seq(50, 84, 2)) +
+  labs(y = "",
+       x = "",
+       title = "Life Expectancy and Life Quality in Europe") +
+  theme_bw() +
+  scale_fill_manual(values=c("#009E73", "#E69F00"), guide = guide_legend(title = NULL)) +
+  theme(plot.title = element_text(color="#BBBBBB", 
+                                  face="bold", size=24, vjust=2, hjust=2),
+        axis.text = element_text(colour = "white"),
+        axis.title.x = element_text(colour = "white", size=rel(3)),
+        axis.title.y = element_text(colour = "white", angle=45),
+        panel.background = element_rect(fill="#333333"),
+        panel.grid.minor.y = element_line(size=.2, color="white"),
+        panel.grid.major = element_line(colour = "white", size=.2),
+        panel.grid.minor = element_line(colour = "white", size=.1),
+        plot.background = element_rect(fill="#333333"),
+        legend.position = c(0.85, 0.06),
+        legend.background = element_rect(fill="#333333"),
+        legend.text = element_text(colour = "white", size=10))  
+```
+
+
+## R Session Information
+
+```{r session}
+sessionInfo()
+```

@@ -1,0 +1,150 @@
+---
+title: "Number of Scientists in Rich and Poor Countries"
+author: "Peter Putz"
+date: "May 10, 2015"
+output:
+  html_document:
+    highlight: pygments
+    theme: united
+---
+
+
+## Download Data
+
+1. Download .zip file and extract data files.
+2. Store paths to data files in vector "files".
+
+```{r download}
+
+if(!file.exists("./data")){
+#  dir.create("./data")
+  url <- "http://api.worldbank.org/v2/en/topic/14?downloadformat=csv"
+  download.file(url,destfile="./temp.zip")
+  unzip("./temp.zip", exdir = "./data")
+  file.remove("./temp.zip")
+  }
+
+files <- paste("./data", list.files("./data"), sep="/")
+files
+```
+
+
+## Read Data into R
+
+1. Read main data file (14\_Topic\_en\_csv\_v2.csv). This includes defining the column types.
+2. Read the two metadata files.
+
+```{r readdata, message=FALSE}
+
+library(readr)
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+col_types = paste("cccc", paste(rep("d", 55), collapse = ""), "_", sep="")
+RND <- read_csv(files[2], skip=2, col_types = col_types)
+#glimpse(RND)
+
+RND.C <- read_csv(files[3])
+RND.I <- read_csv(files[4])
+```
+
+## Number of Scientists in Rich and Poor Countries
+
+#### Step 1: Data Wrangling
+
+1. Subset data ("Researchers in R&D (per million people)") and calculate average for the years 2009 thru 2013.
+2. Add variables "Region" and "IncomeGroup" from metadata file RND.C
+
+
+```{r scientists}
+RND.Staff  <- RND %>%
+  filter(grepl("SP.POP.S", `Indicator Code`)) %>%
+  gather(key=Year, Researchers, `1960`:`2014`, na.rm = T, convert=T) %>%
+  filter(Year %in% 2009:2013) %>%
+  group_by(`Country Name`, `Country Code`) %>%
+  summarize(Scientists = mean(Researchers))
+  
+```
+
+```{r join}
+RND.Staff1 <- RND.Staff %>%
+  left_join(RND.C[,2:4], by = "Country Code") %>%
+  filter(IncomeGroup != "")
+```
+
+#### Step 2: Analysis
+
+1. Create table with income groups in rows and summary stats in columns.
+2. Create boxplot; this includes sorting the factor levels for "IncomeGroup".
+
+```{r sumtable, results='asis'}
+RND.Staff2  <- RND.Staff1 %>%
+  group_by(IncomeGroup) %>%
+  summarize(`Number Of Countries` = n(),
+            Minimum = min(Scientists),
+            `1st Quantile` = quantile(Scientists, 0.25),
+            Median = median(Scientists),
+            `3rd Quantile` = quantile(Scientists, 0.75),
+            Maximum = max(Scientists))
+
+kable(RND.Staff2)
+```
+
+
+```{r boxplot}
+library(ggplot2)
+
+RND.Staff1$IncomeGroup <- factor(RND.Staff1$IncomeGroup,
+                                 levels=c("High income: OECD",
+                                         "High income: nonOECD",
+                                         "Upper middle income",
+                                         "Lower middle income",
+                                         "Low income"))
+
+bp  <- ggplot(RND.Staff1, aes(IncomeGroup, Scientists)) + 
+              geom_boxplot() +
+              coord_flip() +
+              scale_x_discrete(limits = rev(levels(RND.Staff1$IncomeGrou))) +
+              labs(title = "Number of Researchers per One Million People",
+                   x="", y="")
+bp
+```
+
+
+## Interactive Map of Euope and Central Asia
+
+1. Subset data for "Europe & Central Asia".
+2. Create `googleVis` chart.
+
+```{r europe}
+RND.Eu  <- RND.Staff1 %>%
+  filter(Region == "Europe & Central Asia") %>%
+  rename(Country = `Country Name`) %>%
+  select(Country, Scientists)
+```
+
+
+```{r googlevis, results='asis'}
+suppressPackageStartupMessages(library(googleVis))
+
+map_1<- gvisGeoChart(RND.Eu, locationvar='Country', 
+                     colorvar='Scientists',
+                     options=list(
+                       projection="kavrayskiy-vii",
+                       region="150",
+                       colors="['#E6E6F5', '#00006B']",
+                       width=900, height=600
+                     ))
+
+
+print(map_1, tag="chart")
+```
+
+
+## Session Info
+
+
+```{r session}
+sessionInfo()
+```
