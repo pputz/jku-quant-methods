@@ -1,0 +1,534 @@
+---
+title: "Hypothesis Testing"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+## Hypothesis testing
+* Hypothesis testing is concerned with making decisions using data
+* A null hypothesis is specified that represents the status quo,
+  usually labeled $H_0$
+* The null hypothesis is assumed true and statistical evidence is required
+  to reject it in favor of a research or alternative hypothesis 
+
+
+
+## Example
+
+- In an industry benchmark study a customer satisfaction index (CSI) of more than 30 is 
+  considered evidence of excellent customer satisfaction.
+- Suppose that in a sample of 100 customers the CSI was 32 with a standard deviation of 10.
+- We might want to test the hypothesis that 
+
+    * $H_0 : \mu = 30$
+    * $H_a : \mu > 30$
+    * where $\mu$ is the population mean CSI.
+  
+
+## Test Strategy
+
+- A reasonable strategy would reject the null hypothesis if  
+  $\bar x$ was larger than some constant, say $C$
+* Typically, $C$ is chosen so that the probability of $\alpha$ is $0.05$   
+  (or some other relevant constant)
+* $\alpha$ = Type I error rate: Probability of rejecting the null hypothesis when,  
+  in fact, the null hypothesis is correct
+
+## Test Strategy
+
+$\bar{x} > C$
+
+```{r, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+
+## Code adapted from Kristoffer Magnusson
+## http://rpsychologist.com/creating-a-typical-textbook-illustration-of-statistical-power-using-either-ggplot-or-base-graphics
+
+library(ggplot2)
+library(grid)  # need for arrow()
+m1 <- 0        # mu H0
+sd1 <- 1.5     # sigma H0
+m2 <- 3.5      # mu HA
+sd2 <- 1.5     # sigma HA
+
+z_crit <- qnorm(1-(0.05/2), m1, sd1)
+
+# set length of tails
+min1 <- m1-sd1*4
+max1 <- m1+sd1*4
+min2 <- m2-sd2*4
+max2 <- m2+sd2*4          
+
+
+x <- seq(min(min1,min2), max(max1, max2), .01) # create x sequence
+y1 <- dnorm(x, m1, sd1)                        # normal dist #1
+y2 <- dnorm(x, m2, sd2)                        # normal dist #2
+
+df1 <- data.frame("x" = x, "y" = y1)
+df2 <- data.frame("x" = x, "y" = y2)
+
+# Alpha polygon
+y.poly <- pmin(y1,y2)
+poly1 <- data.frame(x=x, y=y.poly)
+poly1 <- poly1[poly1$x >= z_crit, ] 
+poly1<-rbind(poly1, c(z_crit, 0))  # add lower-left corner
+
+# Beta polygon
+poly2 <- df2
+poly2 <- poly2[poly2$x <= z_crit,] 
+poly2<-rbind(poly2, c(z_crit, 0))  # add lower-left corner
+
+# power polygon; 1-beta
+poly3 <- df2
+poly3 <- poly3[poly3$x >= z_crit,] 
+poly3 <-rbind(poly3, c(z_crit, 0))  # add lower-left corner
+
+# combine polygons. 
+poly1$id <- 3 # alpha, give it the highest number to make it the top layer
+poly2$id <- 2 # beta
+poly3$id <- 1 # power; 1 - beta
+poly <- rbind(poly1, poly2, poly3)
+poly$id <- factor(poly$id,  labels=c("power","beta","alpha"))
+
+
+# plot with ggplot2
+ggplot(poly[poly$id=="alpha", ], aes(x,y, fill=id, group=id)) +
+  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
+  geom_segment(aes(x = 0, y = .02, xend = 0, yend = .3), size=1, linetype="dotted") +
+  geom_segment(aes(x = 3.5, y = 0.02, xend = 3.5, yend = .3), size=1, linetype="dotted") +
+  
+  scale_color_manual("Group", values= c("HA" = "#981e0b","H0" = "black")) +
+
+  annotate("text", label="mu == 30", x=0, y=0, parse=T, size=8) +
+  annotate("text", label="bar(x) == 32", x=5.5, y=.15, parse=T, size=8) +
+
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        plot.title = element_text(size=22))
+```
+
+
+## Test Strategy
+
+$\bar{x} > C$
+
+```{r, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+
+ggplot(poly[poly$id=="alpha", ], aes(x,y, fill=id, group=id)) +
+  geom_polygon(show_guide=F, alpha=I(8/10)) +
+  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
+  geom_vline(xintercept = z_crit, size=1, linetype="dashed", color="red") +
+  geom_segment(aes(x = 0, y = .02, xend = 0, yend = .3), size=1, linetype="dotted") +
+  geom_segment(aes(x = 3.5, y = 0.02, xend = 3.5, yend = .3), size=1, linetype="dotted") +
+  
+  scale_color_manual("Group", values= c("HA" = "#981e0b","H0" = "black")) +
+
+  annotate("segment", x=4, y=0.043, xend=3.4, yend=0.01, 
+           arrow = arrow(length = unit(0.3, "cm")), size=1, color="red") +
+  annotate("segment", x=3.2, y=0.27, xend=4.7, yend=0.27, 
+           arrow = arrow(length = unit(0.3, "cm")), size=.8, color="red") +
+  annotate("segment", x=2.6, y=0.27, xend=1.1, yend=0.27, 
+           arrow = arrow(length = unit(0.3, "cm")), size=.8, color="red") +
+  annotate("text", label="alpha", x=4.2, y=0.05, parse=T, size=8, color="red") +
+  annotate("text", label="mu == 30", x=0, y=0, parse=T, size=8) +
+  annotate("text", label="italic(C)", x=2, y=.29, parse=T, size=8, color="red") +
+  annotate("text", label="bar(x) == 32", x=5.5, y=.15, parse=T, size=8) +
+
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        plot.title = element_text(size=22))
+```
+
+
+
+
+## Example continued
+
+- Suppose we choose $\alpha = 0.05$:
+
+    $Z_{1-\alpha} = Z_{0.95} = 1.645$
+    
+- Hence, $C = 30 + 1.645 = 31.645$
+- Since our mean $\bar{x} = 32$ we reject the null hypothesis
+
+\
+```{r}
+qnorm(.95)
+```
+
+
+
+
+
+
+## Discussion
+* In general we don't convert $C$ back to the original scale
+* We would just reject because the Z-score; which is how many
+  standard errors the sample mean is above the hypothesized mean
+  $$
+  \frac{32 - 30}{10 / \sqrt{100}} = 2
+  $$
+  is greater than $1.645$
+* Or, whenever $\sqrt{n} (\bar X - \mu_0) / s > Z_{1-\alpha}$
+
+
+## General rules
+- The $Z$ test for $H_0:\mu = \mu_0$ versus 
+    - $H_1: \mu < \mu_0$
+    - $H_2: \mu \neq \mu_0$
+    - $H_3: \mu > \mu_0$ 
+- Test statistic $TS = \frac{\bar{X} - \mu_0}{S / \sqrt{n}}$
+- Reject the null hypothesis when 
+    - $TS \leq -Z_{1 - \alpha}$
+    - $|TS| \geq Z_{1 - \alpha / 2}$
+    - $TS \geq Z_{1 - \alpha}$
+
+
+## Hypothesis testing
+* The alternative hypotheses are typically of the form $<$, $>$ or $\neq$
+* Note that there are four possible outcomes of our statistical decision process
+
+Truth | Decide | Result |
+---|---|---|
+$H_0$ | $H_0$ | Correctly accept null |
+$H_0$ | $H_a$ | Type I error |
+$H_a$ | $H_a$ | Correctly reject null |
+$H_a$ | $H_0$ | Type II error |
+
+
+## Notes
+* We have fixed $\alpha$ to be low, so if we reject $H_0$ (either
+  our model is wrong) or there is a low probability that we have made
+  an error
+* We have not fixed the probability of a type II error, $\beta$;
+  therefore we tend to say "Fail to reject $H_0$"" rather than
+  accepting $H_0$
+* Statistical significance is no the same as scientific
+  significance
+
+
+## Small Sample Sizes
+* The $Z$ test requires the assumptions of the CLT and for $n$ to be large enough
+  for it to apply
+* If $n$ is small, then a Gossett's $T$ test is performed exactly in the same way,
+  with the normal quantiles replaced by the appropriate Student's $T$ quantiles and
+  $n-1$ df
+
+
+
+## Normal vs. T Distribution
+
+```{r, echo=FALSE, fig.align='center', fig.width=8, fig.height=5}
+x <- seq(-5, 5, by=.01)
+y1 <- dnorm(x, 0, 1)
+y2  <- dt(x, 2)
+y3  <- dt(x, 10)
+
+label1 <- rep("normal", length(x))
+label2 <- rep("df = 2", length(x))
+label3 <- rep("df = 10", length(x))
+
+
+df1 <- data.frame("x" = x, "y" = y1, "label" = label1)
+df2 <- data.frame("x" = x, "y" = y2, "label" = label2)
+df3 <- data.frame("x" = x, "y" = y3, "label" = label3)
+df  <- rbind(df1, df2, df3)
+
+
+ggplot(df, aes(x,y, color=label, group=label)) +
+  geom_line(size=1) + 
+  scale_colour_discrete(guide = guide_legend(title = NULL)) +
+  labs(x="", y="") +
+  theme_bw(base_size=20)+
+  theme(legend.position = c(0.85, 0.8),
+        legend.key = element_blank())
+```
+
+
+## Example Reconsidered (Small Sample Size)
+- Consider our example again. Suppose that $n= 16$ (rather than
+$100$). Then consider that
+$$
+.05 = P\left(\frac{\bar X - 30}{s / \sqrt{16}} \geq t_{1-\alpha, 15} ~|~ \mu = 30 \right)
+$$
+- So that our test statistic is now $\sqrt{16}(32 - 30) / 10 = 0.8$, while the critical value is $t_{1-\alpha, 15} = 1.75$. 
+- We now fail to reject.
+
+```{r}
+qt(.95, df=15)
+```
+
+
+
+## Two sided tests {.smaller}
+* Suppose that we would reject the null hypothesis if in fact the 
+  mean was too large or too small
+* That is, we want to test the alternative $H_a : \mu \neq 30$
+  (doesn't make a lot of sense in our setting)
+* Then note
+$$
+ \alpha = P\left(\left. \left|\frac{\bar X - 30}{s /\sqrt{16}}\right| > t_{1-\alpha/2,15} ~\right|~ \mu = 30\right)
+$$
+* That is we will reject if the test statistic, $0.8$, is either
+  too large or too small, but the critical value is calculated using
+  $\alpha / 2$
+* In our example the critical value is $2.13$, so we fail to reject.
+
+```{r}
+qt((1-0.05/2), 15)
+```
+
+
+
+## T test in R
+```{r, message=FALSE}
+library(UsingR); data(father.son)
+t.test(father.son$sheight - father.son$fheight)
+```
+
+  
+
+## P-values
+* The P-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than would be observed by chance alone
+* If the P-value is small, then either $H_0$ is true and we have observed a rare event or $H_0$ is false
+*  In our example the $T$ statistic was $0.8$. 
+  * What's the probability of getting a $T$ statistic as large as $0.8$?
+```{r}
+pt(0.8, 15, lower.tail = FALSE) 
+```
+* Therefore, the probability of seeing evidence as extreme or more extreme than that actually obtained under $H_0$ is `r pt(0.8, 15, lower.tail = FALSE)`
+
+
+
+
+## Notes
+* By reporting a P-value the reader can perform the hypothesis
+  test at whatever $\alpha$ level he or she chooses
+* If the P-value is less than $\alpha$ you reject the null hypothesis 
+* For two sided hypothesis test, double the smaller of the two one
+  sided hypothesis test P-values
+
+
+
+## Power
+- Power is the probability of rejecting the null hypothesis when it is false
+- Ergo, power (as it's name would suggest) is a good thing; you want more power
+- A type II error (a bad thing, as its name would suggest) is failing to reject the null hypothesis when it's false; the probability of a type II error is usually called $\beta$
+- Note Power  $= 1 - \beta$
+
+
+## Power
+
+```{r, echo=FALSE, fig.align='center', fig.width=7, fig,highlight=4}
+m1 <- 0  # mu H0
+sd1 <- 1.5 # sigma H0
+m2 <- 3.5 # mu HA
+sd2 <- 1.5 # sigma HA
+
+z_crit <- qnorm(1-(0.05/2), m1, sd1)
+
+# set length of tails
+min1 <- m1-sd1*4
+max1 <- m1+sd1*4
+min2 <- m2-sd2*4
+max2 <- m2+sd2*4          
+# create x sequence
+x <- seq(min(min1,min2), max(max1, max2), .01)
+# generate normal dist #1
+y1 <- dnorm(x, m1, sd1)
+# put in data frame
+df1 <- data.frame("x" = x, "y" = y1)
+# generate normal dist #2
+y2 <- dnorm(x, m2, sd2)
+# put in data frame
+df2 <- data.frame("x" = x, "y" = y2)
+
+# Alpha polygon
+y.poly <- pmin(y1,y2)
+poly1 <- data.frame(x=x, y=y.poly)
+poly1 <- poly1[poly1$x >= z_crit, ] 
+poly1<-rbind(poly1, c(z_crit, 0))  # add lower-left corner
+
+# Beta polygon
+poly2 <- df2
+poly2 <- poly2[poly2$x <= z_crit,] 
+poly2<-rbind(poly2, c(z_crit, 0))  # add lower-left corner
+
+# power polygon; 1-beta
+poly3 <- df2
+poly3 <- poly3[poly3$x >= z_crit,] 
+poly3 <-rbind(poly3, c(z_crit, 0))  # add lower-left corner
+
+# combine polygons. 
+poly1$id <- 3 # alpha, give it the highest number to make it the top layer
+poly2$id <- 2 # beta
+poly3$id <- 1 # power; 1 - beta
+poly <- rbind(poly1, poly2, poly3)
+poly$id <- factor(poly$id,  labels=c("power","beta","alpha"))
+
+
+
+
+# plot with ggplot2
+ggplot(poly, aes(x,y, fill=id, group=id)) +
+  geom_polygon(show_guide=F, alpha=I(8/10)) +
+  # add line for treatment group
+  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
+  # add line for treatment group. These lines could be combined into one dataframe.
+  geom_line(data=df2, aes(color="HA", group=NULL, fill=NULL),size=1.5, show_guide=F) +
+  # add vlines for z_crit
+  geom_vline(xintercept = z_crit, size=1, linetype="dashed") +
+  # change colors 
+  scale_color_manual("Group", 
+                     values= c("HA" = "#981e0b","H0" = "black")) +
+  scale_fill_manual("test", values= c("alpha" = "#0d6374","beta" = "#be805e","power"="#7cecee")) +
+  # beta arrow
+  annotate("segment", x=0.1, y=0.045, xend=1.3, yend=0.01, 
+           arrow = arrow(length = unit(0.3, "cm")), size=1) +
+  annotate("text", label="beta", x=0, y=0.05, parse=T, size=8) +
+  # alpha arrow
+  annotate("segment", x=4, y=0.043, xend=3.4, yend=0.01, 
+           arrow = arrow(length = unit(0.3, "cm")), size=1) +
+  annotate("text", label="frac(alpha,2)", x=4.2, y=0.05, parse=T, size=8) +
+  # power arrow
+  annotate("segment", x=6, y=0.2, xend=4.5, yend=0.15, 
+           arrow = arrow(length = unit(0.3, "cm")), size=1) +
+  annotate("text", label="1-beta ~~ (power)", x=7.3, y=0.22, parse=T, size=8) +
+  # H_0 title
+  annotate("text", label="H[0]", x=m1, y=0.28, parse=T, size=8) +
+  # H_a title
+  annotate("text", label="H[a]", x=m2+0.3, y=0.28, parse=T, size=8) +
+# ggtitle("Statistical Power Plots, Textbook-style") +
+  # remove some elements
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+     #  plot.background = element_rect(fill="#f9f0ea"),
+        panel.border = element_blank(),
+        axis.line = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        plot.title = element_text(size=22))
+```
+
+
+
+## Notes
+- Consider our previous example involving CSI
+- $H_0: \mu = 30$ versus $H_a: \mu > 30$
+- Then power is 
+$$P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \right)$$
+- Note that this is a function that depends on the specific value of $\mu_a$!
+- Notice as $\mu_a$ approaches $30$ the power approaches $\alpha$
+
+
+
+## Calculating Power for Gaussian Data
+Assume that $n$ is large and that we know $\sigma$
+$$
+\begin{align}
+1 -\beta & = 
+P\left(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\
+& = P\left(\frac{\bar X - \mu_a + \mu_a - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\ \\
+& = P\left(\frac{\bar X - \mu_a}{\sigma /\sqrt{n}} > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
+& = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
+\end{align}
+$$
+
+
+## Power for CSI Example
+
+$$
+\begin{align}
+1 -\beta & = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}}\right)\\
+         & = P\left(Z > z_{0.95} - \frac{32 - 30}{10 /\sqrt{100}}\right)\\
+         & = P\left(Z > 1.645 - 2\right)\\
+         & = P(Z > -0.355)\\
+         & = .639
+\end{align}
+$$
+
+```{r}
+z  <- qnorm(0.95)
+pnorm(z - 2, lower.tail = FALSE)
+```
+
+
+## Calculating T-Test Power with R
+
+```{r}
+power.t.test(power = NULL, n = 100, delta = 2, sd = 10, 
+             type = "one.sample",  alt = "one.sided")
+```
+
+
+## Finding Minimum Sample Size
+
+Suppose we want a power of 80%, what is the minimum sample size?
+
+```{r}
+power.t.test(power = 0.8, n = NULL, delta = 2, sd = 10, 
+             type = "one.sample",  alt = "one.sided")$n
+```
+
+power.t.test automatically solves the equation for the parameter set to NULL.
+
+
+
+## Acknowledgements
+
+\
+\
+\
+
+<div class="centered">
+This class and many slides were inspired by:
+
+**Brian Caffo, Jeff Leek, and Roger Peng**   
+Department of Biostatistics   
+Johns Hopkins Bloomberg School of Public Health   
+
+and the  
+
+[Coursera Data Science Specialization Program](https://www.coursera.org/specialization/jhudatascience/1?utm_medium=courseDescripTop)
+
+</div>
+

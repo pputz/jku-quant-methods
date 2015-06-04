@@ -1,0 +1,217 @@
+---
+title: "Case Study: Hypothesis Testing with T-Tests"
+author: "Peter Putz"
+date: "May 30, 2015"
+output: html_document
+---
+
+\
+\
+
+
+## Intoduction Case Study
+
+The data used for this case study origin from a study on management by objectives ^[Putz, P. and Lehner, J. M. (2002). Effekte zielorientierter Führungssysteme — Entwicklung und Validierung des Zielvereinbarungsbogens (ZVB). Zeitschrift für Arbeits- und Organisationspsychologie, 46(1):22–34]. In 1995, an Austrian social security company implemented annual goal setting meetings. These meetings were one-on-one meetings between all staff members and their immediate supervisors. 660 employees (treatment group) answered a standardized questionnaire (ZVB) with 53 items before and after their first meeting. In addition, the study involved two control groups. The 53 items measured the level of organizational goal orientation along 10 first order factors and 3 second order factors (see below).
+
+
+## Study Design
+
+The ZVB questionnaire was distributed to 1.100 employees at two points in time t1 and t2. One group of respondents completed their first goal setting meeting between these two measurements (treatment group). Another group of respondents had not yet completed their meetings at t2 (control group 2). And two small departments had held their meetings already before t1 (control group 2).
+
+Sample Groups      | Intervention  | Measurements  | Intervention | Measurements
+------------------ |:-------------:| ------------- |:------------:| --------------
+treatment group    |               | e1 (n = 660)  |    **X**     |  e2 (n = 220)
+control group 1    |               | (e1)          |              |  ka2 (n = 239)        
+control group 2    |    **X**      | kb1 (n = 138) |              |  Kb2 (n = 111)
+
+
+## Data
+
+```{r load, message=FALSE}
+library(tidyr)
+library(dplyr)
+
+load("./data/ssi.RData")
+
+glimpse(ssi)
+```
+
+The data set ssi.RData holds the results of `r dim(ssi)[1]` questionnaires. The original 53 items of the ZVB are already consolidated to 10 first order factors and 3 second order factors. The specifications of all variables are below.
+
+**Demographic Variables**
+
+id ... unique identifier of questionnaire  
+measurement ... measurement (see table above) [fact: "e1", ... , "kb2"]  
+seniority ... years with company; less or greater than 10 years [fact: "lt10yrs", "gt10yrs"]  
+manager ... manager or staff [fact: "mgr", "staff"]  
+position ... combination of seniority and manager [fact: "mgr_gt10yrs", ...]
+
+
+**Measured Impacts of Goal-Setting Process**
+
+*1. Order Factors*  
+f1 ... goal clarity [num 1-5]  
+f2 ... goal conflicts [num 1-5]  
+f3 ... overly difficult goals [num 1-5]  
+f4 ... dysfunctional effects of goals [num 1-5]  
+f5 ... supervisor support [num 1-5]  
+f6 ... degree of participation in setting goals [num 1-5]  
+f7 ... quality of one-on-one meeting [num 1-5]  
+f8 ... supervisor feedback [num 1-5]  
+f9 ... rewards [num 1-5]  
+f10 ... organizational support [num 1-5]  
+
+
+*2. Order Factors*  
+z1 ... objectives (f1 - f4) [num 1-5]  
+z2 ... leadership dyade (f5 - f8) [num 1-5]  
+z3 ... organizational environment (f9, f10) [num 1-5]  
+
+
+## Data Exploration
+
+To gain an overview of the measurement results we tabulate the means for each factor and each measurement.
+
+
+```{r means, results='asis'}
+# Tabulate Means for Each Factor
+fac_means  <- ssi  %>%
+  group_by(measurement) %>%
+  select(measurement, starts_with("f"), starts_with("z")) %>%
+  summarise_each(funs(mean(., na.rm = TRUE))) %>%
+  gather(factor, value, -measurement) %>%
+  spread(measurement, value)
+
+kable(fac_means)
+```
+
+
+## Hypothesis Testing for Supervisor Support (f5)
+
+
+```{r, fig.align='center', fig.height=5}
+library(ggplot2)
+
+ssi5  <- ssi %>%
+  select(measurement, f5) %>%
+  filter(!is.na(f5))
+
+h5 <- ggplot(ssi5, aes(measurement, f5)) +
+  geom_boxplot() +
+  labs(title = "Means for Supervisor Support (f5)",
+       y = "Level of Support",
+       x = "Treatment and Control Groups") +
+  theme_bw()
+h5
+```
+
+
+### Hypotheses
+
+
+Respondents     | Null Hypothesis                      | Alternative Hypothesis                   | Significance Level
+--------------- | ------------------------------------ | ---------------------------------------- | -----------------
+Treatment group | $H_{0t}: \mu_{e1} - \mu_{e2} = 0$    | $H_{at}: \mu_{e1} - \mu_{e2} \neq 0$     | $\alpha = 0.05$
+Control group 1 | $H_{0c1}: \mu_{e1} - \mu_{ka2} = 0$  | $H_{ac1}: \mu_{e1} - \mu_{ka2} \neq 0$   | $\alpha = 0.05$
+Control group 2 | $H_{0c2}: \mu_{kb1} - \mu_{kb2} = 0$ | $H_{ac2}: \mu_{kb1} - \mu_{kb2} \neq 0$  | $\alpha = 0.05$
+
+
+### T-Tests
+
+```{r}
+ssi5t  <- filter(ssi5, measurement %in% c("e1", "e2"))    # treatment group
+ssi5c1  <- filter(ssi5, measurement %in% c("e1", "ka2"))  # control group 1
+ssi5c2  <- filter(ssi5, measurement %in% c("kb1", "kb2")) # control group 2
+
+t1  <- t.test(f5 ~ measurement, data = ssi5t, alternative = "two.sided", var.equal = TRUE)
+t2  <- t.test(f5 ~ measurement, data = ssi5c1, alternative = "two.sided", var.equal = TRUE)
+t3  <- t.test(f5 ~ measurement, data = ssi5c2, alternative = "two.sided", var.equal = TRUE)
+
+print(t1)
+print(t2)
+print(t3)
+```
+
+
+### Sidenote: Test of Equality of Variance (Homoscedasticity)
+
+A t-test works for both, equal and unequal sample variances. The `var.test` tests the hypothesis that the two variances are equal.
+
+```{r}
+var.test(f5 ~ measurement, data = ssi5t, alternative = "two.sided")
+```
+
+
+### Results
+
+Respondents     | Null Hypothesis                      | Significance Level | P-Value            | Decision
+--------------- | ------------------------------------ | ------------------ | ------------------ | -------------
+Treatment group | $H_{0t}: \mu_{e1} - \mu_{e2} = 0$    | $\alpha = 0.05$    | p = `r t1$p.value` | $H_{0t}$ rejected
+Control group 1 | $H_{0c1}: \mu_{e1} - \mu_{ka2} = 0$  | $\alpha = 0.05$    | p = `r t2$p.value` | $H_{0c1}$ not rejected
+Control group 2 | $H_{0c2}: \mu_{kb1} - \mu_{kb2} = 0$ | $\alpha = 0.05$    | p=  `r t3$p.value` | $H_{0c2}$ not rejected
+
+\
+\
+\
+
+
+## Hypothesis Testing for Multiple Groups (ANOVA)
+
+Now we would like to find out whether there is a difference between respondents from different position groups (i.e. managers or staff members with more or less than 10 years of employment). Concrete we'd like to look at data from measurement "e1" and "f1" (goal clarity) only. Since there are 4 position groups we cannot use a conventional t-test. Rather we use a test called ANOVA.
+
+"Analysis of variance (ANOVA) is a collection of statistical models used in order to analyze the differences between group means, developed by R. A. Fisher. In the ANOVA setting, the observed variance in a particular variable is partitioned into components attributable to different sources of variation. In its simplest form, ANOVA provides a statistical test of whether or not the means of several groups are equal, and therefore generalizes the t-test to more than two groups." (Wikipedia)
+
+### Hypothesis
+
+$H_0: \mu_1 = \mu_2 = \mu_3 = \mu_4$
+
+$H_a: \text{not all } \mu_i \  (i = 1, 2, 3, 4) \text{ are equal}$
+
+
+### Boxplot
+
+Visualize the different distributions of factor 1 dependent on the position of the respondents
+
+```{r, results='asis'}
+ssi1p  <- ssi %>%
+  filter(measurement == "e1") %>%
+  select(position, f1) %>%
+  filter(!is.na(position) & !is.na(f1))
+
+freq1p  <- ssi1p  %>%  
+  group_by(position)  %>% 
+  summarize(count = n())
+
+kable(freq1p)
+```
+
+
+```{r, fig.align='center', fig.height=5}
+h1p <- ggplot(ssi1p, aes(position, f1)) +
+  geom_boxplot() +
+  labs(title = "Means for Goal Clarity (f1)",
+       y = "Level of Goal Clarity",
+       x = "") +
+  theme_bw()
+
+print(h1p)
+```
+
+
+### Hypothesis
+
+$H_0: \mu_1 = \mu_2 = \mu_3 = \mu_4$
+
+$H_a: \text{not all } \mu_i \  (i = 1, 2, 3, 4) \text{ are equal}$
+
+$\alpha = 0.05$
+
+### Hypothesis Test
+
+```{r}
+fit1p  <- lm(f1 ~ position, data = ssi1p)
+anova(fit1p)
+```
+
+**Result**: We cannot reject the null hypothesis. We have statistical evidence ($p = `r round(anova(fit1p)[1,5], 3)`$) that there is no difference in mean goal clarity among different position groups.
+

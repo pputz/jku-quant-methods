@@ -1,0 +1,49 @@
+---
+title: "Simulation of CLT"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+runtime: shiny
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+
+
+## Simulation of Sample Means
+
+```{r, echo=FALSE}
+
+library(ggplot2)
+
+set.seed(12345)
+
+inputPanel(
+  
+  sliderInput("n", label = "Sample Size",
+              min = 1, max = 100, value = 4, step = 1),
+  
+  selectInput("rep", label = "Repetitions",
+              choices = c(10, 100, 1000, 10000), selected = 1000)
+)
+
+renderPlot({
+  iid <- matrix(sample(1:6, input$n * as.integer(input$rep), replace = TRUE, 
+                     prob = c(2/6, 0, 1/6, 1/6, 0, 2/6)),
+                     ncol = input$n)
+  iid  <- apply(iid, 1, mean)
+  iid  <- data.frame(iid)
+  
+  ggplot(iid, aes(iid)) + 
+    geom_histogram(fill="#FF9999", binwidth = 0.05) +
+    scale_x_continuous(limits=c(1, 6.5), breaks = c(1:6)) +
+    geom_vline(xintercept = 3.5, color="blue", size=1) +
+    labs(x = "", y = "") +
+    theme_bw()
+})
+```
+
