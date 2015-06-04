@@ -1,0 +1,58 @@
+---
+title: "Statistical Inference"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+
+
+## Agenda
+
+
+- Central Limit Theorem
+- Hypothesis Testing
+- Example: Goal-Setting in Organizations
+
+
+
+## References
+
+[Brian Caffo. 2015. Statistical Inference for Data Science. LeanPub.](https://leanpub.com/LittleInferenceBook)
+
+[Khan Academy. Inferential Statistics](https://www.khanacademy.org/math/probability/statistics-inferential)
+
+
+## Note on Seminar Grades
+
+- No assignment for "Statistical Inference" class.
+- Final paper -- minimum points to pass: 20
+
+
+Points       |  Grade
+------------ | --------------
+0 - 56       | NGD(5)
+57 - 64      | GEN(4)
+65 - 72      | BEF (3)
+63 - 80      | GUT (2)
+81 - 88      | SGT(1)
