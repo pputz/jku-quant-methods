@@ -166,6 +166,8 @@ $SD(X) = \sqrt{4.25} \approx 1.71$
 ```{r, echo=FALSE, fig.height=3, fig.width=5}
 duf  <- data.frame(side = 1:6, prob = c(2/6, 0 , 1/6, 1/6, 0 , 2/6))
 
+
+
 dufmu <- pop(duf)$mean
 dufsigma  <- pop(duf)$sd
 

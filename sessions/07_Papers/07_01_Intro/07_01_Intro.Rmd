@@ -1,0 +1,38 @@
+---
+title: "Grading"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+## Paper (32 pts) {.smaller}
+
+- 1 Proper title
+- 3 Abstract
+- 3 Description of data source
+- 2 Used R to get/download data
+- 2 Exploratory/descriptive analysis
+- 2 Soundness of descriptive analysis
+- 2 Inference analysis
+- 2 Soundness of inferental analysis
+- 3 Summary (limitation of research)
+- 3 2-3 charts
+- 2 Charts properly labeled
+- 2 Properly used Rmarkdown
+- 2 Working R code
+- 1 Length of paper 5--10 pages
+- 2 Overall qualitity of paper
+
+
+## Presentation (8 pts)
+
+- 2 Abstract
+- 2 Main Findings
+- 2 Charts, properly labeled
+- 2 Overall quality of presentation
