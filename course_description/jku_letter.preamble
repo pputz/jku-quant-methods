@@ -5,7 +5,6 @@
 \usetikzlibrary{positioning,calc}
 
 
-
 \usepackage[naustrian,german,american]{babel}	% the last language is the default
 \usepackage{csquotes}
 
