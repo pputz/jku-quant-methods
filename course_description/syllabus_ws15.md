@@ -9,9 +9,9 @@ o: syllabus_ws15.tex
 
 <!---
 compile with
-pan syllabus_ws15.txt latex
+pan syllabus_ws15.md latex
 latexmk syllabus_ws15.tex -pdf
-letexmk -c
+latexmk -c
 -->
 
 
@@ -24,7 +24,7 @@ letexmk -c
 
 # Master Seminar Quantitative Research Methods
 
-266.000, WS 2015    
+266.018, WS 2015    
 **Dr. Peter PUTZ**  
 Institut für Organisation und Globale Managementstudien   
 peter.putz@jku.at  
