@@ -10,6 +10,12 @@ output:
     css: ../../assets/css/jku.css
 ---
 
+## Research Question
+
+Are cars with manual or automatic transmission   
+more fuel efficient?
+
+
 ## Loading Data
 
 ```{r load}
@@ -20,6 +26,7 @@ data(mtcars)
 ## Exploring Data Set
 
 ```{r explore1}
+?mtcars
 str(mtcars)
 ```
 
@@ -30,19 +37,11 @@ summary(mtcars$mpg)
 table(mtcars$am)
 ```
 
-## Setting Lables for Transmission Types
-
-```{r levels_am}
-mtcars$am  <- as.factor(mtcars$am)
-class(mtcars$am)
-levels(mtcars$am) <- c("automatic", "manual")
-table(mtcars$am)
-```
 
 ## Fuel Effieciency by Transmission Type
 
 ```{r mpg_by_am}
-am_means <- tapply(mtcars$mpg, mtcars$am, mean)
+am_means <- aggregate(mpg ~ am, data = mtcars, mean)
 am_means
 ```
 
@@ -51,22 +50,8 @@ am_means
 ```{r boxplot}
 boxplot(mpg ~ am, data = mtcars, 
         main = "Fuel Efficiency by Transmission Type",
-        ylab = "mpg")
+        ylab = "mpg",
+        names = c("automatic", "manual"))
 ```
 
-## New Variable for L/100km
-
-```{r lpkm}
-mtcars$lpkm  <- 235.214583 / mtcars$mpg
-am_means_l <- tapply(mtcars$lpkm, mtcars$am, mean)
-am_means_l
-```
-
-## Boxplot Fuel Efficiency in L/100km
-
-```{r boxplot2}
-boxplot(lpkm ~ am, data = mtcars, 
-        main = "Fuel Efficiency by Transmission Type",
-        ylab = "L/100km")
-```
 

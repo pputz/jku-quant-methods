@@ -1,0 +1,172 @@
+---
+title: "Your Accomplishments at the End of the Seminar"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+
+## Final Products {.smaller}
+
+**Paper**
+
+- Actual empirical study with real world data
+- 5-10 pages
+- Structure: 
+    - Abstract
+    - Description of data
+    - Exploratory/descriptive analysis including charts
+    - Hypotheses tests
+    - Summary
+- Submit .Rmd and .html or .doc files (i.e. fully reproducible documents)
+
+\
+**Presentation**
+
+- 10 minutes
+- Submit .Rmd and .html files
+
+
+## Your Benefits
+
+>- Be a hero: talk the talk, walk the walk
+>- Prove that you can complete a real world empirical study using actual (messy) data
+>- Master complete work flow: data access, data cleaning, analysis, visualization, data products
+>- Know how to create fully reproducible data products
+>- Learn a programming language (R) and an authoring language (markdown)
+
+
+# Seminar Syllabus
+
+
+## Course Schedule 266.018
+  
+| Date  | Time        | Room       | Topic                                                    |
+|------:| ----------- | ---------- | ---------------------------------------------------------|
+| 8.10. | 17:15—19:45 | K 033C     | Seminar overview, introduction to programming language R |
+|15.10. | 17:15—19:45 | K 033C     | Reproducible research, knitr                             |
+|22.10. | 17:15—19:45 | K 033C     | Exploratory data analysis, ggplot                        |
+|29.10. | 17:15—19:45 | K 033C     | Examples exploratory data analysis                       |
+| 5.11. | 17:15—19:45 | K 033C     | Statistical inference                                    |
+|12.11. | 17:15—19:45 | K 033C     | Regression models                                        |
+|19.11. | 17:15—19:45 | K 033C     | Preparation for team papers, presentations               |
+| 3.12. | 17:15—19:45 | K 033C     | Team Presentations                                       |
+
+
+
+## Recommended Reading
+
+1. David Diez, Cris Barr, and Mine Çetinkaya-Rundel (2014).
+    **Introductory Statistics with Randomization and Simulation.**   
+   A free PDF version is available at www.openintro.org.  
+
+2. Nina Zumel and John Mount (2014).  
+**Practical Data Science with R.**   
+
+3. Pervez N. Ghauri and Kjell Grønhaug (2010).   
+    **Research Methods in Business Studies.**   
+    Some copies are available in the JKU library.  
+
+4. Alternatively, for German speakers:  
+   Johannes M. Lehner and Alois Farthofer (2012). **Evidenzbasiertes Management.**
+
+
+
+# Eight Meetings
+
+
+
+## Reproducible Research
+
+<div class="columns-2">
+- Making Data, Analysis, and Results Available
+- Simplifying Data Analysis and Authoring
+- Markdown "language"
+- knitr: Dynamic Report Generation in R
+
+![R logo](../../assets/img/01/knit-logo.png)
+</div>
+
+
+## Exploratory Data Analysis
+
+- Accessing Data Sources
+- Subsetting Data
+- Summarizing Data
+- Graphics in R: ggplot
+
+
+## Examples Exloratory Data Analysis
+
+- Example 1: Healthy Life Years (Eurostat)
+- Example 2: R&D Staff (Worldbank)
+
+
+## Statistical Inference
+
+- Generating Conclusions About a Population From a Noisy Sample
+- Randomization, Sampling
+- Central Limit Theorem, Simulation
+- Confidence Interval
+- Hypothesis Testing
+
+
+
+## Regression Analysis
+
+- Regression Models are the Most Important Statistical Analysis Tool
+- Relates an Outcome to a Set of Predictors of Interest
+- How to Fit Regression Models
+- How to Interpret Coefficients
+- How to Investigate Residuals and Variability
+
+
+## Preparation for Team Presentations
+
+- Status report
+- Q&A
+
+
+## Team Presentations
+
+- Interactive Presentation and Discussion of Students' Research
+- Team building and prepartion for research project next week.
+
+
+# Requirements for Completion
+
+
+## Assignments, Attendance
+
+- Class Assignments: 60% (6 x 10 points)
+- Team research project: 40%
+- A minimum of 80% attendance is required.
+
+
+## Today's Assignment
+
+1. Install R and RStudio
+2. Complete swirl "R Programming Alt" lessons 1 thru 6.   
+    Send me an email notification for each completed lession:  
+    peter.putz@jku.at
+    
