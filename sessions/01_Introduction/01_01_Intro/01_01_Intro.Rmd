@@ -8,33 +8,18 @@ output:
     widescreen: true
     logo: ../../assets/img/JKUWappen.png
     css: ../../assets/css/jku.css
-    
 ---
 
 
-<style>
-table.rmdtable th {
-  color: white;
-  font-size: 18px;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
-  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-}
-</style>
-
 ## Today's Agenda
 
-<div class="columns-2">
 >- Evidence Based Management
 >- Data Science
+>- <div class="red2">**Your accomplishments at the end of the seminar**</div>
 >- Installation of R and RStudio
 >- Example: Working with R
 >- Learning R with swirl
 
-![R logo](../../assets/img/01/Rlogo-1.png)
-</div>
 
 
 # Motivation for this Course
@@ -120,7 +105,22 @@ In 2010, the [Economist](http://www.economist.com/node/15579717) published the a
 
 [Sharp Sight Labs, 2015](http://www.r-bloggers.com/why-you-should-learn-r-first-for-data-science/)
 
-## Why R? The Hands-On View
+
+
+
+## IEEE 2015 Ranking of Programming Languages
+
+![IEEE](../../assets/img/01/ieee_r.jpg)
+
+<br>
+
+[IEEE Spectrum](http://spectrum.ieee.org/computing/software/the-2015-top-ten-programming-languages)
+
+
+
+
+
+## Why ![R logo](../../assets/img/01/Rlogo-2.png)? The Hands-On View
 
 >- It is free
 >- It has a comprehensive set of packages
@@ -130,120 +130,12 @@ In 2010, the [Economist](http://www.economist.com/node/15579717) published the a
     * Data reporting
 >- It has one of the best development environments - Rstudio [http://www.rstudio.com/](http://www.rstudio.com/)
 >- It has an amazing ecosystem of developers
->- Packages are easy to install and "play nicely together"
-
-
-
-# Seminar Syllabus
-
-<!--
-## Course Schedule 266.018
-  
-| Date  | Time        | Room       | Topic                                                    |
-|------:| ----------- | ---------- | ---------------------------------------------------------|
-| 20.4. | 13:45—17:00 | MT 127     | Seminar overview, introduction to programming language R |                         
-| 27.4. | 13:45—17:00 | MT 127     | Reproducible research, knitr                             |
-| 11.5. | 13:45—17:00 | MT 127     | Descriptive data analysis, ggplot                        |
-| 18.5. | 13:45—17:00 | MT 127     | Statistical inference                                    |
-|  1.6. | 13:45—17:00 | MT 127     | Regression models                                        |
-|  8.6. | 13:45—17:00 | MT 127     | Team Presentations                                       |
--->
-
-## Course Schedule 266.000
-  
-| Date  | Time        | Room       | Topic                                                    |
-|------:| ----------- | ---------- | ---------------------------------------------------------|
-| 22.4. | 13:45—17:00 | S2 059     | Seminar overview, introduction to programming language R |                         
-| 29.4. | 13:45—17:00 | S2 059     | Reproducible research, knitr                             |
-| 13.5. | 13:45—17:00 | HF 9905    | Descriptive data analysis, ggplot                        |
-| 20.5. | 13:45—17:00 | HF 9905    | Statistical inference                                    |
-|  3.6. | 13:45—17:00 | HF 9905    | Regression models                                        |
-| 10.6. | 13:45—17:00 | HF 9905    | Team Presentations                                       |
+>- Packages (i.e. extensions) are easy to install and "play nicely together"
 
 
 
 
-## Recommended Reading
-
-1. David Diez, Cristopher Barr, and Mine Çetinkaya-Rundel (2014). **Introductory Statistics with Randomization and Simulation.**   
-   A free PDF version is available at www.openintro.org.  
-
-2. Nina Zumel and John Mount (2014).  
-**Practical Data Science with R.**   
-
-3. Pervez N. Ghauri and Kjell Grønhaug (2010).   
-    **Research Methods in Business Studies.**   
-    Some copies are available in the JKU library.  
-
-4. Alternatively, for German speakers:  
-   Johannes M. Lehner and Alois Farthofer (2012). **Evidenzbasiertes Management.**
-
-
-
-# Six Meetings
-
-
-
-## Reproducible Research
-
-<div class="columns-2">
->- Making Data, Analysis, and Results Available
->- Simplifying Data Analysis and Authoring
->- Markdown "language"
->- knitr: Dynamic Report Generation in R
-
-![R logo](../../assets/img/01/knit-logo.png)
-</div>
-
-## Descriptive Data Analysis
-
->- Accessing Data Sources
->- Subsetting Data
->- Summarizing Data
->- Graphics in R: ggplot
-
-
-## Statistical Inference
-
->- Generating Conclusions About a Population From a Noisy Sample
->- Randomization, Sampling
->- Central Limit Theorem, Simulation
->- Confidence Interval
->- Hypothesis Testing
-
-
-
-## Regression Analysis
-
->- Regression Models are the Most Important Statistical Analysis Tool
->- Relates an Outcome to a Set of Predictors of Interest
->- How to Fit Regression Models
->- How to Interpret Coefficients
->- How to Investigate Residuals and Variability
-
-
-## Team Presentations
-
->- Interactive Presentation and Discussion of Students' Research
->- Team building and prepartion for research project next week.
-
-
-# Requirements for Completion
-
-
-## Assignments, Attendance
-
-- Class Assignments: 60% (5 x 12 points)
-- Team research project: 40%
-- A minimum of 80% attendance is required.
-
-
-## Today's assignment
-
-1. Install R and RStudio
-2. Complete swirl "R Programming Alt" lessons 1 thru 6.   
-    Send me an email notification for each completed lession.
-    
+   
 # Acknowledgements
 
 ## Acknowledgements
@@ -257,6 +149,6 @@ Johns Hopkins Bloomberg School of Public Health
 
 and the  
 
-[Coursera Data Science Specialization Program](https://www.coursera.org/specialization/jhudatascience/1?utm_medium=courseDescripTop)
+[ Data Science Specialization Program](https://www.coursera.org/specialization/jhudatascience/1?utm_medium=courseDescripTop)
 
 </div>

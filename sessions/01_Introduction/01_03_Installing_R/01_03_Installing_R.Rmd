@@ -25,7 +25,7 @@ output:
 
 1. Navigate to the (Austrian) [R Project Site](http://cran.at.r-project.org)
 2. Click on [Download R for (Mac) OS X](http://cran.at.r-project.org/bin/macosx/) and select "install R for the first time"
-3. Download e.g. R-3.2.0.pkg
+3. Download e.g. R-3.2.2.pkg
 4. Follow instruction
 
 [Instructions on YouTube](https://youtu.be/_oRuJKIkPEM)
@@ -36,8 +36,8 @@ output:
 
 1. Navigate to [RStudio Download Page](http://www.rstudio.com/products/rstudio/download/)
 2. Select installer package for your OS. For example:
-    - RStudio 0.98.1103 - Windows XP/Vista/7/8
-    - RStudio 0.98.1103 - Mac OS X 10.6+ (64-bit)
+    - RStudio 0.99.484 - Windows Vista/7/8/10
+    - RStudio 0.98.484 - Mac OS X 10.6+ (64-bit)
 
 [Instructions on YouTube](https://youtu.be/bM7Sfz-LADM)
 
@@ -59,7 +59,7 @@ output:
     install.packages("swirl")
     ```
     
-2) Start `swirl`and load a course.  
+2) Start `swirl` and load a course.  
     Substitute the name of the course that you wish to install:
 
     ```{r, eval=FALSE}
@@ -68,7 +68,7 @@ output:
     swirl()
     ```
 
-For example, install_from_swirl("R Programming Alt") will install the R Programming course.  
+For example, `install_from_swirl("R Programming Alt")` will install the R Programming course.  
 **Please note that course names are case sensitive!**
 
 
