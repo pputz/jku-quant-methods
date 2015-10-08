@@ -37,7 +37,6 @@ summary(mtcars$mpg)
 table(mtcars$am)
 ```
 
-
 ## Fuel Effieciency by Transmission Type
 
 ```{r mpg_by_am}
