@@ -29,6 +29,8 @@ table.rmdtable th {
 - Reproducible Research
 - markdown
 - knitr
+- R Markdown Example
+- Assignments
 
 
 ## Acknowledgements
@@ -69,10 +71,9 @@ American Economic Review 100 (2): 573–78.](http://www.nber.org/papers/w15639.p
 
 ![Reinhart Rogoff](../../assets/img/02/RR_EINSA.jpg)
 
-\
 
-The paper argues that when "gross external debt reaches 60 percent of GDP",    
-a country' annual growth declined by two percent, and   
+The paper argues that when "gross external debt reaches 60 percent of GDP",
+a country' annual growth declined by two percent, and
 "for levels of external debt in excess of 90 percent" GDP growth was "roughly cut in half."
 
 
@@ -118,7 +119,7 @@ His class assignment - pick an economics paper and see if you can replicate the 
 
 **Replication is the gold standard**
 
-* New investigators, data, analytical methods, laboratories, instruments, etc.
+* New investigators, data, analytic methods, laboratories, instruments, etc.
 
 * Focuses on the validity of the scientific claim
 
