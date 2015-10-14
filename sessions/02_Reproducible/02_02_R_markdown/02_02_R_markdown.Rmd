@@ -30,7 +30,7 @@ table.rmdtable th {
 
 ## Reproducible Research in Practice {.build}
 
-Research paper + set of supplimentary materials?
+Research paper + set of supplementary materials?
 
 - processing code
 - analytic code
@@ -154,13 +154,13 @@ $$
 
 <pre class = 'prettyprint lang-r'>
     ```{r}`r ''`
-    n = 10
+    n <- 10
     rnorm(n)
     ```
 </pre>
 
 ```{r echo=FALSE}
-n = 10
+n <- 10
 rnorm(n)
 ```
 
@@ -170,13 +170,13 @@ This chunk produces 10 random numbers.
 
 <pre class = 'prettyprint lang-r'>
     ```{r random}`r ''`
-    n = 10
+    n <- 10
     rnorm(n)
     ```
 </pre>
 
 ```{r echo=FALSE}
-n = 10
+n <- 10
 rnorm(n)
 ```
 
@@ -188,8 +188,8 @@ Here the label is "random".
 ## Chunk option
 
 <pre class = 'prettyprint lang-r'>
-    ```{r random echo=FALSE}`r ''`
-    n = 10
+    ```{r random, echo=FALSE}`r ''`
+    n <- 10
     rnorm(n)
     ```
 </pre>
@@ -201,8 +201,8 @@ Here the label is "random".
 ## Evaluate
 
 <pre class = 'prettyprint lang-r'>
-    ```{r random eval=FALSE}`r ''`
-    n = 10
+    ```{r random, eval=FALSE}`r ''`
+    n <- 10
     rnorm(n)
     ```
 </pre>
@@ -213,7 +213,7 @@ Here the label is "random".
 ## Figures
 
 <pre class = 'prettyprint lang-r'>
-    ```{r histogram fig.height=4, fig.width=8} `r ''`
+    ```{r histogram, fig.height=4, fig.width=8} `r ''`
     x  <- rnorm(100)
     hist(x)
     ```

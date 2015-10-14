@@ -26,7 +26,7 @@ table.rmdtable th {
 
 ## 1. `swirl` Excerises
 
-Complete all lessions in "R Programming Alt"
+Complete lessons 7--12 of "R Programming Alt"
 
 No email notifications needed.
 
@@ -51,18 +51,10 @@ data(iris)
 str(iris)
 ```
 
-**Send me the .Rmd file. It can be html, doc or presentation. I need to be able to compile it.**
-
-
-## 3. Team Project
-
-Send me (peter.putz@jku.at) 1 email per team:
-
-1. Research questions you'd like to pursue
-2. Possible data source(s)
-
+**Send me (peter.putz@jku.at) the .Rmd file.**  
+I need to be able to compile it.
 
 
 ## Due Date
 
-Tuesday May 12, 2015
+Wednesday October 21, 2015

@@ -1,58 +1,139 @@
 ---
-title: "Exploration of iris Dataset"
+title: "Estimating Friction Coefficient for Breaking Cars"
 author: "Peter Putz"
-date: "April 27, 2015"
+date: "October 12, 2015"
 output:
-  word_document:
-    highlight: pygments
   html_document:
+    highlight: pygments
+  word_document:
     highlight: pygments
 ---
 
 ## Abstract
 
-In this paper we explore the dataset "cars". The data give the speed of cars and the distances taken to stop. Note that the data were recorded in the 1920s.
+In this paper we estimate the friction coefficient for breaking cars. The study is based on empirical data from the R dataset "cars". The results show that with a confidence level of 95% the friction coefficient lies between  0.193 and 0.241.
 
-## Data Set
 
-```{r dim}
+## Empirical Data
+
+The R dataset "cars"[^1] provides two data points: the speed of cars in mph and the distances taken to stop in feet. Note that the data were recorded in the 1920s.
+
+
+```{r dim, echo=FALSE, results='hide'}
+library(datasets)
+data("cars")
 dim(cars)
 ```
 
 The dataset consists of `r dim(cars)[1]` observations and `r dim(cars[2])` variables. The variable names are: `r names(cars)`
 
-```{r head}
+```{r head, echo=FALSE}
 head(cars, 5)
 ```
 
-## Theoretical Breaking Distance
+In a first step we create a new dataframe `cars_m` with all data converted to metric unit. The speed data are converted to meters per second (m/s) and the distances to meters (m).
 
-The theoretical breaking distance is determined by the intial speed and the friction coefficient:
+```{r conversion}
+cars_m <- data.frame(speed = cars$speed * 0.44704,
+                     dist = cars$dist * 0.3048)
+head(cars_m, 5)
+```
+
+
+## Theoretical Breaking Distance and Friction Coefficient
+
+The theoretical breaking distance is determined by the initial speed and the friction coefficient:
 
 $d = \frac{v^2}{2 \mu g}$
 
-d … breaking distance
+d … breaking distance (m)
 
-$\mu$ … friction coeficient
+v … speed (m/s)
 
-g … gravity of the Earth
+$\mu$ … friction coefficient (dimensionless scalar)
+
+g … gravity of the Earth ($\mathrm{m/s^2}$)
 
 
-Friction Coeficient: $\mu = \frac{v^2}{2dg}$
+Based on the equation above we can derive the friction coefficient as:
+
+$\mu = \frac{v^2}{2dg}$
+
+We will use this equation to calculate friction coefficients based on our empirical data.
 
 
 ## Measured Data
 
-```{r distance_plot}
-plot(dist ~ speed, data=cars,
-     main = "Breaking Distance over Speed")
+```{r distance_plot, fig.align='center', fig.height=6, fig.width=6}
+fig1 <- plot(dist ~ speed, data=cars,
+             xlim = c(0,30),
+             ylim = c(0,140),
+             main = "Breaking Distance over Speed",
+             xlab = "Speed in m/s",
+             ylab = "Breaking Distance in m")
 ```
+
+
+#### Calculating the Friction Coefficients
+
+Using the equation above we calculate the friction coefficient for each of the `r dim(cars_m)[1]` observations.
 
 ```{r friction}
 g  <- 9.81
-cars$friction  <- cars$speed^2/(2 * g * cars$dist)
-summary(cars$friction)
-hist(cars$friction)
-plot(friction ~ speed, data=cars)
+cars_m$friction  <- cars_m$speed^2/(2 * g * cars_m$dist)
+head(cars_m, 5)
 ```
 
+```{r hist}
+hist(cars_m$friction,
+     main = "Histogram of Friction Coefficient",
+     xlab = "Friction Coefficent")
+```
+
+
+Next, we calculate the mean friction coefficient and the confidence interval for a confidence level of 95%.
+
+```{r mean}
+fcMean <- mean(cars_m$friction)
+fcCI <- t.test(cars_m$friction, conf.level = 0.95)$conf.int
+```
+
+\
+
+**The mean of our measured friction coefficient is `r round(fcMean, 3)` with a confidence interval from `r round(fcCI[1],3)` to `r round(fcCI[2], 3)` based on a 95% confidence level.**
+
+\
+
+
+## Predicted Breaking Distance
+
+We use the measured mean friction coefficient to predict the breaking distance with the following equation:
+
+$d = \frac{v^2}{2 * `r round(fcMean, 3)` * 9.81}$
+
+\
+
+```{r predict}
+xValues <- seq(0, 15, by = 0.1)
+mean <- xValues^2/(2*fcMean*g)
+upper <- xValues^2/(2*fcCI[2]*g)
+lower <- xValues^2/(2*fcCI[1]*g)
+
+plot(dist ~ speed, data=cars_m,
+             xlim = c(0,15),
+             ylim = c(0,50),
+             main = "Predicted Breaking Distance",
+             xlab = "Speed in m/s",
+             ylab = "Breaking Distance in m")
+
+lines(xValues, mean, col = "red", lwd = 3)
+lines(xValues, upper, col = "red", lty = 2)
+lines(xValues, lower, col = "red", lty = 2)
+```
+
+## Summary
+
+We calculated the mean friction coefficient based on empirical data from the R dataset "cars" as `r round(fcMean, 3)` +/- `r round((fcCI[2]-fcCI[1])/2,3)` (95% confidence interval). We assumed that the friction coefficient is independent from the speed of a vehicle. This assumption needs to be critically investigated in further studies.
+
+[^1]: R Core Team (2015). R: A language and environment for statistical computing. R
+  Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.

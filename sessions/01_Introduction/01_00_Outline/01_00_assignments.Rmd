@@ -1,0 +1,44 @@
+---
+title: "Student Assignments"
+author: "Peter Putz"
+date: "October 13, 2015"
+output: html_document
+---
+
+\
+\
+\
+
+**Session 1 Introduction**
+
+ - Install R, RStudio
+ - swirl "R Programming Alt" lessions 1--6
+ 
+ 
+**Session 2 Reproducible Research**
+
+ - Complete all swirl lessions (7--12)
+ - Short Rmd paper using iris dataset
+
+ 
+**Session 3 Exploratory Analysis**
+
+ - swirl: Complete all 4 lessions in "Getting and Cleaning Data"
+ - Team project: Rmd draft; research question, data source, read data into R
+
+
+**Session 4 Exploratory Analysis**
+
+ - Individual: Draft, fragment of paper (70 lines of code)
+
+ 
+**Session 5: Inference**
+
+ - swirl?
+ - For you own paper: Present one hypothesis test
+ 
+ 
+**Session 6: Regression**
+
+ - swirl?
+ - For you own paper: Present on regression included inference
