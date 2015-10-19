@@ -121,6 +121,17 @@ $$
 ![markdown](../../assets/img/02/MarkdownChunk.png)
 
 
+## Installing R Markdown
+
+`rmarkdown` is not included in the R standard distribution.
+
+You can install the R Markdown package from CRAN as follows:
+
+```{r rmarkdown, eval=FALSE}
+install.packages("rmarkdown")
+```
+
+
 ## R Markdown Help
 
 - R Markdown Cheat Sheet
