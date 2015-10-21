@@ -35,6 +35,13 @@ How much time is typically spent in wrestling with the data and "beating it into
 [Dan Steinberg](http://info.salford-systems.com/blog/bid/299181/How-Much-Time-Needs-to-be-Spent-Preparing-Data-for-Analysis)
 
 
+
+## Recommended R Packages
+
+- `tidyr`: Get raw data ready for analysis
+- `dplyr`: Data manipulation (subset, group, etc.)
+
+
 # tidyr
 
 ## Tidy Data
@@ -53,7 +60,7 @@ tidyr provides three main functions for tidying your messy data:
 - `separate()`
 
 
-## gather() {.smaller}
+## `gather()` {.smaller}
 
 Takes multiple columns, and gathers them into key-value pairs: it makes "wide"" data longer.
 
@@ -76,11 +83,13 @@ messy
 print(messy)
 ```
 
-## gather()
+
+
+## `gather()`
 
 We have three variables (region, policy and sales), but only region is currently in a column. 
 
-We use gather() to gather the car and rental columns into key-value pairs of policy and sales:
+We use `gather()` to gather the car and rental columns into key-value pairs of policy and sales:
 
 ```{r}
 tidier <- gather(data = messy, key = key, value = sales, 
@@ -88,7 +97,9 @@ tidier <- gather(data = messy, key = key, value = sales,
 print(tidier)
 ```
 
-## spread()
+
+
+## `spread()`
 
 `spread()` is the reserve of `gather()`. It takes two columns (a key-value pair) and spreads them in to multiple columns, making “long” data wider.
 
@@ -96,7 +107,9 @@ print(tidier)
 spread(data = tidier, key = key, value = sales)
 ```
 
-## separate()
+
+
+## `separate()`
 
 Next we use separate() to split the key into location and time
 
@@ -110,18 +123,18 @@ head(tidy, 10)
 
 ## dplyr Verbs
 
-------------- | -----------------------------
-`filter()`    | subset rows
-`arrange()`   | sort rows
-`select()`    | subset colums
-`distinct()`  | get unique rows
-`mutate()`    | calculate new column
-`summarise()` | calclute summary stats (mean, max, ...)
-`sample_n()`  | subset random sample
+-------------  -----------------------------
+`filter()`     subset rows
+`arrange()`    sort rows
+`select()`     subset colums
+`distinct()`   get unique rows
+`mutate()`     calculate new column
+`summarise()`  calclute summary stats (mean, max, ...)
+`sample_n()`   subset random sample
+-------------  -----------------------------
 
 
-
-## filter()
+## `filter()`
 
 Subset data for regions RO and UU
 
@@ -144,7 +157,9 @@ x != y  | not equal                | \           | \
 
 **The output is always a logical vector (TRUE, FALSE, NA)**
 
-## filter()
+
+
+## `filter()`
 
 ```r
 filter(tidy, region == "RO" | region == "UU")
@@ -153,7 +168,10 @@ filter(tidy, region != "FR")
 ```
 The above statements yield the same results.
 
-## arrange()
+
+
+
+## `arrange()`
 
 Sort by id and policy.
 
@@ -161,7 +179,10 @@ Sort by id and policy.
 arrange(tidy, id, policy)
 ```
 
-## select(), distinct()
+
+
+
+## `select()`, `distinct()`
 
 Get a list of staff and the kind of policies sold.
 
@@ -169,7 +190,9 @@ Get a list of staff and the kind of policies sold.
 distinct(select(tidy, id, policy))
 ```
 
-## summarize()
+
+
+## `summarize()`
 
 Calculate sums over all regions.
 
@@ -178,7 +201,9 @@ res  <-  summarize(group_by(tidy, id, policy), subtotal = sum(sales))
 res
 ```
 
-## Piping with %>%
+
+
+## Piping with `%>%`
 
 ```r
 summarize(group_by(tidy, id, policy), subtotal = sum(sales))
@@ -190,6 +215,7 @@ tidy %>%
   group_by(id, policy) %>%
   summarize(subtotal = sum(sales))
 ```
+
 
 ## Calculating Margin Percentages 
 

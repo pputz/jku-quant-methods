@@ -24,32 +24,20 @@ table.rmdtable th {
 }
 </style>
 
-# Reading, Writing Data with Base R
 
 
-## Reading Data
-
-There are a few principal functions reading data into R.
-
------------------------- | ---------------------------------------------
-`read.table`, `read.csv` | reading tabular data
-`readLines`              | reading lines of a text file
-`load`                   | reading in saved workspaces
-`source`                 | reading in R code files (`inverse` of `dump`) 
-`dget`                   | reading in R code files (`inverse` of `dput`)
+# Reading Data Files Into R
 
 
 
+## Example: Reading a .csv File
 
-## Writing Data
+```{r read_csv2}
+setwd("~/Dropbox/JKU/jku-quant-methods/sessions/03_Exploratory")
+newAustrians <- read.csv2("03_01_Reading_Data/samples/einbuergerungen.csv")
+str(newAustrians[,1:8])
+```
 
-There are analogous functions for writing data to files
-
-- write.table
-- writeLines
-- save
-- dump
-- dput
 
 
 ## Sidenote: Get/set your working directory
@@ -64,16 +52,27 @@ There are analogous functions for writing data to files
 
 
 
-## Reading Data Files with read.table {.smaller}
+## English Vs. German `.csv` Files
+
+**Note:**
+
+- German .csv files are seperated with a ";". Use function `read.csv2()`.
+- English .csv files are seperated with a ",". Use function `read.csv()`.
+
+
+
+## Example: Reading Text File with read.table
 
 For small to moderately sized datasets, you can usually call read.table without specifying any other arguments
 
-```r
-setwd("/Users/pp/Desktop/samples/")
-getwd()
-data <- read.table("co2_mm_gl.txt")
+```{r co2}
+setwd("~/Dropbox/JKU/jku-quant-methods/sessions/03_Exploratory")
+co2 <- read.table("03_01_Reading_Data/samples/co2_mm_gl.txt")
+str(co2)
 ```
 
+
+## `read.table()`
 R will automatically
 
 - skip lines that begin with a #
@@ -86,7 +85,7 @@ Telling R all these things directly makes R run faster and more efficiently.
 
 
 
-## read.table
+## `read.table()` cont'd
 
 If needed, use the following arguments:
 
@@ -111,6 +110,21 @@ With much larger datasets, doing the following things will make your life easier
 
 \
 **Alternative**: Use package `readr`
+
+
+
+## Summary: Reading/Writing Data with Base R
+
+----------------------------------------  ---------------------------------------------
+`read.table`, `read.csv`; `write.table`   tabular data
+`readLines`; `writeLines`                 lines of a text file
+`load`; `save`                            saved workspaces
+`source`; `dump`                          R code files (`inverse` of `dump`) 
+`dget`; `dput`                            R code files (`inverse` of `dput`)
+----------------------------------------  ---------------------------------------------
+
+
+
 
 
 <!--
@@ -226,7 +240,7 @@ data <- read.csv("foo.txt")
 
 `writeLines` takes a character vector and writes each element one line at a time to a text file.
 
--->
+
 
 ## Reading Lines of a Text File
 
@@ -239,7 +253,94 @@ x <- readLines(con)
 head(x)
 ```
 
+
+-->
+
+
+#  Packages For Reading Data
+
+
+## Useful Packages
+
+------------  ------------------------
+readr         reaplacement for read.table, read.csv
+readxl        Excel files
+foreign       SPSS, SAS, Stata, etc.
+XML           [XML](http://www.w3schools.com/xml/xml_whatis.asp) (E**x**tensible **M**arkup **L**anguage)
+jsonlite      [JSON](http://www.w3schools.com/json/default.asp) (**J**ava**S**cript **O**bject **N**otation)
+------------  ------------------------
+
+
+
+## readr
+
+`readr` is under active development. It makes it easy to read many types of tabular data:
+
+- Delimited files with `read_delim()`, `read_csv()`, `read_tsv()`, `and read_csv2()`.
+- Fixed width files with `read_fwf()`, and `read_table()`.
+- Web log files with `read_log()`.
+
+
+## readr Example {.smaller}
+
+```{r, message=FALSE}
+library(readr); library(dplyr)
+setwd("~/Dropbox/JKU/jku-quant-methods/sessions/03_Exploratory")
+immigrations <- read_csv2("03_01_Reading_Data/samples/einbuergerungen.csv")
+immigrations
+```
+
+
+## readxls {.smaller}
+
+Supports both the legacy .xls format and the modern xml-based .xlsx format.
+
+```{r}
+library(readxl)
+setwd("~/Dropbox/JKU/jku-quant-methods/sessions/03_Exploratory")
+
+#Read by tab position
+cars <- read_excel("03_01_Reading_Data/samples/datasets.xlsx", 2)
+head(cars)
+```
+
+
+
+
 # Downloading Files From the Internet
+
+
+
+## Example - Statistik Austria {.smaller}
+
+Statistic Austria provides sample data for teaching and research:
+
+\
+
+**incometaxes.rdata**
+
+\
+
+http://www.statistik.at/web_de/services/mikrodaten_fuer_forschung_und_lehre/kostenloser_download_von_testdaten/index.html
+
+
+
+## Example - Income Taxes {.smaller}
+
+```{r taxes}
+setwd("~/Desktop")
+taxUrl <- "http://www.statistik.at/web_de/static/integrierten_lohn-_und_einkommensteuerstatistik_2011_sds_datensatz_rdata_077823.rdata"
+if(!file.exists("data")){
+  dir.create("data")
+  download.file(taxUrl,destfile="./data/incometaxes.rdata")
+}
+list.files("./data")
+```
+```{r load}
+load("~/Desktop/data/incometaxes.rdata")
+head(SDS_INT_ST2011, 3)
+```
+
 
 
 ## Checking for and creating directories
@@ -266,32 +367,6 @@ if(!file.exists("data")){
 
 
 
-## Example - Statistik Austria {.smaller}
-
-
-Statistic Austria provides sample data for teaching and research:
-
-http://www.statistik.at/web_de/services/mikrodaten_fuer_forschung_und_lehre/kostenloser_download_von_testdaten/index.html
-
-
-
-## Example - Income Taxes {.smaller}
-
-```{r taxes}
-setwd("~/Desktop")
-taxUrl <- "http://www.statistik.at/web_de/static/integrierten_lohn-_und_einkommensteuerstatistik_2011_sds_datensatz_rdata_077823.rdata"
-if(!file.exists("data")){
-  dir.create("data")
-  download.file(taxUrl,destfile="./data/incometaxes.rdata")
-}
-list.files("./data")
-```
-```{r load}
-load("~/Desktop/data/incometaxes.rdata")
-head(SDS_INT_ST2011, 3)
-```
-
-
 
 ## Some notes about download.file()
 
@@ -303,65 +378,20 @@ head(SDS_INT_ST2011, 3)
 
 
 
-#  Packages For Reading Data
-
-
-## Useful Packages
-
------------- | ------------------------
-readr        | reaplacement for read.table, read.csv
-readxl       | Excel files
-foreign      | SPSS, SAS, Stata, etc.
-XML          | [XML](http://www.w3schools.com/xml/xml_whatis.asp) (E**x**tensible **M**arkup **L**anguage)
-jsonlite     | [JSON](http://www.w3schools.com/json/default.asp) (**J**ava**S**cript **O**bject **N**otation)
-
-
-## readr
-
-`readr` is under active development. It makes it easy to read many types of tabular data:
-
-- Delimited files with `read_delim()`, `read_csv()`, `read_tsv()`, `and read_csv2()`.
-- Fixed width files with `read_fwf()`, and `read_table()`.
-- Web log files with `read_log()`.
-
-
-## readr Example {.smaller}
-
-```{r, message=FALSE}
-library(readr); library(dplyr)
-url <- url("http://www.statistik.at/web_de/static/einbuergerungen-datensatz_2005_forschung_und_lehre_024892.csv")
-einwanderungen  <- read_csv2(url)
-einwanderungen
-```
-
-
-## readxls {.smaller}
-
-Supports both the legacy .xls format and the modern xml-based .xlsx format.
-
-```{r}
-library(readxl)
-# Use a excel file included in the package
-sample <- system.file("extdata", "datasets.xlsx", package = "readxl")
-
-# Read by tab position
-head(read_excel(sample, 2))
-```
-
-
 # Packages for Specific Data Sources
 
 ## Packages
 
------------- | ------------------------
-eurostat     | Statistical office of the European Union
-Quandl       | Commercial provider of global datasets
-
+------------  ------------------------
+eurostat      Statistical office of the European Union
+Quandl        Commercial provider of global datasets
+------------  ------------------------
 
 ## Eurostat Example {.smaller}
 
 ```{r eurostatToc, results='asis'}
 library(eurostat)
+library(knitr)
 
 # data sets on employment
 kable(head(search_eurostat("employment"), n = 2))
@@ -378,12 +408,30 @@ dat <- get_eurostat(id, time_format = "num")
 
 ## Quandl Example
 
-```{r quandl, warning=FALSE, message=FALSE, eval=FALSE}
+United States GDP at Constant Prices, % change
+
+```{r quandl, warning=FALSE, message=FALSE}
 library(Quandl)
-Quandl.auth("Gxb4ms5yr8hZuqZpQ3DX")
-mydata <- Quandl("ODA/USA_NGDP_RPCH", )
+setwd("~/Desktop")
+if(!file.exists("quandldata")){
+  dir.create("quandldata")
+  mydata <- Quandl("ODA/USA_NGDP_RPCH")
+  dput(mydata, file = "quandldata/usgdp.R")
+}
+usgdp <- dget("quandldata/usgdp.R")
+head(usgdp)
 ```
 
-**Last time I tried, I could not get the package to work correctly.**
+To get help: [https://www.quandl.com/help/r](https://www.quandl.com/help/r)
 
-However, you can always download the data and use e.g. `readr`.
+
+# Recommended Data Sources
+
+## Recommended Data Sources
+
+---------------------------------------------------------  ------------------------------------------------
+[Eurostat](http://ec.europa.eu/eurostat)                   European statistics
+[Worldbank](http://data.worldbank.org)                     Development in countries around the world
+[Quandl](https://www.quandl.com)                           Finance and economic data
+[UC Irvine](http://archive.ics.uci.edu/ml/datasets.html)   Machine learning data repository
+---------------------------------------------------------  ------------------------------------------------

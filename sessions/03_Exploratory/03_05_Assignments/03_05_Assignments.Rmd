@@ -10,21 +10,21 @@ output:
     css: ../../assets/css/jku.css
 ---
 
+## 1. Team Project
 
-<style>
-table.rmdtable th {
-  color: white;
-  font-size: 18px;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
-  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
-}
-</style>
+First draft of your team paper (.Rmd file):
+
+1. Abstract: research question, data source
+2. Read your data into R.
+3. Briefly describe your data.
+
+\
+
+**Due date:** October 28, 2015
 
 
-## 1. `swirl` Excerises
+
+## 2. `swirl` Excerises
 
 Complete all 4 lessions in "Getting and Cleaning Data"
 
@@ -34,18 +34,10 @@ install_from_swirl("Getting and Cleaning Data")
 swirl()
 ```
 
-Send email notifications to peter.putz@jku.at
-
-\
 Note: Downloading the course might take a minute or two.
 
-## 2. Team Project
+\
 
-1. Read your data into R.
-2. Tidy/clean your data.
+Send email notifications to peter.putz@jku.at
 
-
-
-## Due Date
-
-Sunday May 17, 2015
+**Due Date:** November 4, 2015
