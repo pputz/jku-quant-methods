@@ -25,12 +25,15 @@ table.rmdtable th {
 
 
 ## Hypothesis testing
-* Hypothesis testing is concerned with making decisions using data
-* A null hypothesis is specified that represents the status quo,
-  usually labeled $H_0$
-* The null hypothesis is assumed true and statistical evidence is required
-  to reject it in favor of a research or alternative hypothesis 
 
+- Hypothesis testing is concerned with **making decisions** using data
+- A null hypothesis is specified that represents the **status quo**,
+  usually labeled **$H_0$**
+- The null hypothesis is assumed true and **statistical evidence is required
+  to reject** it in favor of a research or alternative hypothesis 
+
+
+# Test Strategy
 
 
 ## Example
@@ -315,13 +318,64 @@ qt((1-0.05/2), 15)
 
 
 
-## T test in R
+# t-tests in R
+
+## Example 1: Father vs. Son Heights
+
 ```{r, message=FALSE}
 library(UsingR); data(father.son)
-t.test(father.son$sheight - father.son$fheight)
+head(father.son, 5)
 ```
 
-  
+
+## Example 1 cont'd {.smaller}
+
+Compare means of two paired variables with **one sample t-test**.
+
+$H_0$: Difference between father and son heights $= 0$.  
+$H_a$: Diffenence in means $\neq 0$.
+
+```{r}
+t.test(father.son$fheight - father.son$sheight)
+```
+
+
+
+## Example 1 cont'd {.smaller}
+
+Same test with **two sample paired t-test**
+
+```{r}
+library(tidyr); fs <- gather(father.son, person, height)
+head(fs, 3)
+t.test(height ~ person, data = fs, paired = TRUE, alternative = "two.sided")
+```
+
+
+## Example 2 {.smaller}
+
+**Two sample t test** (not paired)
+
+```{r}
+head(iris, 3)
+sv <- iris[iris$Species %in% c("setosa", "versicolor"),]
+t.test(Sepal.Length ~ Species, data = sv, conf.level = 0.99)
+```
+
+
+## Example 3 {.smaller}
+
+**ANOVA**
+
+$H_0: \mu_{setosa} = \mu_{versicolor} = \mu_{virginia}$  
+$H_a:$ not all $\mu_i$ ($i =$ setosa, versicolor, virginia) are equal
+
+```{r}
+lm <- lm(Sepal.Length ~ Species, data = iris)
+anova(lm)
+```
+
+
 
 ## P-values
 * The P-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than would be observed by chance alone
@@ -342,6 +396,9 @@ pt(0.8, 15, lower.tail = FALSE)
 * If the P-value is less than $\alpha$ you reject the null hypothesis 
 * For two sided hypothesis test, double the smaller of the two one
   sided hypothesis test P-values
+
+
+# Power of Hypothesis Test
 
 
 

@@ -11,6 +11,21 @@ output:
     
 ---
 
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+
 ## Paper (32 pts) {.smaller}
 
 - 1 Proper title
@@ -36,3 +51,18 @@ output:
 - 2 Main Findings
 - 2 Charts, properly labeled
 - 2 Overall quality of presentation
+
+
+
+## Note on Seminar Grades
+
+- Final paper -- minimum points to pass: 20
+
+
+Points       |  Grade
+------------ | --------------
+0 - 56       | NGD(5)
+57 - 64      | GEN(4)
+65 - 72      | BEF(3)
+63 - 80      | GUT(2)
+81 - 88      | SGT(1)

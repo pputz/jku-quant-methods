@@ -43,16 +43,19 @@ table.rmdtable th {
 [Khan Academy. Inferential Statistics](https://www.khanacademy.org/math/probability/statistics-inferential)
 
 
-## Note on Seminar Grades
+## Assignment
 
-- No assignment for "Statistical Inference" class.
-- Final paper -- minimum points to pass: 20
+Pick a topic from your own team paper:
+
+- Define a set of hypotheses ($H_0$ and $H_a$)
+- Visualize the group samples with a chart (e.g. boxplot)
+- Perform a formal hypothesis test (t-test, ANOVA)
+- Describe the results in plain language
+
+Submit .Rmd and .html files
+
+\
+
+**Due Date:** Wednesday, Nov. 8th
 
 
-Points       |  Grade
------------- | --------------
-0 - 56       | NGD(5)
-57 - 64      | GEN(4)
-65 - 72      | BEF (3)
-63 - 80      | GUT (2)
-81 - 88      | SGT(1)
