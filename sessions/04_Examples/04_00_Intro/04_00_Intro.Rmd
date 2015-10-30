@@ -15,37 +15,30 @@ output:
 ## Today's Agenda
 
 
+>- Last assignment, new assignment
+>- Visualization with ggplot2
 >- Example 1: Healthy Life Years (Eurostat)
 >- Example 2: R&D Staff (Worldbank)
->- Preparation Final Paper
-     - Questions re data analysis
-     - Could you present on Wednesday, June 10th?
 
 
-## Requirements Final Paper, Presentation {.smaller}
-
-**Paper**
-
-- 5-10 pages
-- Structure: 
-    - Abstract
-    - Description of data
-    - Exploratory/descriptive analysis including charts
-    - Hypotheses tests (if applicable)
-    - Summary
-- Submit .Rmd file
-
-\
-**Presentation**
-
-- 10 minutes
-- Submit .Rmd file
 
 
-## Assignment (Individual)
+## Assignments (Individual)
 
-- Draft/fragments of paper
-- .Rmd file
-- 70 lines minimum (35 lines unique code)
-- include "sessionInfo()"
-- Due date: Tuesday, June 2nd
+1. `swirl` exercises: complete all 4 lessions in "Getting and Cleaning Data"
+
+2. Draft/fragment of paper
+    - continue working on your group paper (individually!)
+    - add code for data cleaning and exploratory analysis
+    - .Rmd file
+    - 70 lines minimum (35 lines unique code)
+    - include "sessionInfo()"
+    - Due date: Wednesday, November 3rd
+    
+    
+
+## Recommended Reading
+
+Roger D. Peng (2015). Exploratory Data Analysis with R. https://leanpub.com/exdata
+
+Roger D. Peng (2015). Report Writing for Data Science in R. https://leanpub.com/reportwriting
