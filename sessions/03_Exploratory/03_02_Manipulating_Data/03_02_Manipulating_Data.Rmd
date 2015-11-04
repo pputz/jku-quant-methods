@@ -66,7 +66,7 @@ Takes multiple columns, and gathers them into key-value pairs: it makes "wide"" 
 
 The following data set represents four insurance sales reps and the number of car and home policies they sold in different regions.
 
-```{r, message=FALSE}
+```{r, message=FALSE, echo=FALSE}
 library(tidyr); library(dplyr)
 set.seed(10)
 messy <- data.frame(
@@ -78,7 +78,7 @@ messy <- data.frame(
   car.FR = sample(20:120, 4, replace=T),
   home.FR = sample(20:120, 4, replace=T)
 )
-messy
+
 
 print(messy)
 ```
