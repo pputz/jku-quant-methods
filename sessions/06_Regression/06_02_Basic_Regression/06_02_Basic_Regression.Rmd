@@ -1,0 +1,387 @@
+---
+title: "Simple Linear Regression"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+
+# {.segue .quote}
+
+**Regression models are the workhorses of data science.**
+
+**They are the most well described, practical and theoretically understood models in statistics.**  
+
+**A data scientist well versed in regression models will be able to solve an incredible array of problems.**
+
+Brian Caffo, 2015
+
+
+
+## Definition, Terminology
+
+In statistics, **linear regression** is an approach for  
+modeling the relationship between a  
+scalar dependent variable (predicted outcome) and  
+one or more explanatory variables (predictor) denoted X. 
+
+1.  **Simple linear regression**: one explanatory variable
+2.  **Mulitple linear regression**: more than one explanatory variables
+3.  **Multivariate linear regression**: prediction of multiple correlated dependent variables (not covered in this class).
+
+[See Wikipedea](https://en.wikipedia.org/wiki/Linear_regression)
+
+
+
+## Basic Example: Diamond Data
+
+```{r, echo=FALSE, message=FALSE, fig.width=4, fig.height=4, fig.align='center'}
+library(UsingR); library(ggplot2); data("diamond")
+d <- ggplot(diamond, aes(carat, price))
+d <- d + geom_point(alpha = 0.5, size = 4)
+d <- d + scale_x_continuous("Mass (carats)", limits = c(0, 0.4))
+d <- d + scale_y_continuous("Price (SIN $)", limits = c(0, 1200))
+d <- d + theme_classic()
+d
+```
+
+Use `data("diamond")` from `library(UsingR)`
+
+
+## Straight Line with Best Fit {.smaller}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=4, fig.align='center'}
+d <- ggplot(diamond, aes(carat, price))
+d <- d + geom_point(alpha = 0.5, size = 4)
+d <- d + scale_x_continuous("Mass (carats)", limits = c(0, 0.4))
+d <- d + scale_y_continuous("Price (SIN $)", limits = c(0, 1200))
+d <- d + theme_classic()
+d <- d + stat_smooth(method = "lm", se=FALSE, fullrange = TRUE, lwd=1)
+d
+```
+
+$Y = \beta_0 + \beta_1 X + \epsilon_i$
+
+$\beta_0$ … Intercept at $X=0$  
+$\beta_1$ … Slope  
+$\epsilon_i$  … Error $\sim N(0, \sigma^2)$
+
+
+# Estimating Regression Coefficients
+
+
+## Best Fit: Least Square Estimate
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=4, fig.align='center'}
+fit <- lm(price ~ carat, data = diamond)
+yhat <- predict(fit)
+beta0 <- fit$coef[1]
+beta1 <- fit$coef[2]
+d <- ggplot(diamond, aes(carat, price))
+d <- d + geom_point(alpha = 0.5, size = 4)
+d <- d + scale_x_continuous("Mass (carats)", limits = c(0.2, 0.3))
+d <- d + scale_y_continuous("Price (SIN $)", limits = c(450, 750))
+d <- d + theme_classic()
+d <- d + geom_abline(intercept=beta0, slope=beta1, col = "blue", lwd=1)
+d <- d + geom_segment(aes(x=carat, y=price, xend=carat, yend=yhat), col="red", lwd=1)
+d
+```
+
+$$
+\text{Find min for} \sum_{i=1}^n(Y_i - \beta_0 - \beta_1 X_i)^2
+$$
+
+
+## Least Square Estimates
+
+$$
+\hat \beta_1 = \frac{\sum_{n=1}^n (x_i - \bar x)(y_i-\bar y)}{\sum_{n=1}^n (x_i-\bar x)^2}
+$$
+
+\
+
+$$
+\hat\beta_0 = \bar y - \hat \beta_1 \bar x
+$$
+
+
+
+## Least Square Estimate in R
+
+```{r}
+x <- diamond$carat; y <- diamond$price
+beta1hat <- sum((x - mean(x)) * ((y - mean(y)))) / 
+    sum((x - mean(x))^2)
+
+beta0hat <- mean(y) - beta1hat * mean(x)
+
+beta0hat; beta1hat
+```
+
+
+## Linear Regression Model in R
+
+```{r}
+fit <- lm(price ~ carat, data = diamond)
+fit
+```
+
+**Intercept:** The price of a 0 carart diamond is SIN$ 
+`r round(fit$coef[1], 1)`?!
+
+**Slope:** For an increase in mass of 1 carat the price for a diamond 
+increases SIN$ `r round(fit$coef[2], 1)`.
+
+
+
+## Centering
+
+By substracting the mean from the variable carat we are getting a more interpretable intercept. This process is called **centering**.
+
+```{r}
+fitCentered <- lm(price ~ I(carat - mean(carat)), diamond)
+fitCentered$coef
+```
+
+**The expected price for an average sized diamond of `r round(mean(diamond$carat), 3)` carat is SIN$ `r round(fitCentered$coef[1], 1)`.**
+
+
+## Scaling
+
+1 carat increase in a diamond is pretty large.  
+How about 1/10th of a carat?
+
+```{r}
+fitScaled <- lm(price ~ I(carat * 10), diamond)
+fitScaled$coef
+```
+
+**The expected price increase for a diamond 
+is SIN$ `r round(fitScaled$coef[2], 2)` per 0.1 carat.**
+
+
+
+# Prediction
+
+
+## Prediction of new values
+
+Let's predict the prices of diamonds with 0.16, 0.27 and 0.34 carat.
+
+```{r, }
+newd <- c(0.16, 0.27, 0.34)
+coef(fit)[1] + coef(fit)[2] * newd
+predict(fit, newdata = data.frame(carat = newd))
+```
+
+
+
+# Residuals, Variability
+ 
+
+## Linear Model
+
+$\text{price} = -259.6 + 3721 \times \text{carat} + \epsilon$
+
+```{r, echo=FALSE, fig.width=4, fig.height=4, fig.align='center'}
+fit <- lm(price ~ carat, data = diamond)
+yhat <- predict(fit)
+beta0 <- fit$coef[1]
+beta1 <- fit$coef[2]
+d <- ggplot(diamond, aes(carat, price))
+d <- d + geom_segment(aes(x=carat, y=price, xend=carat, yend=yhat), col="red", lwd=1)
+d <- d + geom_point(alpha = 0.5, size = 4)
+d <- d + scale_x_continuous("Mass (carats)")
+d <- d + scale_y_continuous("Price (SIN $)")
+d <- d + theme_classic()
+d <- d + geom_abline(intercept=beta0, slope=beta1, col = "blue", lwd=1)
+d
+```
+
+
+## Residuals
+
+Ploting only the residuals (estimand for $\epsilon$):
+
+```{r, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+x <- diamond$carat
+e <- resid(fit)
+
+p <- ggplot(data.frame(x=x, e=e), aes(x, e))
+p <- p + geom_segment(aes(x=x, y=0, xend=x, yend=e), col="red", lwd=0.7)
+p <- p + geom_hline(lwd = 0.7, color = "blue")
+p <- p + geom_point(alpha = 0.5, size = 4)
+p <- p + scale_x_continuous("Mass (carats)")
+p <- p + scale_y_continuous("Residuals (SIN $)")
+p <- p + theme_classic()
+p
+```
+
+
+
+## Properties of the Residuals
+
+- Residuals are useful for investigating poor model fit.
+- Residual plots highlight poor model fit.
+- Positive residuals are above the line, negative residuals are below.
+- Residuals can be thought of as the outcome ($Y$) with the
+  linear association of the predictor ($X$) removed.
+- One differentiates residual variation (variation after removing
+the predictor) from systematic variation (variation explained by the regression model).
+- $E[e_i] = 0$.
+- If an intercept is included, $\sum_{i=1}^n e_i = 0$
+- If a regressor variable, $X_i$, is included in the model $\sum_{i=1}^n e_i X_i = 0$. 
+
+
+
+## Residuals
+
+- Model $Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$.
+- Observed outcome $i$ is $Y_i$ at predictor value $X_i$
+- Predicted outcome $i$ is $\hat Y_i$ at predictor value $X_i$ is
+  $$
+  \hat Y_i = \hat \beta_0 + \hat \beta_1 X_i
+  $$
+- A residual is the line between the observed and predicted outcome
+  $$
+  e_i = Y_i - \hat Y_i
+  $$
+- Least squares minimizes $\sum_{i=1}^n e_i^2$
+- The $e_i$ can be thought of as estimates of the $\epsilon_i$.
+
+
+
+## Example: Non-linear Data {.centered}
+
+```{r, echo = FALSE, fig.height=4.5, fig.width=4.5}
+x <- runif(100, -3, 3); y = x + sin(x) + rnorm(100, sd = .2); 
+g <- ggplot(data.frame(x = x, y = y), aes(x = x, y = y))
+g <- g + geom_smooth(method = "lm", colour = "blue", lwd = 1,  se=FALSE)
+g <- g + geom_point(size = 4, colour = "black", alpha = 0.4)
+g <- g + theme_classic()
+g
+```
+
+## Residual Plot of Non-Linear Data {.centered}
+
+```{r, echo = FALSE, fig.height=4.5, fig.width=4.5}
+g <- ggplot(data.frame(x = x, y = resid(lm(y ~ x))), 
+           aes(x = x, y = y))
+g <- g + geom_hline(yintercept = 0, size = 1, color = "blue"); 
+g <- g + geom_point(size = 4, colour = "black", alpha = 0.4)
+g <- g + xlab("x") + ylab("Residual")
+g <- g + theme_classic()
+g
+```
+
+
+## Estimating Residual Variation
+
+- Model $Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$.
+- The ML estimate of $\sigma^2$ is $\frac{1}{n}\sum_{i=1}^n e_i^2$,
+the average squared residual. 
+- Most people use
+  $$
+  \hat \sigma^2 = \frac{1}{n-2}\sum_{i=1}^n e_i^2.
+  $$
+- The $n-2$ instead of $n$ is so that $E[\hat \sigma^2] = \sigma^2$
+
+
+
+## Diamond Example
+
+```{r, echo = TRUE}
+y <- diamond$price; x <- diamond$carat; n <- length(y)
+fit <- lm(y ~ x)
+summary(fit)$sigma
+sqrt(sum(resid(fit)^2) / (n - 2))
+```
+
+
+
+## Summarizing Variation
+
+- The total variability in our response is the variability around an intercept
+(think mean only regression) $\sum_{i=1}^n (Y_i - \bar Y)^2$
+- The regression variability is the variability that is explained by adding the
+predictor $\sum_{i=1}^n  (\hat Y_i - \bar Y)^2$
+- The error variability is what's leftover around the regression line
+$\sum_{i=1}^n (Y_i - \hat Y_i)^2$
+- Neat fact
+$$
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
+$$
+
+
+
+## R Squared
+
+- R squared is the percentage of the total variability that is explained
+by the linear relationship with the predictor.
+$$
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+$$
+
+```{r}
+summary(fit)$r.squared
+```
+
+- The the predictor mass (in carat) explains `r round(summary(fit)$r.squared*100, 1)`%
+of the variability in diamond prices.
+
+
+
+## Appendix: `lm()` in R {.smaller}
+
+```{r}
+fit <- lm(price ~ carat, data = diamond)
+fit
+```
+
+
+## `lm()` in R cont'd {.smaller}
+
+```{r}
+summary(fit)
+```
+
+
+## Acknowledgements {.centered}
+
+\
+\
+\
+
+This class and many slides were inspired by:
+
+**Brian Caffo, Jeff Leek, and Roger Peng**   
+Department of Biostatistics   
+Johns Hopkins Bloomberg School of Public Health   
+
+and the  
+
+[Coursera Data Science Specialization Program](https://www.coursera.org/specialization/jhudatascience/1?utm_medium=courseDescripTop)
+
+
+
