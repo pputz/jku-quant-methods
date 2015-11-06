@@ -45,7 +45,8 @@ table.rmdtable th {
 
 ## Assignment
 
-Pick a topic from your own team paper:
+Pick a topic from your own team paper:  
+(or pick an R dataset of your choice)
 
 - Define a set of hypotheses ($H_0$ and $H_a$)
 - Visualize the group samples with a chart (e.g. boxplot)
@@ -56,6 +57,6 @@ Submit .Rmd and .html files
 
 \
 
-**Due Date:** Wednesday, Nov. 8th
+**Due Date:** Wednesday, Nov. 10th
 
 
