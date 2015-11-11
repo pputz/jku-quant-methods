@@ -1,0 +1,130 @@
+---
+title: "Do Manual Transmissions Improve Gas Mileage?"
+author: "Peter Putz"
+date: "November 21, 2014"
+output: 
+  rmarkdown::tufte_handout:
+        highlight: tango
+---
+
+\begin{abstract}
+In this paper\footnote{This paper is the response to an assignment for the Coursera course "Regression Models" by Brian Caffo, Jeff Leek, and Roger Peng.} we investigate whether an automatic or manual transmission is better for gas mileage and if so, how big the difference is. Unfortunately, the findings indicate that the available data is not sufficient for a conclusive answer.
+\end{abstract}
+
+
+\newthought{The Dataset} for this analysis is "mtcars" from the "R datasets package". It was extracted from the 1974 *Motor Trend* US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+```{r load, echo=FALSE, results='hide'}
+library(datasets)
+data(mtcars)
+```
+
+```{r am_means, echo=FALSE}
+am_means <- round(with(mtcars, tapply(mpg, am, mean)),1)
+```
+
+```{r box_1, fig.width = 4, fig.height = 4, dev='tikz', fig.margin = TRUE, fig.cap = "Mileage for automatic vs. manual transmissions", echo=F}
+library(ggplot2)
+library(scales)
+ggplot(mtcars, aes(factor(am), mpg)) + 
+    geom_boxplot() + 
+    theme_bw() +
+    scale_x_discrete(name="Transmission Type", breaks=c("0", "1"), labels=c("automatic", "manual")) +
+    scale_y_continuous(name="Fuel Efficiency [mpg]")
+```
+
+An *exploratory analysis* suggests that the average mileage of cars with manual transmissions is `r am_means[2]` mpg compared to `r am_means[1]` mpg for automatic transmissions. 
+A two sample t-test shows that this difference is statistically significant 
+(p = `r round(t.test(mtcars[mtcars$am==0,1],mtcars[mtcars$am==1,1])$p.value,3)`).
+
+In the following sections we will investigate whether this finding is confounded by other factors and if so, what impact, if any, the transmission type actually has onto a car's fuel efficiency.
+
+
+
+\newthought{Our initial model} is guided by physics: "To the first order, fuel economy is essentially inversely proportional to auto mass (...)"[^hafemeister].
+
+```{r model1, results='asis', echo=1:1}
+model1 <- lm(mpg ~  wt, mtcars)
+
+wt.conf <- confint(model1, "wt", level = 0.95)
+wt.int <- round(abs(wt.conf[1]-wt.conf[2])/2, 2)
+
+library(xtable)
+options(xtable.comment = FALSE)
+model1.table <- xtable(model1)
+print(model1.table)
+```
+\centering $R_{adj}^2$ = `r summary(model1)$adj.r.squared`
+\vspace{0em}
+\justify
+
+```{r model1_plot, fig.height=2.5, fig.width=8, dev='tikz', fig.fullwidth = TRUE, echo=F}
+par(mfrow=c(1,3))
+
+with(mtcars, plot(wt, mpg, col=factor(am),
+                  font.main=1, main="(2a) mpg = 37.3 - 5.35wt",
+                  ylab="Fuel efficiency [mpg]", xlab="Weight"))
+abline(v=3, col="blue")
+abline(model1, col="red")
+legend("topright", c("manual", "automatic"), 
+       pch=1, col=c('red','black'))
+
+with(mtcars, plot(fitted.values(model1), resid(model1), col=factor(am),
+                  font.main=1, main="(2b) Residual Plot",
+                  ylab="Residuals", xlab="Fitted Values"))
+abline(h=0)
+
+qqnorm(residuals(model1), ylab = "Residuals [mpg]", 
+       xlab = "Theoretical Quantiles",
+       font.main=1, main = "(2c) Q-Q Plot")
+qqline(residuals(model1), col="red")
+```
+
+
+\noindent Model 1 explains `r percent(summary(model1)$adj.r.squared)` of the total variance of mpg and it suggests that 1,000 lbs. increase in weight reduces the fuel efficiency by `r round(abs(model1$coeff[2]), 2)` mpg ($\pm `r wt.int`$ mpg). The formal conditions for this interference are met: Linearity (figure 2a), constant variability of residuals (2b), and nearly normal residuals (2c). In model 2 we add the transmission type ``am''.
+
+
+```{r model2, results='asis', echo=1:1}
+model2 <- lm(mpg ~  wt + factor(am), mtcars)
+library(xtable)
+options(xtable.comment = FALSE)
+model2.table <- xtable(model2)
+print(model2.table)
+```
+\centering $R_{adj}^2$ = `r summary(model2)$adj.r.squared`
+
+\vspace{0.5em}
+\justify
+
+Clearly, model 2 does not offer a better fit than model 1. In fact, $R_{adj}^2$ declines from `r percent(summary(model1)$adj.r.squared)` to `r percent(summary(model2)$adj.r.squared)`. In addition, the p-value for  the dummy variable *am* is extremely high ($p = `r round(summary(model2)$coef[3,4], 3)`$). Therefore, we cannot reject the null hypothesis that the coefficient for *am* is zero. This suggests, that the transmission type has no influence on the fuel economy.
+
+However, there is another problem which becomes apparent in figure 2a. In our data set, the transmission type is highly dependent on the weight of a car. The blue line in figure 2a separates cars with less than 3,000 lbs. from cars with more than 3,000 lbs. It highlights, that with a few exceptions lightweight cars in our dataset happen to have a manual transmission while heavier vehicles have automatic transmissions. This suggests that *there is not sufficient data to inform the relationship between transmission type and fuel economy.*
+
+
+\newthought{This result} does not change if we try to improve the overall fit of the model. For model 3 we add the *quarter mile time* (qsec) for theoretical reasons (qsec is a proxy for acceleration) and because it is minimally correlated with weight ($cor = `r round(cor(mtcars$wt, mtcars$qsec), 3)`$).
+
+```{r model3, echo=1:1, results='asis'}
+model3 <- lm(mpg ~  wt + qsec, mtcars)
+
+model3.table <- xtable(summary(model3)$coefficients[,c(1,4)], caption = "Model 3")
+print(model3.table, floating.environment='margintable', latex.environments = "", table.placement = NULL)
+```
+
+\noindent Compared to the initial model 1, $R_{adj}^2$ increases from `r percent(summary(model1)$adj.r.squared)` to `r percent(summary(model3)$adj.r.squared)` indicating that it is a better fit. In model 4 we add the transmission type back in:
+
+```{r model4, echo=1:1, results='asis'}
+model4 <- lm(mpg ~  wt + qsec + factor(am), mtcars)
+
+model4.table <- xtable(summary(model4)$coefficients[,c(1,4)], caption = "Model 4")
+print(model4.table, floating.environment='margintable', latex.environments = "", table.placement = NULL)
+```
+
+\noindent While $R_{adj}^2$ further increases to `r percent(summary(model4)$adj.r.squared)` the p-values for the transmission coefficients (intercept and factor(am)1) are high. This indicates that adding the transmission type does not improve model 3.
+
+\newthought{In summary,}[^Rmd] based on the dataset ``mtcars'', we could not show whether or not the transmission type has any impact onto the fuel economy of a car. To answer this question, further data is needed that includes both transmission types in lightweight and heavy cars.
+
+
+
+[^coursera]: This paper is the response to a course project of the Coursera course "Regression Models" by Brian Caffo, Jeff Leek, and Roger Peng.
+[^hafemeister]: Hafemeister, David. 2013. Physics of Societal Issues. 2nd Edition. Springer, New York, p. 513.
+[^Rmd]: This report was created with knitr. The original .Rmd file is attached to this pdf file.

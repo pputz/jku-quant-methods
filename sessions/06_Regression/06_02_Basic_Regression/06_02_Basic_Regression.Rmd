@@ -46,7 +46,7 @@ scalar dependent variable (predicted outcome) and
 one or more explanatory variables (predictor) denoted X. 
 
 1.  **Simple linear regression**: one explanatory variable
-2.  **Mulitple linear regression**: more than one explanatory variables
+2.  **Multivariable linear regression**: more than one explanatory variables
 3.  **Multivariate linear regression**: prediction of multiple correlated dependent variables (not covered in this class).
 
 [See Wikipedea](https://en.wikipedia.org/wiki/Linear_regression)
@@ -59,7 +59,7 @@ one or more explanatory variables (predictor) denoted X.
 library(UsingR); library(ggplot2); data("diamond")
 d <- ggplot(diamond, aes(carat, price))
 d <- d + geom_point(alpha = 0.5, size = 4)
-d <- d + scale_x_continuous("Mass (carats)", limits = c(0, 0.4))
+d <- d + scale_x_continuous("Size (carats)", limits = c(0, 0.4))
 d <- d + scale_y_continuous("Price (SIN $)", limits = c(0, 1200))
 d <- d + theme_classic()
 d
@@ -70,21 +70,23 @@ Use `data("diamond")` from `library(UsingR)`
 
 ## Straight Line with Best Fit {.smaller}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=4, fig.align='center'}
-d <- ggplot(diamond, aes(carat, price))
-d <- d + geom_point(alpha = 0.5, size = 4)
-d <- d + scale_x_continuous("Mass (carats)", limits = c(0, 0.4))
-d <- d + scale_y_continuous("Price (SIN $)", limits = c(0, 1200))
-d <- d + theme_classic()
-d <- d + stat_smooth(method = "lm", se=FALSE, fullrange = TRUE, lwd=1)
-d
-```
 
 $Y = \beta_0 + \beta_1 X + \epsilon_i$
 
 $\beta_0$ … Intercept at $X=0$  
 $\beta_1$ … Slope  
 $\epsilon_i$  … Error $\sim N(0, \sigma^2)$
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=4, fig.height=4, fig.align='center'}
+d <- ggplot(diamond, aes(carat, price))
+d <- d + geom_point(alpha = 0.5, size = 4)
+d <- d + scale_x_continuous("Mass (carats)", limits = c(0, 0.4))
+d <- d + scale_y_continuous("Size (SIN $)", limits = c(0, 1200))
+d <- d + theme_classic()
+d <- d + stat_smooth(method = "lm", se=FALSE, fullrange = TRUE, lwd=1)
+d
+```
+
 
 
 # Estimating Regression Coefficients
@@ -124,6 +126,12 @@ $$
 \hat\beta_0 = \bar y - \hat \beta_1 \bar x
 $$
 
+Alternative:
+
+$$\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}$$
+
+$$r_{xy} = \frac{\sum_{i=1}^n (x_i - \bar x)(y_i - \bar y)}{(n-1) s_x s_y} $$
+
 
 
 ## Least Square Estimate in R
@@ -136,6 +144,8 @@ beta1hat <- sum((x - mean(x)) * ((y - mean(y)))) /
 beta0hat <- mean(y) - beta1hat * mean(x)
 
 beta0hat; beta1hat
+
+cor(x, y) * sd(y) / sd(x)
 ```
 
 
@@ -242,14 +252,12 @@ p
 ## Properties of the Residuals
 
 - Residuals are useful for investigating poor model fit.
-- Residual plots highlight poor model fit.
-- Positive residuals are above the line, negative residuals are below.
 - Residuals can be thought of as the outcome ($Y$) with the
   linear association of the predictor ($X$) removed.
-- One differentiates residual variation (variation after removing
-the predictor) from systematic variation (variation explained by the regression model).
+- One differentiates **residual variation** (variation after removing
+the predictor) from **systematic variation** (variation explained by the regression model).
 - $E[e_i] = 0$.
-- If an intercept is included, $\sum_{i=1}^n e_i = 0$
+- If an intercept is included, $\sum_{i=1}^n e_i = 0$.
 - If a regressor variable, $X_i$, is included in the model $\sum_{i=1}^n e_i X_i = 0$. 
 
 
@@ -295,34 +303,13 @@ g
 ```
 
 
-## Estimating Residual Variation
-
-- Model $Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$.
-- The ML estimate of $\sigma^2$ is $\frac{1}{n}\sum_{i=1}^n e_i^2$,
-the average squared residual. 
-- Most people use
-  $$
-  \hat \sigma^2 = \frac{1}{n-2}\sum_{i=1}^n e_i^2.
-  $$
-- The $n-2$ instead of $n$ is so that $E[\hat \sigma^2] = \sigma^2$
-
-
-
-## Diamond Example
-
-```{r, echo = TRUE}
-y <- diamond$price; x <- diamond$carat; n <- length(y)
-fit <- lm(y ~ x)
-summary(fit)$sigma
-sqrt(sum(resid(fit)^2) / (n - 2))
-```
 
 
 
 ## Summarizing Variation
 
 - The total variability in our response is the variability around an intercept
-(think mean only regression) $\sum_{i=1}^n (Y_i - \bar Y)^2$
+ $\sum_{i=1}^n (Y_i - \bar Y)^2$
 - The regression variability is the variability that is explained by adding the
 predictor $\sum_{i=1}^n  (\hat Y_i - \bar Y)^2$
 - The error variability is what's leftover around the regression line
@@ -330,9 +317,8 @@ $\sum_{i=1}^n (Y_i - \hat Y_i)^2$
 - Neat fact
 $$
 \sum_{i=1}^n (Y_i - \bar Y)^2 
-= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
+= \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 + \sum_{i=1}^n (Y_i - \hat Y_i)^2
 $$
-
 
 
 ## R Squared
@@ -347,8 +333,23 @@ $$
 summary(fit)$r.squared
 ```
 
-- The the predictor mass (in carat) explains `r round(summary(fit)$r.squared*100, 1)`%
+- The predictor size (in carat) explains `r round(summary(fit)$r.squared*100, 1)`%
 of the variability in diamond prices.
+- $R^2$ is the sample correlation squared.
+
+
+
+## Diamond Example
+
+```{r, echo = TRUE}
+y <- diamond$price; x <- diamond$carat; n <- length(y)
+fit <- lm(y ~ x)
+vart <- sum((y - mean(y))^2)                       # total variation
+varp <- sum((fitted.values(fit) - mean(y))^2)      # explained variation
+vare <- sum((y - fitted.values(fit))^2)            # error variation
+c(total = vart, explained = varp, error = vare)
+c("varp/vart" = varp/vart, r.squared = summary(fit)$r.squared)
+```
 
 
 

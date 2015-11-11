@@ -1,0 +1,327 @@
+---
+title: "Mulitvariable Regression"
+subtitle: "Master Seminar Quantitative Research Methods"
+author: Peter Putz
+date: Institut für Organisation und Globale Managementstudien, JKU Linz
+output: 
+  ioslides_presentation:
+    widescreen: true
+    logo: ../../assets/img/JKUWappen.png
+    css: ../../assets/css/jku.css
+    
+---
+
+
+<style>
+table.rmdtable th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #1e786d), color-stop(80%, #144f48)) no-repeat;
+  background: -webkit-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -moz-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: -o-linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+  background: linear-gradient(top, #1e786d 40%, #144f48 80%) no-repeat;
+}
+</style>
+
+
+# Muitivariable Regression Analysis
+
+
+
+## Motivating Example 1
+
+- If I were to present evidence of a **relationship between breath mint useage** (mints per day, X)
+**and pulmonary function** (measured in FEV, Y), you would be skeptical.
+
+>- Likely, you would say, "smokers tend to use more breath mints than non smokers, 
+smoking is related to a loss in pulmonary function. That's probably the culprit."
+
+>- If asked what would convince you, you would likely say, "If non-smoking breath 
+mint users had lower lung function than non-smoking non-breath mint users and, similarly, 
+if smoking breath mint users had lower lung function than smoking non-breath mint users, 
+I'd be more inclined to believe you".
+
+>- In other words, to even consider my results, I would have to demonstrate that they 
+hold while holding smoking status fixed.
+
+
+
+## Motivating Example 2
+
+- A health insurance company is interested in how last year's claims can **predict 
+a person's time in the hospital this year**.
+
+>- They want to use an enormous amount of data contained in claims to predict a single number.
+Simple linear regression is not equipped to handle more than one predictor.
+
+>- How can one generalize SLR to incoporate lots of regressors for
+the purpose of prediction?
+
+>- What are the consequences of adding lots of regressors? 
+    - Surely there must be consequences to throwing variables in that  
+  aren't related to Y?
+    - Surely there must be consequences to omitting variables that are?
+
+
+
+## The Linear Model
+
+- The general linear model extends simple linear regression (SLR)
+by adding terms linearly into the model.
+$$
+Y_i =  \beta_1 X_{1i} + \beta_2 X_{2i} + \ldots +
+\beta_{p} X_{pi} + \epsilon_{i} 
+= \sum_{k=1}^p X_{ik} \beta_j + \epsilon_{i}
+$$
+    - Here $X_{1i}=1$ typically, so that an intercept is included.
+
+- Sidenote: The important linearity is linearity in the coefficients.
+Thus
+$$
+Y_i =  \beta_1 X_{1i}^2 + \beta_2 X_{2i}^2 + \ldots +
+\beta_{p} X_{pi}^2 + \epsilon_{i} 
+$$
+is still a linear model. (We've just squared the elements of the
+predictor variables.)
+
+
+# Swiss Fertility Data
+
+
+## `?swiss`
+
+Standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888.
+
+A data frame with 47 observations on 6 variables, each of which is in percent, i.e., in [0, 100].
+
+* [,1]   Fertility	Ig, ‘ common standardized fertility measure’
+* [,2]	 Agriculture	 % of males involved in agriculture as occupation
+* [,3]	 Examination	 % draftees receiving highest mark on army examination
+* [,4]	 Education	 % education beyond primary school for draftees.
+* [,5]	 Catholic	 % ‘catholic’ (as opposed to ‘protestant’).
+* [,6]	 Infant.Mortality	 live births who live less than 1 year.
+
+All variables but ‘Fertility’ give proportions of the population.
+
+
+
+## Fertility and Agriculture
+
+```{r, fig.align='center', fig.width=5, fig.height=4.5, echo=FALSE}
+library(ggplot2)
+f <- ggplot(swiss, aes(Agriculture, Fertility))
+f <- f + geom_point(size = 6, col = "darkgrey")
+f <- f + geom_point(size = 4, col = "lightblue")
+f <- f + stat_smooth(method = "lm", lwd = 2)
+f <- f + theme_classic()
+f
+```
+
+
+## LMa: Fertility ~ Agriculture {.smaller}
+
+```{r}
+lma <- lm(Fertility ~ Agriculture, swiss)
+summary(lma)
+```
+
+
+## LMa: Interpretation
+
+- We estimate an expected `r round(coef(lma)[2], 2)` $\pm$ `r round(diff(confint(lma)[2,])/2, 2)` increase in standardized fertility for every 1\% increase in percentage of males involved in agriculture.
+
+- The t-test for $H_0: \beta_{Agri} = 0$ versus $H_a: \beta_{Agri} \neq 0$ is  significant.
+
+- This model explains `r round(summary(lma)$r.squared*100, 2)`% of variability in fertility rates.
+
+
+
+##LMb: "Complete" Model {.smaller}
+
+```{r}
+lmb <- lm(Fertility ~ ., swiss)
+summary(lmb)
+```
+
+
+
+## LMb: Interpretation
+
+- We estimate an expected `r round(abs(coef(lmb)[2]), 2)` $\pm$ `r round(diff(confint(lmb)[2,])/2, 2)` **decrease (!)** in standardized fertility for every 1\% increase in percentage of males involved in agriculture in **holding the remaining variables constant**.
+
+- The t-test for $H_0: \beta_{Agri} = 0$ versus $H_a: \beta_{Agri} \neq 0$ is significant.
+
+- This ("complete") model explains `r round(summary(lmb)$r.squared*100, 2)`% of variability in fertility rates.
+
+
+
+## Quick Pair Plots
+
+```{r, fig.height=4.5, fig.width=4.5, fig.align='center'}
+pairs(swiss, panel = panel.smooth, main = "Swiss data", col = 4)
+```
+
+
+
+## LMb: Interpretation (cont'd)
+
+- The sign reverses itself with the inclusion of Examination and Education, which are negatively correlated with Agriculture.
+- The percent of males in the province working in agriculture is negatively related to educational attainment (correlation of `r round(cor(swiss$Agriculture, swiss$Education), 2)`) and Education and Examination (correlation of `r round(cor(swiss$Education, swiss$Examination), 2)`) are obviously measuring similar things. 
+- At the minimum, anyone claiming that provinces that are more agricultural have higher fertility rates would immediately be open to criticism.
+
+
+
+---
+
+How can adjustment reverse the sign of an effect? Let's try a simulation.
+```{r, echo = TRUE}
+n <- 100; x2 <- 1 : n; x1 <- .01 * x2 + runif(n, -.1, .1); y = -x1 + x2 + rnorm(n, sd = .01)
+summary(lm(y ~ x1))$coef
+summary(lm(y ~ x1 + x2))$coef
+```
+
+
+---
+
+```{r, echo = FALSE, fig.height=5, fig.width=10, results = 'show'}
+par(mfrow = c(1, 2))
+plot(x1, y, pch=21,col="black",bg=topo.colors(n)[x2], frame = FALSE, cex = 1.5)
+title('Unadjusted, color is X2')
+abline(lm(y ~ x1), lwd = 2)
+plot(resid(lm(x1 ~ x2)), resid(lm(y ~ x2)), pch = 21, col = "black", bg = "lightblue", frame = FALSE, cex = 1.5)
+title('Adjusted')
+abline(0, coef(lm(y ~ x1 + x2))[2], lwd = 2)
+```
+
+
+
+# Factor Variable as Predictors
+
+
+
+## Dataset `mtcars`
+
+```{r, fig.align='center', fig.height=3, fig.width=3}
+aggregate(mpg ~ am, mtcars, mean)
+ggplot(mtcars, aes(factor(am), mpg)) + geom_boxplot() + theme_classic()
+```
+
+
+
+## Regression Model {.smaller}
+
+```{r}
+fit <- lm(mpg ~ am, mtcars)
+summary(fit)
+```
+
+
+## Dummy Variables are Smart
+
+- Consider the linear model
+$$
+Y_i = \beta_0 + X_{i1} \beta_1 + \epsilon_{i}
+$$
+where each $X_{i1}$ is binary. (cars with manual transmission $X_1 = 1$, cars with automatic transmission $X_1 = 0$)
+- Then for cars in the group (manual) $E[Y_i] = \beta_0 + \beta_1$
+- And for cars not in the group (automatic) $E[Y_i] = \beta_0$
+- The LS fits work out to be $\hat \beta_0 + \hat \beta_1$ is the mean for those in the group and $\hat \beta_0$ is the mean for those not in the group.
+- $\beta_1$ is interpreted as the increase or decrease in the mean comparing those in the group to those not.
+
+
+
+## More than 2 levels
+
+* Consider a multilevel factor level. For didactic reasons, let's say a three level factor (example, US political party affiliation: Republican, Democrat, Independent)
+* $Y_i = \beta_0 + X_{i1} \beta_1 + X_{i2} \beta_2 + \epsilon_i$.
+* $X_{i1}$ is 1 for Republicans and 0 otherwise.
+* $X_{i2}$ is 1 for Democrats and 0 otherwise.
+* If $i$ is Republican $E[Y_i] = \beta_0 +\beta_1$
+* If $i$ is Democrat $E[Y_i] = \beta_0 + \beta_2$.
+* If $i$ is Independent $E[Y_i] = \beta_0$. 
+* $\beta_1$ compares Republicans to Independents.
+* $\beta_2$ compares Democrats to Independents.
+* $\beta_1 - \beta_2$ compares Republicans to Democrats.
+* (Choice of reference category changes the interpretation.)
+
+
+
+## Insect Sprays
+
+```{r, echo = FALSE, fig.height=5, fig.width=5, fig.align='center'}
+require(datasets);data(InsectSprays)
+boxplot(count ~ spray, data = InsectSprays,
+        xlab = "Type of spray", ylab = "Insect count",
+        main = "InsectSprays Data", varwidth = TRUE, col = "lightgray")
+```
+
+
+
+## Linear model fit, group A is the reference
+
+```{r, echo= TRUE}
+summary(lm(count ~ spray, data = InsectSprays))$coef
+```
+
+
+
+## Hard coding the dummy variables
+
+```{r, echo= TRUE}
+summary(lm(count ~ 
+             I(1 * (spray == 'B')) + I(1 * (spray == 'C')) + 
+             I(1 * (spray == 'D')) + I(1 * (spray == 'E')) +
+             I(1 * (spray == 'F'))
+           , data = InsectSprays))$coef
+```
+
+
+
+## Summary
+
+* If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
+  * All t-tests are for comparisons of Sprays versus Spray A.
+  * Empirical mean for A is the intercept.
+  * Other group means are the intercept plus their coefficient. 
+* If we omit an intercept, then it includes terms for all levels of the factor. 
+  * Group means are the coefficients. 
+  * Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)
+* If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. 
+
+
+
+## Reordering the levels
+
+```{r}
+spray2 <- relevel(InsectSprays$spray, "C")
+summary(lm(count ~ spray2, data = InsectSprays))$coef
+```
+
+
+
+
+
+
+
+
+
+
+## Acknowledgements {.centered}
+
+\
+\
+\
+
+This class and many slides were inspired by:
+
+**Brian Caffo, Jeff Leek, and Roger Peng**   
+Department of Biostatistics   
+Johns Hopkins Bloomberg School of Public Health   
+
+and the  
+
+[Coursera Data Science Specialization Program](https://www.coursera.org/specialization/jhudatascience/1?utm_medium=courseDescripTop)
+
+
+

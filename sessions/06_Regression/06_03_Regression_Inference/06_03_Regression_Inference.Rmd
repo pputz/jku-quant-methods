@@ -35,18 +35,38 @@ table.rmdtable th {
 $$
 Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
 $$
-- $\epsilon \sim N(0, \sigma^2)$. 
+
 - $\hat \beta_0 = \bar Y - \hat \beta_1 \bar X$
-- $\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}$.
+- $\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}$.  
+- $\epsilon \sim N(0, \sigma^2)$. 
+
 - We assume that the true model is known.
 
+
+
+## What We Try to Accomplish
+
+Perform hypothesis tests:
+
+- $H_0$: $\beta_0 = 0$; $H_a$: $\beta_0 \neq 0$
+- $H_0$: $\beta_1 = 0$; $H_a$: $\beta_1 \neq 0$
+
+
+\
+
+
+Calculate confidence intervals for
+
+- $\beta_0$
+- $\beta_1$
 
 
 ## Review
 
 Statistics like $\frac{\hat \theta - \theta}{\hat \sigma_{\hat \theta}}$ often have the following properties:
 
-1. Is normally distributed and has a finite sample Student's T distribution if the  variance is aced with a sample estimate (under normality assumptions).
+1. Is normally distributed and has a finite sample Student's T distribution if the
+variance is replaced with a sample estimate (under normality assumptions).
 3. Can be used to test $H_0 : \theta = \theta_0$ versus $H_a : \theta >, <, \neq \theta_0$.
 4. Can be used to create a confidence interval for $\theta$ via $\hat \theta \pm Q_{1-\alpha/2} \hat 
 \sigma_{\hat \theta}$,  
