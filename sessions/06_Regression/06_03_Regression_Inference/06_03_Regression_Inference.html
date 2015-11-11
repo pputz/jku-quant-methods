@@ -128,13 +128,31 @@ table.rmdtable th {
 </article></slide><slide class=''><hgroup><h2>Recall Our Model and Fitted Values</h2></hgroup><article  id="recall-our-model-and-fitted-values">
 
 <ul>
-<li>Consider the model \[
+<li><p>Consider the model \[
 Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
-\]</li>
-<li>\(\epsilon \sim N(0, \sigma^2)\).</li>
+\]</p></li>
 <li>\(\hat \beta_0 = \bar Y - \hat \beta_1 \bar X\)</li>
-<li>\(\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}\).</li>
-<li>We assume that the true model is known.</li>
+<li>\(\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}\).<br/></li>
+<li><p>\(\epsilon \sim N(0, \sigma^2)\).</p></li>
+<li><p>We assume that the true model is known.</p></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>What We Try to Accomplish</h2></hgroup><article  id="what-we-try-to-accomplish">
+
+<p>Perform hypothesis tests:</p>
+
+<ul>
+<li>\(H_0\): \(\beta_0 = 0\); \(H_a\): \(\beta_0 \neq 0\)</li>
+<li>\(H_0\): \(\beta_1 = 0\); \(H_a\): \(\beta_1 \neq 0\)</li>
+</ul>
+
+<p><br/></p>
+
+<p>Calculate confidence intervals for</p>
+
+<ul>
+<li>\(\beta_0\)</li>
+<li>\(\beta_1\)</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Review</h2></hgroup><article  id="review">
@@ -142,7 +160,7 @@ Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
 <p>Statistics like \(\frac{\hat \theta - \theta}{\hat \sigma_{\hat \theta}}\) often have the following properties:</p>
 
 <ol>
-<li>Is normally distributed and has a finite sample Student&#39;s T distribution if the variance is aced with a sample estimate (under normality assumptions).</li>
+<li>Is normally distributed and has a finite sample Student&#39;s T distribution if the variance is replaced with a sample estimate (under normality assumptions).</li>
 <li>Can be used to test \(H_0 : \theta = \theta_0\) versus \(H_a : \theta &gt;, &lt;, \neq \theta_0\).</li>
 <li>Can be used to create a confidence interval for \(\theta\) via \(\hat \theta \pm Q_{1-\alpha/2} \hat \sigma_{\hat \theta}\),<br/>where \(Q_{1-\alpha/2}\) is the relevant quantile from either a normal or T distribution.</li>
 </ol>

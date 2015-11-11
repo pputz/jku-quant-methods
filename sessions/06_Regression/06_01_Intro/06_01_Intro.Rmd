@@ -29,10 +29,11 @@ table.rmdtable th {
 
 ## Agenda
 
->- Last assignment, new assignment
->- Introduction to linear regression
+>- Last assignment, new assignment 
+>- Simple linear regression
 >- Regression inference
 >- Mulitvariable regresssion analysis
+>- Example multivariable regression
 
 
 ## References
