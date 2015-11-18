@@ -1,5 +1,5 @@
 ---
-title: "Grading"
+title: "Final Product: Empirical Study"
 subtitle: "Master Seminar Quantitative Research Methods"
 author: Peter Putz
 date: Institut für Organisation und Globale Managementstudien, JKU Linz
@@ -25,19 +25,39 @@ table.rmdtable th {
 </style>
 
 
+## Final Products {.smaller}
+
+**Paper**
+
+- Actual empirical study with real world data
+- 5-10 pages
+- Structure: 
+    - Abstract
+    - Description of data
+    - Exploratory/descriptive analysis including charts
+    - Hypotheses tests
+    - Summary
+- Submit .Rmd and .html or .doc files (i.e. fully reproducible documents)
+
+\
+**Presentation**
+
+- 10 minutes
+- Submit .Rmd and .html files
+
 
 ## Paper (32 pts) {.smaller}
 
-- 1 Proper title
-- 3 Abstract
-- 3 Description of data source
+- 1 Proper title describing the study
+- 2 Abstract
 - 2 Used R to get/download data
+- 2 Description of data source
 - 2 Exploratory/descriptive analysis
 - 2 Soundness of descriptive analysis
-- 2 Inference analysis
-- 2 Soundness of inferental analysis
-- 3 Summary (limitation of research)
-- 3 2-3 charts
+- 4 Hypothesis tests, regression analysis
+- 4 Soundness of hypothesis tests, regr. analysis
+- 2 Summary (limitation of research)
+- 2 2-3 charts
 - 2 Charts properly labeled
 - 2 Properly used Rmarkdown
 - 2 Working R code
@@ -46,6 +66,8 @@ table.rmdtable th {
 
 
 ## Presentation (8 pts)
+
+Time for presenting paper: 10 minutes
 
 - 2 Abstract
 - 2 Main Findings
@@ -61,8 +83,32 @@ table.rmdtable th {
 
 Points       |  Grade
 ------------ | --------------
-0 - 56       | NGD(5)
-57 - 64      | GEN(4)
-65 - 72      | BEF(3)
-63 - 80      | GUT(2)
-81 - 88      | SGT(1)
+82 - 90      | SGT(1)
+73 - 81      | GUT(2)
+64 - 72      | BEF(3)
+55 - 63      | GEN(4)
+0 - 54       | NGD(5)
+
+
+
+## Your Accomplishments
+
+- Be a hero: talk the talk, walk the walk
+- Prove that you can complete a real world empirical study using actual (messy) data
+- Master complete work flow: data access, data cleaning, analysis, visualization, data products
+- Know how to create fully reproducible data products
+- Learn a programming language (R) and an authoring language (markdown)
+
+
+## Questions For Your Team
+
+1. Do you have a solid research quesiton and data source?
+
+2. Exploratory, descriptive analysis: What is missing?
+
+3. Hypothesis tests, regression: What is missing?
+
+4. Any open questions to share?
+
+5. Who will be doing what?  
+    The presentation can be put together in parallel.
