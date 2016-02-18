@@ -1,0 +1,305 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\usepackage[usenames,dvipsnames]{color}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=black,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\date{}
+\usepackage[a4paper, margin=3cm]{geometry}
+
+\usepackage{tikz}
+%\usepackage{tikzpagenodes}
+\usetikzlibrary{positioning,calc}
+
+
+\usepackage[naustrian,german,american]{babel}	% the last language is the default
+\usepackage{csquotes}
+
+% Chicago style
+%\usepackage[authordate,backend=biber,babel=other]{biblatex-chicago}
+
+%stadard biblatex styles
+\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber]{biblatex}
+%\usepackage[style=authoryear,sorting=ydnt,maxbibnames=99,backend=biber,autolang=hyphen]{biblatex}
+
+% apa style
+%\usepackage[style=apa,backend=biber,babel=other]{biblatex}
+%\DeclareLanguageMapping{naustrian}{naustrian-apa}
+%\DeclareLanguageMapping{american}{american-apa}
+
+
+\addbibresource{/Users/pp/Dropbox/Literature/academicDB.bib}
+%\addbibresource{biblatex-examples.bib}
+
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\begin{document}
+
+\begin{tikzpicture}[remember picture,overlay]
+\node [anchor=north east, outer sep=0]  at ($(current page.north east)-(2.5cm, 1.5cm)$)
+ {\includegraphics[width=4cm]{../img/JKU_EN_RGB_Rot.eps}};
+\end{tikzpicture}
+
+\centering
+
+\section{Master Seminar Quantitative Research
+Methods}\label{master-seminar-quantitative-research-methods}
+
+266.018, SS 2016\\
+\textbf{Dr.~Peter PUTZ}\\
+Institut für Organisation und Globale Managementstudien\\
+peter.putz@jku.at\\
+Last changes: \today
+
+\raggedright
+
+\subsection{Seminar Description}\label{seminar-description}
+
+This seminar will follow a modern data science approach. We will use R
+-- one of the most popular statistical programming languages -- hands-on
+throughout the course. You will learn how to apply statistical methods
+to practical research questions in management. You will understand the
+importance of reproducible research and create reproducible reports and
+presentations.
+
+\subsection{Entry Requirements}\label{entry-requirements}
+
+\begin{itemize}
+\item
+  Completed courses: Master Course Dimensions of Marketing Theory and
+  Managerial Application (Modul Marketing) and Master Course
+  Organization (Modul Organization). This is a hard requirement.
+\item
+  A PC (MacOS or Windows) to install R and RStudio (both are available
+  for free). We will use RStudio extensively throughout the course.
+  Ideally, you would have a laptop to bring to our class meetings.
+\item
+  Programming skills are not required. However, you need to be prepared
+  to learn a programming language and to write short computer scripts in
+  R.
+\item
+  Basic understanding of quantitative research methods is highly
+  recommended but not required. Students who do not have much prior
+  knowledge in quantitative methods or in statistical programming will
+  need to catch up by investing more time in (guided) self-study.
+\end{itemize}
+
+\subsection{Seminar Schedule and
+Topics}\label{seminar-schedule-and-topics}
+
+(see KUSSS for possible changes)
+
+\begin{longtable}[c]{@{}rlll@{}}
+\toprule
+\begin{minipage}[b]{0.09\columnwidth}\raggedleft\strut
+Date
+\strut\end{minipage} &
+\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+Time
+\strut\end{minipage} &
+\begin{minipage}[b]{0.13\columnwidth}\raggedright\strut
+Room
+\strut\end{minipage} &
+\begin{minipage}[b]{0.51\columnwidth}\raggedright\strut
+Topic
+\strut\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+10.3.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+HF 9901
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Seminar overview, introduction to programming language R
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+17.3.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+K 033C
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Reproducible research, knitr
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+7.4.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+K 033C
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Exploratory data analysis, ggplot
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+14.4.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+K 033C
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Examples exploratory data analysis
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+21.4.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+K 033C
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Statistical inference
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+28.4.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+K 033C
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Regression models
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+12.5.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+K 033C
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Preparation for team papers, presentations
+\strut\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.09\columnwidth}\raggedleft\strut
+19.5.
+\strut\end{minipage} &
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+17:15--19:45
+\strut\end{minipage} &
+\begin{minipage}[t]{0.13\columnwidth}\raggedright\strut
+K 033C
+\strut\end{minipage} &
+\begin{minipage}[t]{0.51\columnwidth}\raggedright\strut
+Team Presentations
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{Grading}\label{grading}
+
+\begin{itemize}
+\tightlist
+\item
+  Class Assignments: 60\%
+\item
+  Team research project (paper \& presentation): 40\%
+\item
+  A minimum of 80\% attendance is required.
+\end{itemize}
+
+\subsection{Literature}\label{literature}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Textbooks on basics:
+
+  \fullcite{diez2014}. A free PDF version is available at
+  \href{https://www.openintro.org}{www.openintro.org}.
+
+  \fullcite{zumel2014}.
+
+  \fullcite{ghauri2010}. Some copies are available in the JKU library.
+
+  Alternatively, for German speakers: \fullcite{lehner2012}.
+\item
+  Books on specific topics:
+
+  \fullcite{peng2015d}
+
+  \fullcite{leek2015}
+
+  \fullcite{peng2015a}
+
+  \fullcite{peng2015b}
+
+  \fullcite{caffo2015a}
+
+  \fullcite{caffo2015b}
+
+  \fullcite{peng2015c}
+\end{enumerate}
+
+\end{document}
