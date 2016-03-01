@@ -6,7 +6,7 @@ date: Institut für Organisation und Globale Managementstudien, JKU Linz
 output: 
   ioslides_presentation:
     widescreen: true
-    logo: ../../assets/img/JKUWappen.png
+    logo: ../../assets/img/jku_red.svg
     css: ../../assets/css/jku.css
 ---
 
@@ -72,23 +72,12 @@ In 2010, the [Economist](http://www.economist.com/node/15579717) published the a
 "Businesses, governments and society are only starting to tap its vast potential."
 
 
+
 ---
 <div class="centered">
-![](../../assets/img/01/mckinsey.png)
+![](../../assets/img/01/hbr.png)
 </div>
 
-
-[MGI 2011: Big Data](http://www.mckinsey.com/insights/business_technology/big_data_the_next_frontier_for_innovation)
-
-
-
-## For Today’s Graduate, Just One Word: Statistics
-
-<div class="centered">
-![](../../assets/img/01/nytimes.png)
-</div>
-
-[NYT 2009](http://www.nytimes.com/2009/08/06/technology/06stats.html?_r=0)
 
 
 

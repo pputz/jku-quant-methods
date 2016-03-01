@@ -6,7 +6,7 @@ date: Institut für Organisation und Globale Managementstudien, JKU Linz
 output: 
   ioslides_presentation:
     widescreen: true
-    logo: ../../assets/img/JKUWappen.png
+    logo: ../../assets/img/jku_red.svg
     css: ../../assets/css/jku.css
 ---
 
@@ -25,7 +25,7 @@ output:
 
 1. Navigate to the (Austrian) [R Project Site](http://cran.at.r-project.org)
 2. Click on [Download R for (Mac) OS X](http://cran.at.r-project.org/bin/macosx/) and select "install R for the first time"
-3. Download e.g. R-3.2.2.pkg
+3. Download e.g. R-3.2.3.pkg
 4. Follow instruction
 
 [Instructions on YouTube](https://youtu.be/_oRuJKIkPEM)
@@ -36,8 +36,8 @@ output:
 
 1. Navigate to [RStudio Download Page](http://www.rstudio.com/products/rstudio/download/)
 2. Select installer package for your OS. For example:
-    - RStudio 0.99.484 - Windows Vista/7/8/10
-    - RStudio 0.98.484 - Mac OS X 10.6+ (64-bit)
+    - RStudio 0.99.891 - Windows Vista/7/8/10
+    - RStudio 0.98.891 - Mac OS X 10.6+ (64-bit)
 
 [Instructions on YouTube](https://youtu.be/bM7Sfz-LADM)
 
