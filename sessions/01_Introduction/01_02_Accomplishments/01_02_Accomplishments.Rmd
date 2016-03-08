@@ -166,6 +166,6 @@ table.rmdtable th {
 
 1. Install R and RStudio
 2. Complete swirl "R Programming Alt" lessons 1 thru 6.   
-    Send me an email notification for each completed lession:  
+    Send me an email notification for lesson 6:  
     peter.putz@jku.at
     
