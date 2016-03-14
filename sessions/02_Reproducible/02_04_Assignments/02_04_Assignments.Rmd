@@ -6,7 +6,7 @@ date: Institut für Organisation und Globale Managementstudien, JKU Linz
 output: 
   ioslides_presentation:
     widescreen: true
-    logo: ../../assets/img/JKUWappen.png
+    logo: ../../assets/img/jku_red.svg
     css: ../../assets/css/jku.css
 ---
 
@@ -57,4 +57,14 @@ I need to be able to compile it.
 
 ## Due Date
 
-Wednesday October 21, 2015
+Monday April 4, 2016
+
+
+
+## Heads-up: Team Project
+
+First draft of your team paper (.Rmd file):
+
+1. Abstract: research question, data source
+2. Read your data into R.
+3. Briefly describe your data.
