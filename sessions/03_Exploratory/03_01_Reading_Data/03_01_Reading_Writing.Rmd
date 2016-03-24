@@ -7,7 +7,7 @@ output:
   ioslides_presentation:
     css: ../../assets/css/jku.css
     highlight: pygments
-    logo: ../../assets/img/JKUWappen.png
+    logo: ../../assets/img/jku.svg
     widescreen: yes
 
 ---

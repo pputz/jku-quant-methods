@@ -27,15 +27,28 @@ code {
   font-weight: bold;
 }
 
+.gdbar img {
+  width: 220px !important;
+  height: 160px !important;
+  margin: -24px -14px 0 0 !important;
+}
+
+
+.gdbar {
+  width: 298px !important;
+  height: 105px !important;
+}
+
 table td, table th {
   font-size: 18px;
   padding: 1em 0.5em;
-
-table.rmdtable th {
-  background: clear
 }
 
 table.rmdtable th {
+  background: clear;
+}
+
+.rmdtable th {
   color: white;
   font-size: 18px;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #4387fd), color-stop(80%, #2a7cdf)) no-repeat;

@@ -6,7 +6,7 @@ date: Institut für Organisation und Globale Managementstudien, JKU Linz
 output: 
   ioslides_presentation:
     widescreen: true
-    logo: ../../assets/img/jku_red.svg
+    logo: ../../assets/img/jku.svg
     css: ../../assets/css/jku.css
 ---
 
