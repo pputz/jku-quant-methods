@@ -32,11 +32,11 @@ Complete all 4 lessions in "Getting and Cleaning Data"
 
 ```{r eval=FALSE}
 library(swirl)
-install_from_swirl("Getting and Cleaning Data")
+install_course("Getting and Cleaning Data")
 swirl()
 ```
 
-Note: Downloading the course might take a minute or two.
+Note: Make sure you have swirl 2.4.0 or higher installed.
 
 \
 

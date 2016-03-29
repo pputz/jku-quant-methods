@@ -64,11 +64,11 @@ output:
 
     ```{r, eval=FALSE}
     library(swirl)
-    install_from_swirl("Course Name Here")
+    install_course("Course Name Here")
     swirl()
     ```
 
-For example, `install_from_swirl("R Programming Alt")` will install the R Programming course.  
+For example, `install_course("R Programming Alt")` will install the R Programming course.  
 **Please note that course names are case sensitive!**
 
 
