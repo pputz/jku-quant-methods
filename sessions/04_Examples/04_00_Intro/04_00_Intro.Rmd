@@ -34,8 +34,11 @@ output:
     - 70 lines minimum (35 lines unique code)
     - include "sessionInfo()"
     - Due date: Wednesday, November 3rd
-    
-    
+
+**Due date:** April 20, 2016
+
+Send `Lastname.Rmd` to peter.putz@jku.at    
+
 
 ## Recommended Reading
 

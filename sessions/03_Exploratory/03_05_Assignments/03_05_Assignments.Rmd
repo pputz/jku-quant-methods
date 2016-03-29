@@ -20,7 +20,9 @@ First draft of your team paper (.Rmd file):
 
 \
 
-**Due date:** October 28, 2015
+**Due date:** April 13, 2016
+
+Send `TeamName.Rmd` to peter.putz@jku.at
 
 
 
@@ -38,6 +40,4 @@ Note: Downloading the course might take a minute or two.
 
 \
 
-Send email notifications to peter.putz@jku.at
-
-**Due Date:** November 4, 2015
+**Due Date:** April 20, 2016

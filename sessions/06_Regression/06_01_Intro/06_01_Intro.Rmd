@@ -29,7 +29,7 @@ table.rmdtable th {
 
 ## Agenda
 
->- Last assignment, new assignment 
+>- Last assignment
 >- Simple linear regression
 >- Regression inference
 >- Mulitvariable regresssion analysis

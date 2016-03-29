@@ -53,10 +53,8 @@ Pick a topic from your own team paper:
 - Perform a formal hypothesis test (t-test, ANOVA)
 - Describe the results in plain language
 
-Submit .Rmd and .html files
-
 \
 
-**Due Date:** Wednesday, Nov. 10th
+**Due Date:** April 27, 2016
 
-
+Send `Lastname.Rmd` to peter.putz@jku.at 
