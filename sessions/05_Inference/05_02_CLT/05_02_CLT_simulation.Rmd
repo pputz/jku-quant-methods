@@ -7,7 +7,7 @@ runtime: shiny
 output: 
   ioslides_presentation:
     widescreen: true
-    logo: ../../assets/img/JKUWappen.png
+    logo: ../../assets/img/jku.svg
     css: ../../assets/css/jku.css
     
 ---
@@ -39,8 +39,8 @@ renderPlot({
   iid  <- data.frame(iid)
   
   ggplot(iid, aes(iid)) + 
-    geom_histogram(fill="#FF9999", binwidth = 0.05) +
-    scale_x_continuous(limits=c(1, 6.5), breaks = c(1:6)) +
+    geom_histogram(fill="#FF9999", binwidth = 0.05, center=0) +
+    scale_x_continuous(limits=c(0.5, 6.5), breaks = c(1:6)) +
     geom_vline(xintercept = 3.5, color="blue", size=1) +
     labs(x = "", y = "") +
     theme_bw()

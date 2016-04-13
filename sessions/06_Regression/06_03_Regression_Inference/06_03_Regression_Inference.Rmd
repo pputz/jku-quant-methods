@@ -173,7 +173,7 @@ g <- g + geom_ribbon(aes(ymin = lwr, ymax = upr, fill = rev(interval)), alpha = 
 g <- g + scale_fill_hue(h = c(0, 360) + 15, c = 100, l = 75, h.start = 180)
 g <- g + geom_line()
 g <- g + geom_point(data = data.frame(x = x, y=y), aes(x = x, y = y), size = 3, alpha = 0.5)
-g <- g + theme_classic()
+g <- g + theme_bw()
 g <- g + labs(x = "Mass (carat)", y = "Price (SIN $)", fill = "Interval")
 g
 ```

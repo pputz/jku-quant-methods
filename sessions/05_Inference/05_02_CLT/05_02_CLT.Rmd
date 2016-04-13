@@ -246,7 +246,7 @@ $\bar{x} = `r mean(samples$mean)`$; $S = `r sd(samples$mean)`$; $S/\sqrt{n} =`r 
 
 ## Simulation of Sample Means
 
-```{r, echo = FALSE, fig.width=9, fig.height = 5.5}
+```{r, echo = FALSE, fig.width=9, fig.height = 5.5, warning=FALSE}
 
 h <- list()
 for (n in c(1, 4, 10, 100)){
@@ -256,8 +256,8 @@ for (n in c(1, 4, 10, 100)){
   samples$mean <- apply(samples, 1, mean)
   
   h[[n]] <- ggplot(samples, aes(mean)) + 
-    geom_histogram(fill="#FF9999", binwidth = 0.2) +
-    scale_x_continuous(limits = c(1, 6.2), breaks=1:6) +
+    geom_histogram(fill="#FF9999", binwidth = 0.2, center=0) +
+    scale_x_continuous(limits = c(0.8, 6.2), breaks=c(1:6)) +
     geom_vline(xintercept = dufmu, color="blue", size=1) +
     annotate("text", x = 3.5, y =0 , hjust=1, label = "mu", parse = TRUE) +
     labs(x ="", title = paste("n =", n)) +
