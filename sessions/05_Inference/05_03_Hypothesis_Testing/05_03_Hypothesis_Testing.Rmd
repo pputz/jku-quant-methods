@@ -115,7 +115,7 @@ poly$id <- factor(poly$id,  labels=c("power","beta","alpha"))
 
 # plot with ggplot2
 ggplot(poly[poly$id=="alpha", ], aes(x,y, fill=id, group=id)) +
-  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
+  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show.legend=F) + 
   geom_segment(aes(x = 0, y = .02, xend = 0, yend = .3), size=1, linetype="dotted") +
   geom_segment(aes(x = 3.5, y = 0.02, xend = 3.5, yend = .3), size=1, linetype="dotted") +
   
@@ -145,8 +145,8 @@ $\bar{x} > C$
 ```{r, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
 
 ggplot(poly[poly$id=="alpha", ], aes(x,y, fill=id, group=id)) +
-  geom_polygon(show_guide=F, alpha=I(8/10)) +
-  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
+  geom_polygon(show.legend=F, alpha=I(8/10)) +
+  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show.legend=F) + 
   geom_vline(xintercept = z_crit, size=1, linetype="dashed", color="red") +
   geom_segment(aes(x = 0, y = .02, xend = 0, yend = .3), size=1, linetype="dotted") +
   geom_segment(aes(x = 3.5, y = 0.02, xend = 3.5, yend = .3), size=1, linetype="dotted") +
@@ -463,11 +463,11 @@ poly$id <- factor(poly$id,  labels=c("power","beta","alpha"))
 
 # plot with ggplot2
 ggplot(poly, aes(x,y, fill=id, group=id)) +
-  geom_polygon(show_guide=F, alpha=I(8/10)) +
+  geom_polygon(show.legend=F, alpha=I(8/10)) +
   # add line for treatment group
-  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show_guide=F) + 
+  geom_line(data=df1, aes(x,y, color="H0", group=NULL, fill=NULL), size=1.5, show.legend=F) + 
   # add line for treatment group. These lines could be combined into one dataframe.
-  geom_line(data=df2, aes(color="HA", group=NULL, fill=NULL),size=1.5, show_guide=F) +
+  geom_line(data=df2, aes(color="HA", group=NULL, fill=NULL),size=1.5, show.legend=F) +
   # add vlines for z_crit
   geom_vline(xintercept = z_crit, size=1, linetype="dashed") +
   # change colors 

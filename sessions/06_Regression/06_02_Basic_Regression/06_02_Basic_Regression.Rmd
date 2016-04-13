@@ -61,7 +61,7 @@ d <- ggplot(diamond, aes(carat, price))
 d <- d + geom_point(alpha = 0.5, size = 4)
 d <- d + scale_x_continuous("Size (carats)", limits = c(0, 0.4))
 d <- d + scale_y_continuous("Price (SIN $)", limits = c(0, 1200))
-d <- d + theme_classic()
+d <- d + theme_bw()
 d
 ```
 
@@ -82,8 +82,8 @@ d <- ggplot(diamond, aes(carat, price))
 d <- d + geom_point(alpha = 0.5, size = 4)
 d <- d + scale_x_continuous("Mass (carats)", limits = c(0, 0.4))
 d <- d + scale_y_continuous("Size (SIN $)", limits = c(0, 1200))
-d <- d + theme_classic()
-d <- d + stat_smooth(method = "lm", se=FALSE, fullrange = TRUE, lwd=1)
+d <- d + theme_bw()
+d <- d + geom_smooth(method = "lm", se=FALSE, fullrange = TRUE, lwd=1)
 d
 ```
 
@@ -103,7 +103,7 @@ d <- ggplot(diamond, aes(carat, price))
 d <- d + geom_point(alpha = 0.5, size = 4)
 d <- d + scale_x_continuous("Mass (carats)", limits = c(0.2, 0.3))
 d <- d + scale_y_continuous("Price (SIN $)", limits = c(450, 750))
-d <- d + theme_classic()
+d <- d + theme_bw()
 d <- d + geom_abline(intercept=beta0, slope=beta1, col = "blue", lwd=1)
 d <- d + geom_segment(aes(x=carat, y=price, xend=carat, yend=yhat), col="red", lwd=1)
 d
@@ -223,7 +223,7 @@ d <- d + geom_segment(aes(x=carat, y=price, xend=carat, yend=yhat), col="red", l
 d <- d + geom_point(alpha = 0.5, size = 4)
 d <- d + scale_x_continuous("Mass (carats)")
 d <- d + scale_y_continuous("Price (SIN $)")
-d <- d + theme_classic()
+d <- d + theme_bw()
 d <- d + geom_abline(intercept=beta0, slope=beta1, col = "blue", lwd=1)
 d
 ```
@@ -239,11 +239,11 @@ e <- resid(fit)
 
 p <- ggplot(data.frame(x=x, e=e), aes(x, e))
 p <- p + geom_segment(aes(x=x, y=0, xend=x, yend=e), col="red", lwd=0.7)
-p <- p + geom_hline(lwd = 0.7, color = "blue")
+p <- p + geom_hline(yintercept = 0,  lwd = 0.7, color = "blue")
 p <- p + geom_point(alpha = 0.5, size = 4)
 p <- p + scale_x_continuous("Mass (carats)")
 p <- p + scale_y_continuous("Residuals (SIN $)")
-p <- p + theme_classic()
+p <- p + theme_bw()
 p
 ```
 
@@ -286,7 +286,7 @@ x <- runif(100, -3, 3); y = x + sin(x) + rnorm(100, sd = .2);
 g <- ggplot(data.frame(x = x, y = y), aes(x = x, y = y))
 g <- g + geom_smooth(method = "lm", colour = "blue", lwd = 1,  se=FALSE)
 g <- g + geom_point(size = 4, colour = "black", alpha = 0.4)
-g <- g + theme_classic()
+g <- g + theme_bw()
 g
 ```
 
@@ -298,7 +298,7 @@ g <- ggplot(data.frame(x = x, y = resid(lm(y ~ x))),
 g <- g + geom_hline(yintercept = 0, size = 1, color = "blue"); 
 g <- g + geom_point(size = 4, colour = "black", alpha = 0.4)
 g <- g + xlab("x") + ylab("Residual")
-g <- g + theme_classic()
+g <- g + theme_bw()
 g
 ```
 

@@ -114,7 +114,7 @@ f <- ggplot(swiss, aes(Agriculture, Fertility))
 f <- f + geom_point(size = 6, col = "darkgrey")
 f <- f + geom_point(size = 4, col = "lightblue")
 f <- f + stat_smooth(method = "lm", lwd = 2)
-f <- f + theme_classic()
+f <- f + theme_bw()
 f
 ```
 
@@ -204,7 +204,7 @@ abline(0, coef(lm(y ~ x1 + x2))[2], lwd = 2)
 
 ```{r, fig.align='center', fig.height=3, fig.width=3}
 aggregate(mpg ~ am, mtcars, mean)
-ggplot(mtcars, aes(factor(am), mpg)) + geom_boxplot() + theme_classic()
+ggplot(mtcars, aes(factor(am), mpg)) + geom_boxplot() + theme_bw()
 ```
 
 
