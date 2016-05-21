@@ -31,19 +31,13 @@ table.rmdtable th {
 
 ## Motivating Example 1
 
-- If I were to present evidence of a **relationship between breath mint useage** (mints per day, X)
-**and pulmonary function** (measured in FEV, Y), you would be skeptical.
+- If I were to present evidence of a **relationship between breath mint useage** (mints per day, X) **and pulmonary function** (measured in FEV, Y), you would be skeptical.
 
->- Likely, you would say, "smokers tend to use more breath mints than non smokers, 
-smoking is related to a loss in pulmonary function. That's probably the culprit."
+>- Likely, you would say, "smokers tend to use more breath mints than non smokers, smoking is related to a loss in pulmonary function. That's probably the culprit."
 
->- If asked what would convince you, you would likely say, "If non-smoking breath 
-mint users had lower lung function than non-smoking non-breath mint users and, similarly, 
-if smoking breath mint users had lower lung function than smoking non-breath mint users, 
-I'd be more inclined to believe you".
+>- If asked what would convince you, you would likely say, "If non-smoking breath mint users had lower lung function than non-smoking non-breath mint users and, similarly, if smoking breath mint users had lower lung function than smoking non-breath mint users, I'd be more inclined to believe you".
 
->- In other words, to even consider my results, I would have to demonstrate that they 
-hold while holding smoking status fixed.
+>- In other words, to even consider my results, I would have to demonstrate that they hold while holding smoking status fixed.
 
 
 
@@ -95,7 +89,7 @@ Standardized fertility measure and socio-economic indicators for each of 47 Fren
 
 A data frame with 47 observations on 6 variables, each of which is in percent, i.e., in [0, 100].
 
-* [,1]   Fertility	Ig, ‘ common standardized fertility measure’
+* [,1]   Fertility	Ig, ‘common standardized fertility measure’
 * [,2]	 Agriculture	 % of males involved in agriculture as occupation
 * [,3]	 Examination	 % draftees receiving highest mark on army examination
 * [,4]	 Education	 % education beyond primary school for draftees.
@@ -108,7 +102,7 @@ All variables but ‘Fertility’ give proportions of the population.
 
 ## Fertility and Agriculture
 
-```{r, fig.align='center', fig.width=5, fig.height=4.5, echo=FALSE}
+```{r, warning=FALSE, fig.align='center', fig.width=5, fig.height=4.5, echo=FALSE}
 library(ggplot2)
 f <- ggplot(swiss, aes(Agriculture, Fertility))
 f <- f + geom_point(size = 6, col = "darkgrey")
