@@ -27,10 +27,11 @@ table.rmdtable th {
 ## Hypothesis testing
 
 - Hypothesis testing is concerned with **making decisions** using data
-- A null hypothesis is specified that represents the **status quo**,
+- A null hypothesis is specified that represents the **status quo**,  
   usually labeled **$H_0$**
-- The null hypothesis is assumed true and **statistical evidence is required
-  to reject** it in favor of a research or alternative hypothesis 
+- The null hypothesis is assumed true and  
+  **statistical evidence is required to reject** it  
+  in favor of a research or alternative hypothesis 
 
 
 # Test Strategy
@@ -61,7 +62,7 @@ table.rmdtable th {
 
 $\bar{x} > C$
 
-```{r, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
+```{r, echo=FALSE, warning=FALSE, fig.width=6, fig.height=4, fig.align='center'}
 
 ## Code adapted from Kristoffer Magnusson
 ## http://rpsychologist.com/creating-a-typical-textbook-illustration-of-statistical-power-using-either-ggplot-or-base-graphics
@@ -239,7 +240,7 @@ $H_a$ | $H_0$ | Type II error |
   our model is wrong) or there is a low probability that we have made
   an error
 * We have not fixed the probability of a type II error, $\beta$;
-  therefore we tend to say "Fail to reject $H_0$"" rather than
+  therefore we tend to say "Fail to reject $H_0$" rather than
   accepting $H_0$
 * Statistical significance is no the same as scientific
   significance
@@ -322,7 +323,7 @@ qt((1-0.05/2), 15)
 
 ## Example 1: Father vs. Son Heights
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(UsingR); data(father.son)
 head(father.son, 5)
 ```
@@ -345,7 +346,7 @@ t.test(father.son$fheight - father.son$sheight)
 
 Same test with **two sample paired t-test**
 
-```{r}
+```{r, warning=FALSE}
 library(tidyr); fs <- gather(father.son, person, height)
 head(fs, 3)
 t.test(height ~ person, data = fs, paired = TRUE, alternative = "two.sided")

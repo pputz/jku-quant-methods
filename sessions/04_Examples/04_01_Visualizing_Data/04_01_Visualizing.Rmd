@@ -98,7 +98,9 @@ g
 ## Sidebar: Changing Facet Labels {.smaller}
 
 ```{r, fig.width=7, fig.height=4}
-levels(mpg$drv) <- c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
+mpg$drv <- factor(mpg$drv,
+                  labels = c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
+)
 g  <- ggplot(data = mpg, aes(displ, hwy)) + 
              geom_point() +
              facet_grid(facets = . ~ drv)
@@ -146,7 +148,6 @@ g
 ## Final Plot
 
 ```{r, fig.width=9, echo=FALSE, warning=FALSE}
-levels(mpg$drv) <- c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
 ggplot(data = mpg, aes(displ, hwy)) + 
   geom_point() +
   facet_grid(facets = . ~ drv) +
@@ -162,7 +163,9 @@ ggplot(data = mpg, aes(displ, hwy)) +
 ## Code Final Plot
 
 ```{r, fig.width=9, eval=FALSE, warning=FALSE}
-levels(mpg$drv) <- c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
+mpg$drv <- factor(mpg$drv,
+                  labels = c("4-weel-drive", "front-wheel-drive", "rear-wheel-drive")
+                  )
 ggplot(data = mpg, aes(displ, hwy)) + 
   geom_point() +
   facet_grid(facets = . ~ drv) +
@@ -178,7 +181,7 @@ ggplot(data = mpg, aes(displ, hwy)) +
 
 ## Printing Plots
 
-```{r}
+```{r, eval=FALSE}
 ggsave("/Users/pp/Desktop/fuel.pdf", g, width=6, height=4)
 ```
 Note: File extension drives file format.
@@ -191,7 +194,8 @@ Note: File extension drives file format.
 
 ## Resources
 
+- ggplot2 web site (http://ggplot2.org)
+- RStudio ggplot2 [cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - The _ggplot2_ book by Hadley Wickham
 - The _R Graphics Cookbook_ by Winston Chang (examples in base plots and in ggplot2)
-- ggplot2 web site (http://ggplot2.org)
 

@@ -33,7 +33,6 @@ output:
     - .Rmd file
     - 70 lines minimum (35 lines unique code)
     - include "sessionInfo()"
-    - Due date: Wednesday, November 3rd
 
 **Due date:** April 20, 2016
 
@@ -45,3 +44,57 @@ Send `Lastname.Rmd` to peter.putz@jku.at
 Roger D. Peng (2015). Exploratory Data Analysis with R. https://leanpub.com/exdata
 
 Roger D. Peng (2015). Report Writing for Data Science in R. https://leanpub.com/reportwriting
+
+
+
+
+## Final Products {.smaller}
+
+**Paper**
+
+- Actual empirical study with real world data
+- 5-10 pages
+- Structure: 
+    - Abstract
+    - Description of data
+    - Exploratory/descriptive analysis including charts
+    - Hypotheses tests
+    - Summary
+- Submit .Rmd and .html or .doc files (i.e. fully reproducible documents)
+
+\
+**Presentation**
+
+- 10 minutes
+- Submit .Rmd and .html files
+
+
+## Paper (32 pts) {.smaller}
+
+- 1 Proper title describing the study
+- 2 Abstract
+- 2 Used R to get/download data
+- 2 Description of data source
+- 2 Exploratory/descriptive analysis
+- 2 Soundness of descriptive analysis
+- 4 Hypothesis tests, regression analysis
+- 4 Soundness of hypothesis tests, regr. analysis
+- 2 Summary (limitation of research)
+- 2 2-3 charts
+- 2 Charts properly labeled
+- 2 Properly used Rmarkdown
+- 2 Working R code
+- 1 Length of paper 5--10 pages
+- 2 Overall qualitity of paper
+
+
+## Presentation (8 pts)
+
+Time for presenting paper: 10 minutes
+
+- 2 Abstract
+- 2 Main Findings
+- 2 Charts, properly labeled
+- 2 Overall quality of presentation
+
+
